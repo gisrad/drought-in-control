@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "Drought in Control: Pemantau Kekeringan & Kerentanan Lahan (SPI-3, SSMA, VHI, PDLVI)"
+message: "Jika menggunakan dataset atau indeks kerentanan pascakekeringan (PDLVI) ini, harap sitasi sebagai berikut."
+type: software
+authors:
+  - name: "Transbulent Research Group"
+    affiliation: "Universitas Gadjah Mada / Transbulent"
+repository-code: "https://github.com/gisrad/drought-in-control"
+url: "https://agri.transbulent.id/kekeringan/"
+license: "MIT"
+version: "0.8.0"
+date-released: "2026-11-24"
+keywords:
+  - drought-monitoring
+  - pdlvi
+  - spi-3
+  - vhi
+  - ssma
+  - indonesia

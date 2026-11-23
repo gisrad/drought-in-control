@@ -13,6 +13,7 @@
     triggerDownload,
   } from '../utils/citationGenerator';
   import TrialOverlay from './TrialOverlay.svelte';
+  import WilayahPublicView from './WilayahPublicView.svelte';
 
   let dataset: DroughtDataset | null = null;
   let geojson: GeoJSON.FeatureCollection | null = null;
@@ -23,6 +24,9 @@
   let selectedKode = '3312';
   let drawerOpen = true;
   let theme: 'kertas' | 'malam' = 'kertas';
+  let isEmbed = false;
+  let isWilayahMode = false;
+  let copyNotice = '';
 
   let remainingSec = 300;
   let authenticated = false;
@@ -132,7 +136,81 @@
     }, 450);
   }
 
+  function buildPermalink(): string {
+    const u = new URL(window.location.href);
+    u.searchParams.set('kode', selectedKode);
+    u.searchParams.set('idx', activeIndex);
+    u.searchParams.set('m', String(monthIdx));
+    u.searchParams.delete('embed');
+    return u.toString();
+  }
+
+  async function copyPermalink() {
+    const urlStr = buildPermalink();
+    window.history.replaceState(null, '', urlStr);
+    try {
+      await navigator.clipboard.writeText(urlStr);
+      copyNotice = 'Permalink tersalin ke papan klip.';
+    } catch {
+      copyNotice = urlStr;
+    }
+  }
+
+  async function copyEmbed() {
+    const u = new URL(buildPermalink());
+    u.searchParams.set('embed', '1');
+    const code = `<iframe src="${u.toString()}" width="100%" height="680" style="border:1px solid #E7E7E7" loading="lazy" title="Drought in Control"></iframe>`;
+    try {
+      await navigator.clipboard.writeText(code);
+      copyNotice = 'Kode embed <iframe> tersalin.';
+    } catch {
+      copyNotice = code;
+    }
+  }
+
+  function exportSelectedGeoJson() {
+    if (!selectedRegion || !dataset) return;
+    const feat = geojson?.features.find((f) => String(f.properties?.kode_bps) === selectedRegion.kode_bps);
+    const fc = {
+      type: 'FeatureCollection',
+      metadata: {
+        source: 'agri.transbulent.id/kekeringan',
+        attribution: 'Agri Transbulent / Transbulent Research Group',
+        is_simulated: dataset.is_simulated,
+        kode_bps: selectedRegion.kode_bps,
+        active_ym: activeYm,
+        active_index: activeIndex,
+      },
+      features: feat
+        ? [
+            {
+              ...feat,
+              properties: {
+                ...feat.properties,
+                nama: selectedRegion.nama,
+                provinsi: selectedRegion.provinsi,
+                das: selectedRegion.das,
+                mean_slope_deg: selectedRegion.mean_slope_deg,
+                ym: activeYm,
+                spi3: activePt?.spi3,
+                ssma: activePt?.ssma,
+                vhi: activePt?.vhi,
+                pdlvi: activePt?.pdlvi,
+                status: activePt?.status,
+                is_simulated: dataset.is_simulated,
+              },
+            },
+          ]
+        : [],
+    };
+    triggerDownload(`drought-${selectedRegion.kode_bps}-${activeYm}.geojson`, JSON.stringify(fc, null, 2), 'application/geo+json;charset=utf-8');
+  }
+
   onMount(async () => {
+    const qs = new URLSearchParams(window.location.search);
+    isEmbed = qs.get('embed') === '1';
+    isWilayahMode = window.location.pathname === '/wilayah' || window.location.pathname.startsWith('/wilayah/');
+
     const savedTheme = window.localStorage.getItem('agri_theme');
     if (savedTheme === 'kertas' || savedTheme === 'malam') {
       theme = savedTheme;
@@ -140,7 +218,7 @@
     }
 
     const parts = window.location.pathname.replace(/\/+$/, '').split('/');
-    const lastSeg = parts[parts.length - 1];
+    const lastSeg = (parts[parts.length - 1] || '').toLowerCase();
     if (/^\d{4}$/.test(lastSeg)) selectedKode = lastSeg;
 
     const [gjRes, tsRes] = await Promise.all([
@@ -150,9 +228,23 @@
     geojson = await gjRes.json();
     dataset = await tsRes.json();
     monthIdx = (dataset?.months.length || 36) - 1;
+
+    if (dataset && lastSeg && !/^\d{4}$/.test(lastSeg) && lastSeg !== 'wilayah' && lastSeg !== 'kekeringan') {
+      const match = Object.values(dataset.regions).find((r) => r.nama.toLowerCase().includes(lastSeg));
+      if (match) selectedKode = match.kode_bps;
+    }
+
+    const qKode = qs.get('kode');
+    if (qKode && dataset?.regions[qKode]) selectedKode = qKode;
+    const qIdx = qs.get('idx');
+    if (qIdx === 'spi3' || qIdx === 'ssma' || qIdx === 'vhi' || qIdx === 'pdlvi') activeIndex = qIdx;
+    const qMonth = Number(qs.get('m'));
+    if (Number.isInteger(qMonth) && dataset && qMonth >= 0 && qMonth < dataset.months.length) monthIdx = qMonth;
+
     if (dataset && !dataset.regions[selectedKode]) selectedKode = '3312';
 
     await tick();
+    if (isWilayahMode || !mapContainer) return;
 
     map = new maplibregl.Map({
       container: mapContainer,
@@ -219,44 +311,58 @@
 </script>
 
 <div style="min-height: 100vh; display: flex; flex-direction: column;">
-  <div class="agri-spectrum-banner no-print">
-    JAWA TENGAH &amp; PERBATASAN DAS DIY · SPI-3 · SSMA · VHI · PDLVI · {dataset?.is_simulated ? 'SIMULASI MOCK D1–D3' : 'DATA SATELIT'}
-  </div>
-
-  <header class="topbar no-print">
-    <div class="topbar-inner">
-      <a href="/" class="brand-link">
-        <span class="brand-box">AG</span>
-        <span>agri.transbulent.id</span>
-      </a>
-
-      <nav class="hnav" aria-label="Navigasi">
-        <a href="/">Beranda</a>
-        <a href="/ulang/bompon-magelang/mt2-2025/">Musim Ulang</a>
-        <a href="/kekeringan/" class="on">Kekeringan</a>
-        <a href="/metode/">Metode</a>
-        <a href="/lobby/">Lobby</a>
-      </nav>
-
-      <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
-        <span class="pill-badge pill-sim">SIMULASI · JATENG</span>
-        {#if authenticated}
-          <span class="live-badge"><span class="live-dot"></span><span>{userEmail}</span></span>
-        {:else}
-          <a href="/lobby/" class="live-badge">
-            <span class={`live-dot ${remainingSec <= 60 ? 'is-warn' : ''}`}></span>
-            <span>Pratinjau</span>
-            <b>{formatMmSs(remainingSec)}</b>
-          </a>
-        {/if}
-        <button type="button" class="btn-subtle" on:click={toggleTheme}>
-          {theme === 'kertas' ? 'Malam' : 'Putih'}
-        </button>
-      </div>
+  {#if !isEmbed}
+    <div class="agri-spectrum-banner no-print">
+      JAWA TENGAH &amp; PERBATASAN DAS DIY (PILOT NASIONAL) · SPI-3 · SSMA · VHI · PDLVI · {dataset?.is_simulated ? 'SIMULASI MOCK' : 'DATA SATELIT'}
     </div>
-  </header>
 
-  <main class="no-print" style="position: relative; flex: 1; min-height: 620px; display: grid; grid-template-columns: 1fr auto;">
+    <header class="topbar no-print">
+      <div class="topbar-inner">
+        <a href="/" class="brand-link">
+          <span class="brand-box">AG</span>
+          <span>agri.transbulent.id</span>
+        </a>
+
+        <nav class="hnav" aria-label="Navigasi">
+          <a href="/">Beranda</a>
+          <a href="/ulang/bompon-magelang/mt2-2025/">Musim Ulang</a>
+          <a href="/kekeringan/" class={!isWilayahMode ? 'on' : ''}>Kekeringan</a>
+          <a href="/wilayah/" class={isWilayahMode ? 'on' : ''}>Wilayah</a>
+          <a href="/metode/">Metode</a>
+          <a href="/lobby/">Lobby</a>
+        </nav>
+
+        <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+          <span class="pill-badge pill-sim">SIMULASI · JATENG</span>
+          {#if authenticated}
+            <span class="live-badge"><span class="live-dot"></span><span>{userEmail}</span></span>
+          {:else}
+            <a href="/lobby/" class="live-badge">
+              <span class={`live-dot ${remainingSec <= 60 ? 'is-warn' : ''}`}></span>
+              <span>Pratinjau</span>
+              <b>{formatMmSs(remainingSec)}</b>
+            </a>
+          {/if}
+          <button type="button" class="btn-subtle" on:click={toggleTheme}>
+            {theme === 'kertas' ? 'Malam' : 'Putih'}
+          </button>
+        </div>
+      </div>
+    </header>
+  {/if}
+
+  {#if isWilayahMode && dataset && selectedRegion}
+    <div class="no-print" style="flex: 1;">
+      <WilayahPublicView
+        {dataset}
+        region={selectedRegion}
+        {activeYm}
+        {geojson}
+        onSelectRegion={(kode) => (selectedKode = kode)}
+      />
+    </div>
+  {:else}
+    <main class="no-print" style="position: relative; flex: 1; min-height: 620px; display: grid; grid-template-columns: 1fr auto;">
     <!-- Peta Layar Penuh -->
     <div style="position: relative; min-height: 620px;">
       <div bind:this={mapContainer} style="position: absolute; inset: 0;"></div>
@@ -405,10 +511,18 @@
           >
             Brief (.md)
           </button>
+          <button type="button" class="btn-outline" on:click={exportSelectedGeoJson}>
+            Unduh GeoJSON (QGIS)
+          </button>
           <button type="button" class="btn-primary" on:click={() => window.print()}>
             Cetak PDF (APA 7)
           </button>
+          <button type="button" class="btn-subtle" on:click={copyPermalink}>Salin Permalink</button>
+          <button type="button" class="btn-subtle" on:click={copyEmbed}>Salin Embed</button>
         </div>
+        {#if copyNotice}
+          <div class="num" style="font-size: 10.5px; color: var(--ink-muted); word-break: break-all;">{copyNotice}</div>
+        {/if}
       </aside>
     {:else if !drawerOpen}
       <button
@@ -420,7 +534,8 @@
         Buka Inspektor Wilayah
       </button>
     {/if}
-  </main>
+    </main>
+  {/if}
 
   <!-- Dokumen Cetak PDF (Hanya aktif pada @media print) -->
   {#if selectedRegion && activePt}
