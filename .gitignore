@@ -15,7 +15,6 @@ __pycache__/
 .env.*
 !.env.example
 .dev.vars
-wrangler.toml
 service-account*.json
 *credentials*.json
 

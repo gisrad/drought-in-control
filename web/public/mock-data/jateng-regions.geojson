@@ -1,0 +1,509 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3329",
+        "nama": "Kab. Brebes",
+        "provinsi": "Jawa Tengah",
+        "das": "Pemali",
+        "mean_slope_deg": 7.4,
+        "centroid": [
+          108.95,
+          -7.08
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              108.73,
+              -7.192
+            ],
+            [
+              109.137,
+              -7.24
+            ],
+            [
+              109.17,
+              -6.976
+            ],
+            [
+              108.785,
+              -6.92
+            ],
+            [
+              108.73,
+              -7.192
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3321",
+        "nama": "Kab. Demak",
+        "provinsi": "Jawa Tengah",
+        "das": "Jratunseluna Hilir",
+        "mean_slope_deg": 1.2,
+        "centroid": [
+          110.65,
+          -6.9
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.48,
+              -6.977
+            ],
+            [
+              110.7945,
+              -7.01
+            ],
+            [
+              110.82,
+              -6.8285
+            ],
+            [
+              110.5225,
+              -6.79
+            ],
+            [
+              110.48,
+              -6.977
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3315",
+        "nama": "Kab. Grobogan",
+        "provinsi": "Jawa Tengah",
+        "das": "Lusi–Serang",
+        "mean_slope_deg": 4.5,
+        "centroid": [
+          110.94,
+          -7.12
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.72,
+              -7.211
+            ],
+            [
+              111.127,
+              -7.25
+            ],
+            [
+              111.16,
+              -7.0355
+            ],
+            [
+              110.775,
+              -6.99
+            ],
+            [
+              110.72,
+              -7.211
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3308",
+        "nama": "Kab. Magelang (DAS Bompon)",
+        "provinsi": "Jawa Tengah",
+        "das": "Progo Tengah",
+        "mean_slope_deg": 14.8,
+        "centroid": [
+          110.22,
+          -7.5
+        ],
+        "linked_panen_field_id": "bompon-magelang"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.06,
+              -7.598
+            ],
+            [
+              110.356,
+              -7.64
+            ],
+            [
+              110.38,
+              -7.409
+            ],
+            [
+              110.1,
+              -7.36
+            ],
+            [
+              110.06,
+              -7.598
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3310",
+        "nama": "Kab. Klaten",
+        "provinsi": "Jawa Tengah",
+        "das": "Bengawan Solo Tengah",
+        "mean_slope_deg": 3.6,
+        "centroid": [
+          110.6,
+          -7.68
+        ],
+        "linked_panen_field_id": "klaten-irigasi"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.46,
+              -7.757
+            ],
+            [
+              110.719,
+              -7.79
+            ],
+            [
+              110.74,
+              -7.6085
+            ],
+            [
+              110.495,
+              -7.57
+            ],
+            [
+              110.46,
+              -7.757
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3312",
+        "nama": "Kab. Wonogiri",
+        "provinsi": "Jawa Tengah",
+        "das": "Bengawan Solo Hulu",
+        "mean_slope_deg": 16.5,
+        "centroid": [
+          110.95,
+          -7.88
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.74,
+              -7.992
+            ],
+            [
+              111.1285,
+              -8.04
+            ],
+            [
+              111.16,
+              -7.776
+            ],
+            [
+              110.7925,
+              -7.72
+            ],
+            [
+              110.74,
+              -7.992
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3306",
+        "nama": "Kab. Purworejo",
+        "provinsi": "Jawa Tengah",
+        "das": "Bogowonto",
+        "mean_slope_deg": 11.2,
+        "centroid": [
+          109.98,
+          -7.7
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              109.82,
+              -7.791
+            ],
+            [
+              110.116,
+              -7.83
+            ],
+            [
+              110.14,
+              -7.6155
+            ],
+            [
+              109.86,
+              -7.57
+            ],
+            [
+              109.82,
+              -7.791
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3305",
+        "nama": "Kab. Kebumen",
+        "provinsi": "Jawa Tengah",
+        "das": "Luk Ulo",
+        "mean_slope_deg": 9.8,
+        "centroid": [
+          109.62,
+          -7.65
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              109.42,
+              -7.741
+            ],
+            [
+              109.79,
+              -7.78
+            ],
+            [
+              109.82,
+              -7.5655
+            ],
+            [
+              109.47,
+              -7.52
+            ],
+            [
+              109.42,
+              -7.741
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3404",
+        "nama": "Kab. Sleman",
+        "provinsi": "D.I. Yogyakarta",
+        "das": "Progo–Opak Hulu",
+        "mean_slope_deg": 8.4,
+        "centroid": [
+          110.38,
+          -7.68
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.25,
+              -7.75
+            ],
+            [
+              110.4905,
+              -7.78
+            ],
+            [
+              110.51,
+              -7.615
+            ],
+            [
+              110.2825,
+              -7.58
+            ],
+            [
+              110.25,
+              -7.75
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3401",
+        "nama": "Kab. Kulon Progo",
+        "provinsi": "D.I. Yogyakarta",
+        "das": "Progo–Serang",
+        "mean_slope_deg": 12.1,
+        "centroid": [
+          110.16,
+          -7.82
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.04,
+              -7.904
+            ],
+            [
+              110.262,
+              -7.94
+            ],
+            [
+              110.28,
+              -7.742
+            ],
+            [
+              110.07,
+              -7.7
+            ],
+            [
+              110.04,
+              -7.904
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3402",
+        "nama": "Kab. Bantul",
+        "provinsi": "D.I. Yogyakarta",
+        "das": "Opak Hilir",
+        "mean_slope_deg": 4.1,
+        "centroid": [
+          110.35,
+          -7.9
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.23,
+              -7.97
+            ],
+            [
+              110.452,
+              -8
+            ],
+            [
+              110.47,
+              -7.835
+            ],
+            [
+              110.26,
+              -7.8
+            ],
+            [
+              110.23,
+              -7.97
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kode_bps": "3403",
+        "nama": "Kab. Gunungkidul",
+        "provinsi": "D.I. Yogyakarta",
+        "das": "Karst Wonosari–Oyo",
+        "mean_slope_deg": 13.7,
+        "centroid": [
+          110.62,
+          -7.98
+        ],
+        "linked_panen_field_id": null
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              110.42,
+              -8.071
+            ],
+            [
+              110.79,
+              -8.11
+            ],
+            [
+              110.82,
+              -7.8955
+            ],
+            [
+              110.47,
+              -7.85
+            ],
+            [
+              110.42,
+              -8.071
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

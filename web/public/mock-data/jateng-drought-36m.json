@@ -1,0 +1,3682 @@
+{
+  "is_simulated": true,
+  "generated_at": "2026-11-24T00:00:00Z",
+  "months": [
+    "2023-12",
+    "2024-01",
+    "2024-02",
+    "2024-03",
+    "2024-04",
+    "2024-05",
+    "2024-06",
+    "2024-07",
+    "2024-08",
+    "2024-09",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-03",
+    "2025-04",
+    "2025-05",
+    "2025-06",
+    "2025-07",
+    "2025-08",
+    "2025-09",
+    "2025-10",
+    "2025-11",
+    "2025-12",
+    "2026-01",
+    "2026-02",
+    "2026-03",
+    "2026-04",
+    "2026-05",
+    "2026-06",
+    "2026-07",
+    "2026-08",
+    "2026-09",
+    "2026-10",
+    "2026-11"
+  ],
+  "regions": {
+    "3305": {
+      "kode_bps": "3305",
+      "nama": "Kab. Kebumen",
+      "provinsi": "Jawa Tengah",
+      "das": "Luk Ulo",
+      "centroid": [
+        109.62,
+        -7.65
+      ],
+      "mean_slope_deg": 9.8,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.2,
+          "ssma": -1.2,
+          "vhi": 35.2,
+          "pdlvi": 0.59,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -1.09,
+          "ssma": -1.14,
+          "vhi": 35.6,
+          "pdlvi": 0.57,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.77,
+          "ssma": -0.91,
+          "vhi": 37.2,
+          "pdlvi": 0.51,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.35,
+          "ssma": -0.54,
+          "vhi": 40.6,
+          "pdlvi": 0.41,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.07,
+          "ssma": -0.12,
+          "vhi": 45.8,
+          "pdlvi": 0.31,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.39,
+          "ssma": 0.25,
+          "vhi": 51.3,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.5,
+          "ssma": 0.45,
+          "vhi": 55.6,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.26,
+          "ssma": 0.08,
+          "vhi": 55.3,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.58,
+          "ssma": -0.44,
+          "vhi": 52.4,
+          "pdlvi": 0.34,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -1,
+          "ssma": -0.81,
+          "vhi": 44.5,
+          "pdlvi": 0.48,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.43,
+          "ssma": -1.24,
+          "vhi": 39.3,
+          "pdlvi": 0.59,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.74,
+          "ssma": -1.6,
+          "vhi": 33.8,
+          "pdlvi": 0.69,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.2,
+          "ssma": -1.44,
+          "vhi": 31.9,
+          "pdlvi": 0.62,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -1.09,
+          "ssma": -1.14,
+          "vhi": 31.8,
+          "pdlvi": 0.6,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.77,
+          "ssma": -0.91,
+          "vhi": 37.2,
+          "pdlvi": 0.51,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.35,
+          "ssma": -0.54,
+          "vhi": 40.6,
+          "pdlvi": 0.41,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.07,
+          "ssma": -0.12,
+          "vhi": 45.8,
+          "pdlvi": 0.31,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.39,
+          "ssma": 0.25,
+          "vhi": 51.3,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.5,
+          "ssma": 0.45,
+          "vhi": 55.6,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.39,
+          "ssma": 0.44,
+          "vhi": 57.8,
+          "pdlvi": 0.2,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.07,
+          "ssma": 0.21,
+          "vhi": 57,
+          "pdlvi": 0.21,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.35,
+          "ssma": -0.16,
+          "vhi": 53.6,
+          "pdlvi": 0.29,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.78,
+          "ssma": -0.59,
+          "vhi": 48.4,
+          "pdlvi": 0.41,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -1.09,
+          "ssma": -0.95,
+          "vhi": 42.9,
+          "pdlvi": 0.51,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.2,
+          "ssma": -1.15,
+          "vhi": 38.5,
+          "pdlvi": 0.56,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -1.09,
+          "ssma": -1.14,
+          "vhi": 36.4,
+          "pdlvi": 0.56,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.77,
+          "ssma": -0.91,
+          "vhi": 37.2,
+          "pdlvi": 0.51,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.35,
+          "ssma": -0.54,
+          "vhi": 40.6,
+          "pdlvi": 0.41,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.07,
+          "ssma": -0.12,
+          "vhi": 45.8,
+          "pdlvi": 0.31,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.39,
+          "ssma": 0.25,
+          "vhi": 51.3,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.5,
+          "ssma": 0.45,
+          "vhi": 55.6,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": -0.06,
+          "ssma": 0.19,
+          "vhi": 56.1,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.38,
+          "ssma": -0.24,
+          "vhi": 53.8,
+          "pdlvi": 0.3,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.8,
+          "ssma": -0.61,
+          "vhi": 47.3,
+          "pdlvi": 0.42,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.23,
+          "ssma": -1.04,
+          "vhi": 42.1,
+          "pdlvi": 0.54,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.54,
+          "ssma": -1.4,
+          "vhi": 36.6,
+          "pdlvi": 0.63,
+          "status": "parah"
+        }
+      ],
+      "executive_brief_id": "Kab. Kebumen (DAS Luk Ulo) mencatat SPI-3 -1.54 dan VHI 36.6 pada 2026-11. Dengan kemiringan lereng rata-rata 9.8°, skor PDLVI mencapai 0.63 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3306": {
+      "kode_bps": "3306",
+      "nama": "Kab. Purworejo",
+      "provinsi": "Jawa Tengah",
+      "das": "Bogowonto",
+      "centroid": [
+        109.98,
+        -7.7
+      ],
+      "mean_slope_deg": 11.2,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.17,
+          "ssma": -1.17,
+          "vhi": 35.6,
+          "pdlvi": 0.6,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -1.06,
+          "ssma": -1.11,
+          "vhi": 36,
+          "pdlvi": 0.58,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.74,
+          "ssma": -0.88,
+          "vhi": 37.7,
+          "pdlvi": 0.52,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.32,
+          "ssma": -0.51,
+          "vhi": 41,
+          "pdlvi": 0.42,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.1,
+          "ssma": -0.09,
+          "vhi": 46.2,
+          "pdlvi": 0.32,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.42,
+          "ssma": 0.28,
+          "vhi": 51.7,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.53,
+          "ssma": 0.48,
+          "vhi": 56.1,
+          "pdlvi": 0.23,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.23,
+          "ssma": 0.11,
+          "vhi": 55.7,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.55,
+          "ssma": -0.41,
+          "vhi": 52.8,
+          "pdlvi": 0.35,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -0.97,
+          "ssma": -0.78,
+          "vhi": 44.9,
+          "pdlvi": 0.49,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.4,
+          "ssma": -1.21,
+          "vhi": 39.7,
+          "pdlvi": 0.6,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.71,
+          "ssma": -1.57,
+          "vhi": 34.2,
+          "pdlvi": 0.7,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.17,
+          "ssma": -1.41,
+          "vhi": 32.3,
+          "pdlvi": 0.63,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -1.06,
+          "ssma": -1.11,
+          "vhi": 32.3,
+          "pdlvi": 0.61,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.74,
+          "ssma": -0.88,
+          "vhi": 37.7,
+          "pdlvi": 0.52,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.32,
+          "ssma": -0.51,
+          "vhi": 41,
+          "pdlvi": 0.42,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.1,
+          "ssma": -0.09,
+          "vhi": 46.2,
+          "pdlvi": 0.32,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.42,
+          "ssma": 0.28,
+          "vhi": 51.7,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.53,
+          "ssma": 0.48,
+          "vhi": 56.1,
+          "pdlvi": 0.23,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.42,
+          "ssma": 0.47,
+          "vhi": 58.2,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.1,
+          "ssma": 0.24,
+          "vhi": 57.4,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.32,
+          "ssma": -0.13,
+          "vhi": 54,
+          "pdlvi": 0.3,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.75,
+          "ssma": -0.56,
+          "vhi": 48.8,
+          "pdlvi": 0.42,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -1.06,
+          "ssma": -0.92,
+          "vhi": 43.3,
+          "pdlvi": 0.52,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.17,
+          "ssma": -1.12,
+          "vhi": 38.9,
+          "pdlvi": 0.57,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -1.06,
+          "ssma": -1.11,
+          "vhi": 36.8,
+          "pdlvi": 0.57,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.74,
+          "ssma": -0.88,
+          "vhi": 37.7,
+          "pdlvi": 0.52,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.32,
+          "ssma": -0.51,
+          "vhi": 41,
+          "pdlvi": 0.42,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.1,
+          "ssma": -0.09,
+          "vhi": 46.2,
+          "pdlvi": 0.32,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.42,
+          "ssma": 0.28,
+          "vhi": 51.7,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.53,
+          "ssma": 0.48,
+          "vhi": 56.1,
+          "pdlvi": 0.23,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": -0.03,
+          "ssma": 0.22,
+          "vhi": 56.5,
+          "pdlvi": 0.24,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.35,
+          "ssma": -0.21,
+          "vhi": 54.2,
+          "pdlvi": 0.31,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.77,
+          "ssma": -0.58,
+          "vhi": 47.7,
+          "pdlvi": 0.43,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.2,
+          "ssma": -1.01,
+          "vhi": 42.5,
+          "pdlvi": 0.55,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.51,
+          "ssma": -1.37,
+          "vhi": 37,
+          "pdlvi": 0.64,
+          "status": "parah"
+        }
+      ],
+      "executive_brief_id": "Kab. Purworejo (DAS Bogowonto) mencatat SPI-3 -1.51 dan VHI 37 pada 2026-11. Dengan kemiringan lereng rata-rata 11.2°, skor PDLVI mencapai 0.64 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3308": {
+      "kode_bps": "3308",
+      "nama": "Kab. Magelang (DAS Bompon)",
+      "provinsi": "Jawa Tengah",
+      "das": "Progo Tengah",
+      "centroid": [
+        110.22,
+        -7.5
+      ],
+      "mean_slope_deg": 14.8,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.05,
+          "ssma": -1.05,
+          "vhi": 37.3,
+          "pdlvi": 0.62,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -0.94,
+          "ssma": -0.99,
+          "vhi": 37.7,
+          "pdlvi": 0.6,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.63,
+          "ssma": -0.77,
+          "vhi": 39.3,
+          "pdlvi": 0.53,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.2,
+          "ssma": -0.39,
+          "vhi": 42.7,
+          "pdlvi": 0.44,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.22,
+          "ssma": 0.03,
+          "vhi": 47.8,
+          "pdlvi": 0.36,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.54,
+          "ssma": 0.4,
+          "vhi": 53.4,
+          "pdlvi": 0.31,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.65,
+          "ssma": 0.6,
+          "vhi": 57.7,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.11,
+          "ssma": 0.23,
+          "vhi": 57.4,
+          "pdlvi": 0.29,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.43,
+          "ssma": -0.29,
+          "vhi": 54.5,
+          "pdlvi": 0.37,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -0.85,
+          "ssma": -0.66,
+          "vhi": 46.6,
+          "pdlvi": 0.5,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.28,
+          "ssma": -1.09,
+          "vhi": 41.4,
+          "pdlvi": 0.62,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.59,
+          "ssma": -1.45,
+          "vhi": 35.9,
+          "pdlvi": 0.72,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.05,
+          "ssma": -1.29,
+          "vhi": 34,
+          "pdlvi": 0.65,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -0.94,
+          "ssma": -0.99,
+          "vhi": 33.9,
+          "pdlvi": 0.63,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.63,
+          "ssma": -0.77,
+          "vhi": 39.3,
+          "pdlvi": 0.53,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.2,
+          "ssma": -0.39,
+          "vhi": 42.7,
+          "pdlvi": 0.44,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.22,
+          "ssma": 0.03,
+          "vhi": 47.8,
+          "pdlvi": 0.36,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.54,
+          "ssma": 0.4,
+          "vhi": 53.4,
+          "pdlvi": 0.31,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.65,
+          "ssma": 0.6,
+          "vhi": 57.7,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.54,
+          "ssma": 0.59,
+          "vhi": 59.9,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.22,
+          "ssma": 0.36,
+          "vhi": 59.1,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.2,
+          "ssma": -0.01,
+          "vhi": 55.7,
+          "pdlvi": 0.32,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.63,
+          "ssma": -0.44,
+          "vhi": 50.5,
+          "pdlvi": 0.43,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -0.94,
+          "ssma": -0.8,
+          "vhi": 45,
+          "pdlvi": 0.53,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.05,
+          "ssma": -1,
+          "vhi": 40.6,
+          "pdlvi": 0.59,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -0.94,
+          "ssma": -0.99,
+          "vhi": 38.5,
+          "pdlvi": 0.59,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.63,
+          "ssma": -0.77,
+          "vhi": 39.3,
+          "pdlvi": 0.53,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.2,
+          "ssma": -0.39,
+          "vhi": 42.7,
+          "pdlvi": 0.44,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.22,
+          "ssma": 0.03,
+          "vhi": 47.8,
+          "pdlvi": 0.36,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.54,
+          "ssma": 0.4,
+          "vhi": 53.4,
+          "pdlvi": 0.31,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.65,
+          "ssma": 0.6,
+          "vhi": 57.7,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": 0.09,
+          "ssma": 0.34,
+          "vhi": 58.2,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.23,
+          "ssma": -0.09,
+          "vhi": 55.9,
+          "pdlvi": 0.32,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.65,
+          "ssma": -0.46,
+          "vhi": 49.4,
+          "pdlvi": 0.45,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.08,
+          "ssma": -0.89,
+          "vhi": 44.2,
+          "pdlvi": 0.56,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.39,
+          "ssma": -1.25,
+          "vhi": 38.7,
+          "pdlvi": 0.66,
+          "status": "moderat"
+        }
+      ],
+      "executive_brief_id": "Kab. Magelang (DAS Bompon) (DAS Progo Tengah) mencatat SPI-3 -1.39 dan VHI 38.7 pada 2026-11. Dengan kemiringan lereng rata-rata 14.8°, skor PDLVI mencapai 0.66 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun.",
+      "linked_panen_field_id": "bompon-magelang"
+    },
+    "3310": {
+      "kode_bps": "3310",
+      "nama": "Kab. Klaten",
+      "provinsi": "Jawa Tengah",
+      "das": "Bengawan Solo Tengah",
+      "centroid": [
+        110.6,
+        -7.68
+      ],
+      "mean_slope_deg": 3.6,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -0.95,
+          "ssma": -0.95,
+          "vhi": 38.7,
+          "pdlvi": 0.43,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -0.84,
+          "ssma": -0.89,
+          "vhi": 39.1,
+          "pdlvi": 0.41,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.52,
+          "ssma": -0.66,
+          "vhi": 40.7,
+          "pdlvi": 0.35,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.1,
+          "ssma": -0.29,
+          "vhi": 44.1,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.32,
+          "ssma": 0.13,
+          "vhi": 49.3,
+          "pdlvi": 0.19,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.64,
+          "ssma": 0.5,
+          "vhi": 54.8,
+          "pdlvi": 0.14,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.75,
+          "ssma": 0.7,
+          "vhi": 59.1,
+          "pdlvi": 0.1,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.01,
+          "ssma": 0.33,
+          "vhi": 58.8,
+          "pdlvi": 0.11,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.33,
+          "ssma": -0.19,
+          "vhi": 55.9,
+          "pdlvi": 0.18,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -0.75,
+          "ssma": -0.56,
+          "vhi": 48,
+          "pdlvi": 0.32,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.18,
+          "ssma": -0.99,
+          "vhi": 42.8,
+          "pdlvi": 0.44,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.49,
+          "ssma": -1.35,
+          "vhi": 37.3,
+          "pdlvi": 0.53,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -0.95,
+          "ssma": -1.19,
+          "vhi": 35.4,
+          "pdlvi": 0.46,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -0.84,
+          "ssma": -0.89,
+          "vhi": 35.3,
+          "pdlvi": 0.45,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.52,
+          "ssma": -0.66,
+          "vhi": 40.7,
+          "pdlvi": 0.35,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.1,
+          "ssma": -0.29,
+          "vhi": 44.1,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.32,
+          "ssma": 0.13,
+          "vhi": 49.3,
+          "pdlvi": 0.19,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.64,
+          "ssma": 0.5,
+          "vhi": 54.8,
+          "pdlvi": 0.14,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.75,
+          "ssma": 0.7,
+          "vhi": 59.1,
+          "pdlvi": 0.1,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.64,
+          "ssma": 0.69,
+          "vhi": 61.3,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.32,
+          "ssma": 0.46,
+          "vhi": 60.5,
+          "pdlvi": 0.09,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.1,
+          "ssma": 0.09,
+          "vhi": 57.1,
+          "pdlvi": 0.14,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.53,
+          "ssma": -0.34,
+          "vhi": 51.9,
+          "pdlvi": 0.25,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -0.84,
+          "ssma": -0.7,
+          "vhi": 46.4,
+          "pdlvi": 0.35,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -0.95,
+          "ssma": -0.9,
+          "vhi": 42,
+          "pdlvi": 0.41,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -0.84,
+          "ssma": -0.89,
+          "vhi": 39.9,
+          "pdlvi": 0.41,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.52,
+          "ssma": -0.66,
+          "vhi": 40.7,
+          "pdlvi": 0.35,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.1,
+          "ssma": -0.29,
+          "vhi": 44.1,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.32,
+          "ssma": 0.13,
+          "vhi": 49.3,
+          "pdlvi": 0.19,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.64,
+          "ssma": 0.5,
+          "vhi": 54.8,
+          "pdlvi": 0.14,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.75,
+          "ssma": 0.7,
+          "vhi": 59.1,
+          "pdlvi": 0.1,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": 0.19,
+          "ssma": 0.44,
+          "vhi": 59.6,
+          "pdlvi": 0.1,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.13,
+          "ssma": 0.01,
+          "vhi": 57.3,
+          "pdlvi": 0.14,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.55,
+          "ssma": -0.36,
+          "vhi": 50.8,
+          "pdlvi": 0.26,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -0.98,
+          "ssma": -0.79,
+          "vhi": 45.6,
+          "pdlvi": 0.38,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.29,
+          "ssma": -1.15,
+          "vhi": 40.1,
+          "pdlvi": 0.48,
+          "status": "moderat"
+        }
+      ],
+      "executive_brief_id": "Kab. Klaten (DAS Bengawan Solo Tengah) mencatat SPI-3 -1.29 dan VHI 40.1 pada 2026-11. Dengan kemiringan lereng rata-rata 3.6°, skor PDLVI mencapai 0.48 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun.",
+      "linked_panen_field_id": "klaten-irigasi"
+    },
+    "3312": {
+      "kode_bps": "3312",
+      "nama": "Kab. Wonogiri",
+      "provinsi": "Jawa Tengah",
+      "das": "Bengawan Solo Hulu",
+      "centroid": [
+        110.95,
+        -7.88
+      ],
+      "mean_slope_deg": 16.5,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.63,
+          "ssma": -1.63,
+          "vhi": 29.2,
+          "pdlvi": 0.81,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -1.52,
+          "ssma": -1.57,
+          "vhi": 29.6,
+          "pdlvi": 0.79,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -1.21,
+          "ssma": -1.35,
+          "vhi": 31.1,
+          "pdlvi": 0.72,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.78,
+          "ssma": -0.97,
+          "vhi": 34.6,
+          "pdlvi": 0.62,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": -0.36,
+          "ssma": -0.55,
+          "vhi": 39.7,
+          "pdlvi": 0.51,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": -0.04,
+          "ssma": -0.18,
+          "vhi": 45.3,
+          "pdlvi": 0.41,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.07,
+          "ssma": 0.02,
+          "vhi": 49.6,
+          "pdlvi": 0.37,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.69,
+          "ssma": -0.35,
+          "vhi": 49.3,
+          "pdlvi": 0.48,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -1.01,
+          "ssma": -0.87,
+          "vhi": 46.4,
+          "pdlvi": 0.56,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -1.43,
+          "ssma": -1.24,
+          "vhi": 38.5,
+          "pdlvi": 0.69,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.85,
+          "ssma": -1.66,
+          "vhi": 33.3,
+          "pdlvi": 0.81,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -2.17,
+          "ssma": -2.03,
+          "vhi": 27.8,
+          "pdlvi": 0.91,
+          "status": "ekstrem"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.63,
+          "ssma": -1.87,
+          "vhi": 26,
+          "pdlvi": 0.84,
+          "status": "parah"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -1.52,
+          "ssma": -1.57,
+          "vhi": 25.8,
+          "pdlvi": 0.82,
+          "status": "parah"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -1.21,
+          "ssma": -1.35,
+          "vhi": 31.1,
+          "pdlvi": 0.72,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.78,
+          "ssma": -0.97,
+          "vhi": 34.6,
+          "pdlvi": 0.62,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": -0.36,
+          "ssma": -0.55,
+          "vhi": 39.7,
+          "pdlvi": 0.51,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": -0.04,
+          "ssma": -0.18,
+          "vhi": 45.3,
+          "pdlvi": 0.41,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.07,
+          "ssma": 0.02,
+          "vhi": 49.6,
+          "pdlvi": 0.37,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": -0.04,
+          "ssma": 0.01,
+          "vhi": 51.8,
+          "pdlvi": 0.35,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": -0.36,
+          "ssma": -0.22,
+          "vhi": 51,
+          "pdlvi": 0.41,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.78,
+          "ssma": -0.59,
+          "vhi": 47.6,
+          "pdlvi": 0.51,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -1.21,
+          "ssma": -1.02,
+          "vhi": 42.3,
+          "pdlvi": 0.62,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -1.52,
+          "ssma": -1.38,
+          "vhi": 36.9,
+          "pdlvi": 0.72,
+          "status": "parah"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.63,
+          "ssma": -1.58,
+          "vhi": 32.5,
+          "pdlvi": 0.78,
+          "status": "parah"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -1.52,
+          "ssma": -1.57,
+          "vhi": 30.4,
+          "pdlvi": 0.78,
+          "status": "parah"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -1.21,
+          "ssma": -1.35,
+          "vhi": 31.1,
+          "pdlvi": 0.72,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.78,
+          "ssma": -0.97,
+          "vhi": 34.6,
+          "pdlvi": 0.62,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": -0.36,
+          "ssma": -0.55,
+          "vhi": 39.7,
+          "pdlvi": 0.51,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": -0.04,
+          "ssma": -0.18,
+          "vhi": 45.3,
+          "pdlvi": 0.41,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.07,
+          "ssma": 0.02,
+          "vhi": 49.6,
+          "pdlvi": 0.37,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": -0.49,
+          "ssma": -0.24,
+          "vhi": 50,
+          "pdlvi": 0.44,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.81,
+          "ssma": -0.67,
+          "vhi": 47.8,
+          "pdlvi": 0.51,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -1.23,
+          "ssma": -1.04,
+          "vhi": 41.3,
+          "pdlvi": 0.64,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.66,
+          "ssma": -1.47,
+          "vhi": 36,
+          "pdlvi": 0.75,
+          "status": "parah"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.97,
+          "ssma": -1.83,
+          "vhi": 30.6,
+          "pdlvi": 0.85,
+          "status": "parah"
+        }
+      ],
+      "executive_brief_id": "Kab. Wonogiri (DAS Bengawan Solo Hulu) mencatat SPI-3 -1.97 dan VHI 30.6 pada 2026-11. Dengan kemiringan lereng rata-rata 16.5°, skor PDLVI mencapai 0.85 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3315": {
+      "kode_bps": "3315",
+      "nama": "Kab. Grobogan",
+      "provinsi": "Jawa Tengah",
+      "das": "Lusi–Serang",
+      "centroid": [
+        110.94,
+        -7.12
+      ],
+      "mean_slope_deg": 4.5,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.3,
+          "ssma": -1.3,
+          "vhi": 33.8,
+          "pdlvi": 0.55,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -1.19,
+          "ssma": -1.24,
+          "vhi": 34.2,
+          "pdlvi": 0.53,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.88,
+          "ssma": -1.02,
+          "vhi": 35.8,
+          "pdlvi": 0.46,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.45,
+          "ssma": -0.64,
+          "vhi": 39.2,
+          "pdlvi": 0.36,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": -0.03,
+          "ssma": -0.22,
+          "vhi": 44.3,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.29,
+          "ssma": 0.15,
+          "vhi": 49.9,
+          "pdlvi": 0.2,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.4,
+          "ssma": 0.35,
+          "vhi": 54.2,
+          "pdlvi": 0.16,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.36,
+          "ssma": -0.02,
+          "vhi": 53.9,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.68,
+          "ssma": -0.54,
+          "vhi": 51,
+          "pdlvi": 0.3,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -1.1,
+          "ssma": -0.91,
+          "vhi": 43.1,
+          "pdlvi": 0.43,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.53,
+          "ssma": -1.34,
+          "vhi": 37.9,
+          "pdlvi": 0.55,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.84,
+          "ssma": -1.7,
+          "vhi": 32.4,
+          "pdlvi": 0.65,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.3,
+          "ssma": -1.54,
+          "vhi": 30.5,
+          "pdlvi": 0.58,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -1.19,
+          "ssma": -1.24,
+          "vhi": 30.4,
+          "pdlvi": 0.56,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.88,
+          "ssma": -1.02,
+          "vhi": 35.8,
+          "pdlvi": 0.46,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.45,
+          "ssma": -0.64,
+          "vhi": 39.2,
+          "pdlvi": 0.36,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": -0.03,
+          "ssma": -0.22,
+          "vhi": 44.3,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.29,
+          "ssma": 0.15,
+          "vhi": 49.9,
+          "pdlvi": 0.2,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.4,
+          "ssma": 0.35,
+          "vhi": 54.2,
+          "pdlvi": 0.16,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.29,
+          "ssma": 0.34,
+          "vhi": 56.4,
+          "pdlvi": 0.14,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": -0.03,
+          "ssma": 0.11,
+          "vhi": 55.6,
+          "pdlvi": 0.15,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.45,
+          "ssma": -0.26,
+          "vhi": 52.2,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.88,
+          "ssma": -0.69,
+          "vhi": 47,
+          "pdlvi": 0.36,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -1.19,
+          "ssma": -1.05,
+          "vhi": 41.5,
+          "pdlvi": 0.46,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.3,
+          "ssma": -1.25,
+          "vhi": 37.1,
+          "pdlvi": 0.52,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -1.19,
+          "ssma": -1.24,
+          "vhi": 35,
+          "pdlvi": 0.52,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.88,
+          "ssma": -1.02,
+          "vhi": 35.8,
+          "pdlvi": 0.46,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.45,
+          "ssma": -0.64,
+          "vhi": 39.2,
+          "pdlvi": 0.36,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": -0.03,
+          "ssma": -0.22,
+          "vhi": 44.3,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.29,
+          "ssma": 0.15,
+          "vhi": 49.9,
+          "pdlvi": 0.2,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.4,
+          "ssma": 0.35,
+          "vhi": 54.2,
+          "pdlvi": 0.16,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": -0.16,
+          "ssma": 0.09,
+          "vhi": 54.7,
+          "pdlvi": 0.18,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.48,
+          "ssma": -0.34,
+          "vhi": 52.4,
+          "pdlvi": 0.25,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.9,
+          "ssma": -0.71,
+          "vhi": 45.9,
+          "pdlvi": 0.38,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.33,
+          "ssma": -1.14,
+          "vhi": 40.7,
+          "pdlvi": 0.49,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.64,
+          "ssma": -1.5,
+          "vhi": 35.2,
+          "pdlvi": 0.59,
+          "status": "parah"
+        }
+      ],
+      "executive_brief_id": "Kab. Grobogan (DAS Lusi–Serang) mencatat SPI-3 -1.64 dan VHI 35.2 pada 2026-11. Dengan kemiringan lereng rata-rata 4.5°, skor PDLVI mencapai 0.59 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3321": {
+      "kode_bps": "3321",
+      "nama": "Kab. Demak",
+      "provinsi": "Jawa Tengah",
+      "das": "Jratunseluna Hilir",
+      "centroid": [
+        110.65,
+        -6.9
+      ],
+      "mean_slope_deg": 1.2,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -0.7,
+          "ssma": -0.7,
+          "vhi": 42.2,
+          "pdlvi": 0.33,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -0.59,
+          "ssma": -0.64,
+          "vhi": 42.6,
+          "pdlvi": 0.31,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.27,
+          "ssma": -0.41,
+          "vhi": 44.2,
+          "pdlvi": 0.24,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": 0.15,
+          "ssma": -0.04,
+          "vhi": 47.6,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.57,
+          "ssma": 0.38,
+          "vhi": 52.8,
+          "pdlvi": 0.13,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.89,
+          "ssma": 0.75,
+          "vhi": 58.3,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 1,
+          "ssma": 0.95,
+          "vhi": 62.6,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": 0.24,
+          "ssma": 0.58,
+          "vhi": 62.3,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.08,
+          "ssma": 0.06,
+          "vhi": 59.4,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -0.5,
+          "ssma": -0.31,
+          "vhi": 51.5,
+          "pdlvi": 0.22,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -0.93,
+          "ssma": -0.74,
+          "vhi": 46.3,
+          "pdlvi": 0.33,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.24,
+          "ssma": -1.1,
+          "vhi": 40.8,
+          "pdlvi": 0.43,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -0.7,
+          "ssma": -0.94,
+          "vhi": 38.9,
+          "pdlvi": 0.36,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -0.59,
+          "ssma": -0.64,
+          "vhi": 38.8,
+          "pdlvi": 0.34,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.27,
+          "ssma": -0.41,
+          "vhi": 44.2,
+          "pdlvi": 0.24,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": 0.15,
+          "ssma": -0.04,
+          "vhi": 47.6,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.57,
+          "ssma": 0.38,
+          "vhi": 52.8,
+          "pdlvi": 0.13,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.89,
+          "ssma": 0.75,
+          "vhi": 58.3,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 1,
+          "ssma": 0.95,
+          "vhi": 62.6,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.89,
+          "ssma": 0.94,
+          "vhi": 64.8,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.57,
+          "ssma": 0.71,
+          "vhi": 64,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": 0.15,
+          "ssma": 0.34,
+          "vhi": 60.6,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.28,
+          "ssma": -0.09,
+          "vhi": 55.4,
+          "pdlvi": 0.15,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -0.59,
+          "ssma": -0.45,
+          "vhi": 49.9,
+          "pdlvi": 0.24,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -0.7,
+          "ssma": -0.65,
+          "vhi": 45.5,
+          "pdlvi": 0.3,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -0.59,
+          "ssma": -0.64,
+          "vhi": 43.4,
+          "pdlvi": 0.3,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.27,
+          "ssma": -0.41,
+          "vhi": 44.2,
+          "pdlvi": 0.24,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": 0.15,
+          "ssma": -0.04,
+          "vhi": 47.6,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.57,
+          "ssma": 0.38,
+          "vhi": 52.8,
+          "pdlvi": 0.13,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.89,
+          "ssma": 0.75,
+          "vhi": 58.3,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 1,
+          "ssma": 0.95,
+          "vhi": 62.6,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": 0.44,
+          "ssma": 0.69,
+          "vhi": 63.1,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": 0.12,
+          "ssma": 0.26,
+          "vhi": 60.8,
+          "pdlvi": 0.08,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.3,
+          "ssma": -0.11,
+          "vhi": 54.3,
+          "pdlvi": 0.16,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -0.73,
+          "ssma": -0.54,
+          "vhi": 49.1,
+          "pdlvi": 0.27,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.04,
+          "ssma": -0.9,
+          "vhi": 43.6,
+          "pdlvi": 0.37,
+          "status": "moderat"
+        }
+      ],
+      "executive_brief_id": "Kab. Demak (DAS Jratunseluna Hilir) mencatat SPI-3 -1.04 dan VHI 43.6 pada 2026-11. Dengan kemiringan lereng rata-rata 1.2°, skor PDLVI mencapai 0.37 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3329": {
+      "kode_bps": "3329",
+      "nama": "Kab. Brebes",
+      "provinsi": "Jawa Tengah",
+      "das": "Pemali",
+      "centroid": [
+        108.95,
+        -7.08
+      ],
+      "mean_slope_deg": 7.4,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.1,
+          "ssma": -1.1,
+          "vhi": 36.6,
+          "pdlvi": 0.53,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -0.99,
+          "ssma": -1.04,
+          "vhi": 37,
+          "pdlvi": 0.51,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.67,
+          "ssma": -0.81,
+          "vhi": 38.6,
+          "pdlvi": 0.44,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.25,
+          "ssma": -0.44,
+          "vhi": 42,
+          "pdlvi": 0.35,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.17,
+          "ssma": -0.02,
+          "vhi": 47.2,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.49,
+          "ssma": 0.35,
+          "vhi": 52.7,
+          "pdlvi": 0.21,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.6,
+          "ssma": 0.55,
+          "vhi": 57,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.16,
+          "ssma": 0.18,
+          "vhi": 56.7,
+          "pdlvi": 0.2,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.48,
+          "ssma": -0.34,
+          "vhi": 53.8,
+          "pdlvi": 0.28,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -0.9,
+          "ssma": -0.71,
+          "vhi": 45.9,
+          "pdlvi": 0.42,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.33,
+          "ssma": -1.14,
+          "vhi": 40.7,
+          "pdlvi": 0.53,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.64,
+          "ssma": -1.5,
+          "vhi": 35.2,
+          "pdlvi": 0.63,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.1,
+          "ssma": -1.34,
+          "vhi": 33.3,
+          "pdlvi": 0.56,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -0.99,
+          "ssma": -1.04,
+          "vhi": 33.2,
+          "pdlvi": 0.54,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.67,
+          "ssma": -0.81,
+          "vhi": 38.6,
+          "pdlvi": 0.44,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.25,
+          "ssma": -0.44,
+          "vhi": 42,
+          "pdlvi": 0.35,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.17,
+          "ssma": -0.02,
+          "vhi": 47.2,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.49,
+          "ssma": 0.35,
+          "vhi": 52.7,
+          "pdlvi": 0.21,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.6,
+          "ssma": 0.55,
+          "vhi": 57,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.49,
+          "ssma": 0.54,
+          "vhi": 59.2,
+          "pdlvi": 0.15,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.17,
+          "ssma": 0.31,
+          "vhi": 58.4,
+          "pdlvi": 0.16,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.25,
+          "ssma": -0.06,
+          "vhi": 55,
+          "pdlvi": 0.23,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.68,
+          "ssma": -0.49,
+          "vhi": 49.8,
+          "pdlvi": 0.35,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -0.99,
+          "ssma": -0.85,
+          "vhi": 44.3,
+          "pdlvi": 0.44,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.1,
+          "ssma": -1.05,
+          "vhi": 39.9,
+          "pdlvi": 0.5,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -0.99,
+          "ssma": -1.04,
+          "vhi": 37.8,
+          "pdlvi": 0.5,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.67,
+          "ssma": -0.81,
+          "vhi": 38.6,
+          "pdlvi": 0.44,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.25,
+          "ssma": -0.44,
+          "vhi": 42,
+          "pdlvi": 0.35,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.17,
+          "ssma": -0.02,
+          "vhi": 47.2,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.49,
+          "ssma": 0.35,
+          "vhi": 52.7,
+          "pdlvi": 0.21,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.6,
+          "ssma": 0.55,
+          "vhi": 57,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": 0.04,
+          "ssma": 0.29,
+          "vhi": 57.5,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.28,
+          "ssma": -0.14,
+          "vhi": 55.2,
+          "pdlvi": 0.23,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.7,
+          "ssma": -0.51,
+          "vhi": 48.7,
+          "pdlvi": 0.36,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.13,
+          "ssma": -0.94,
+          "vhi": 43.5,
+          "pdlvi": 0.47,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.44,
+          "ssma": -1.3,
+          "vhi": 38,
+          "pdlvi": 0.57,
+          "status": "moderat"
+        }
+      ],
+      "executive_brief_id": "Kab. Brebes (DAS Pemali) mencatat SPI-3 -1.44 dan VHI 38 pada 2026-11. Dengan kemiringan lereng rata-rata 7.4°, skor PDLVI mencapai 0.57 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3401": {
+      "kode_bps": "3401",
+      "nama": "Kab. Kulon Progo",
+      "provinsi": "D.I. Yogyakarta",
+      "das": "Progo–Serang",
+      "centroid": [
+        110.16,
+        -7.82
+      ],
+      "mean_slope_deg": 12.1,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.23,
+          "ssma": -1.23,
+          "vhi": 34.8,
+          "pdlvi": 0.63,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -1.12,
+          "ssma": -1.17,
+          "vhi": 35.2,
+          "pdlvi": 0.61,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.8,
+          "ssma": -0.94,
+          "vhi": 36.8,
+          "pdlvi": 0.55,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.38,
+          "ssma": -0.57,
+          "vhi": 40.2,
+          "pdlvi": 0.45,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.04,
+          "ssma": -0.15,
+          "vhi": 45.4,
+          "pdlvi": 0.34,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.36,
+          "ssma": 0.22,
+          "vhi": 50.9,
+          "pdlvi": 0.29,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.47,
+          "ssma": 0.42,
+          "vhi": 55.2,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.29,
+          "ssma": 0.05,
+          "vhi": 54.9,
+          "pdlvi": 0.3,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.61,
+          "ssma": -0.47,
+          "vhi": 52,
+          "pdlvi": 0.38,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -1.03,
+          "ssma": -0.84,
+          "vhi": 44.1,
+          "pdlvi": 0.52,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.46,
+          "ssma": -1.27,
+          "vhi": 38.8,
+          "pdlvi": 0.63,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.77,
+          "ssma": -1.63,
+          "vhi": 33.4,
+          "pdlvi": 0.73,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.23,
+          "ssma": -1.47,
+          "vhi": 31.5,
+          "pdlvi": 0.66,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -1.12,
+          "ssma": -1.17,
+          "vhi": 31.4,
+          "pdlvi": 0.64,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.8,
+          "ssma": -0.94,
+          "vhi": 36.8,
+          "pdlvi": 0.55,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.38,
+          "ssma": -0.57,
+          "vhi": 40.2,
+          "pdlvi": 0.45,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.04,
+          "ssma": -0.15,
+          "vhi": 45.4,
+          "pdlvi": 0.34,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.36,
+          "ssma": 0.22,
+          "vhi": 50.9,
+          "pdlvi": 0.29,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.47,
+          "ssma": 0.42,
+          "vhi": 55.2,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.36,
+          "ssma": 0.41,
+          "vhi": 57.4,
+          "pdlvi": 0.24,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.04,
+          "ssma": 0.18,
+          "vhi": 56.5,
+          "pdlvi": 0.24,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.38,
+          "ssma": -0.19,
+          "vhi": 53.2,
+          "pdlvi": 0.33,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.81,
+          "ssma": -0.62,
+          "vhi": 47.9,
+          "pdlvi": 0.45,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -1.12,
+          "ssma": -0.98,
+          "vhi": 42.5,
+          "pdlvi": 0.55,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.23,
+          "ssma": -1.18,
+          "vhi": 38.1,
+          "pdlvi": 0.6,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -1.12,
+          "ssma": -1.17,
+          "vhi": 36,
+          "pdlvi": 0.6,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.8,
+          "ssma": -0.94,
+          "vhi": 36.8,
+          "pdlvi": 0.55,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.38,
+          "ssma": -0.57,
+          "vhi": 40.2,
+          "pdlvi": 0.45,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.04,
+          "ssma": -0.15,
+          "vhi": 45.4,
+          "pdlvi": 0.34,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.36,
+          "ssma": 0.22,
+          "vhi": 50.9,
+          "pdlvi": 0.29,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.47,
+          "ssma": 0.42,
+          "vhi": 55.2,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": -0.09,
+          "ssma": 0.16,
+          "vhi": 55.6,
+          "pdlvi": 0.27,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.41,
+          "ssma": -0.27,
+          "vhi": 53.4,
+          "pdlvi": 0.34,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.83,
+          "ssma": -0.64,
+          "vhi": 46.9,
+          "pdlvi": 0.46,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.26,
+          "ssma": -1.07,
+          "vhi": 41.6,
+          "pdlvi": 0.58,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.57,
+          "ssma": -1.43,
+          "vhi": 36.2,
+          "pdlvi": 0.67,
+          "status": "parah"
+        }
+      ],
+      "executive_brief_id": "Kab. Kulon Progo (DAS Progo–Serang) mencatat SPI-3 -1.57 dan VHI 36.2 pada 2026-11. Dengan kemiringan lereng rata-rata 12.1°, skor PDLVI mencapai 0.67 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3402": {
+      "kode_bps": "3402",
+      "nama": "Kab. Bantul",
+      "provinsi": "D.I. Yogyakarta",
+      "das": "Opak Hilir",
+      "centroid": [
+        110.35,
+        -7.9
+      ],
+      "mean_slope_deg": 4.1,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.1,
+          "ssma": -1.1,
+          "vhi": 36.6,
+          "pdlvi": 0.48,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -0.99,
+          "ssma": -1.04,
+          "vhi": 37,
+          "pdlvi": 0.46,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.67,
+          "ssma": -0.81,
+          "vhi": 38.6,
+          "pdlvi": 0.4,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.25,
+          "ssma": -0.44,
+          "vhi": 42,
+          "pdlvi": 0.3,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.17,
+          "ssma": -0.02,
+          "vhi": 47.2,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.49,
+          "ssma": 0.35,
+          "vhi": 52.7,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.6,
+          "ssma": 0.55,
+          "vhi": 57,
+          "pdlvi": 0.13,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.16,
+          "ssma": 0.18,
+          "vhi": 56.7,
+          "pdlvi": 0.16,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.48,
+          "ssma": -0.34,
+          "vhi": 53.8,
+          "pdlvi": 0.23,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -0.9,
+          "ssma": -0.71,
+          "vhi": 45.9,
+          "pdlvi": 0.37,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.33,
+          "ssma": -1.14,
+          "vhi": 40.7,
+          "pdlvi": 0.48,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.64,
+          "ssma": -1.5,
+          "vhi": 35.2,
+          "pdlvi": 0.58,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.1,
+          "ssma": -1.34,
+          "vhi": 33.3,
+          "pdlvi": 0.51,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -0.99,
+          "ssma": -1.04,
+          "vhi": 33.2,
+          "pdlvi": 0.5,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.67,
+          "ssma": -0.81,
+          "vhi": 38.6,
+          "pdlvi": 0.4,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.25,
+          "ssma": -0.44,
+          "vhi": 42,
+          "pdlvi": 0.3,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.17,
+          "ssma": -0.02,
+          "vhi": 47.2,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.49,
+          "ssma": 0.35,
+          "vhi": 52.7,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.6,
+          "ssma": 0.55,
+          "vhi": 57,
+          "pdlvi": 0.13,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.49,
+          "ssma": 0.54,
+          "vhi": 59.2,
+          "pdlvi": 0.11,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.17,
+          "ssma": 0.31,
+          "vhi": 58.4,
+          "pdlvi": 0.12,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.25,
+          "ssma": -0.06,
+          "vhi": 55,
+          "pdlvi": 0.19,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.68,
+          "ssma": -0.49,
+          "vhi": 49.8,
+          "pdlvi": 0.3,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -0.99,
+          "ssma": -0.85,
+          "vhi": 44.3,
+          "pdlvi": 0.4,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.1,
+          "ssma": -1.05,
+          "vhi": 39.9,
+          "pdlvi": 0.46,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -0.99,
+          "ssma": -1.04,
+          "vhi": 37.8,
+          "pdlvi": 0.46,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.67,
+          "ssma": -0.81,
+          "vhi": 38.6,
+          "pdlvi": 0.4,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.25,
+          "ssma": -0.44,
+          "vhi": 42,
+          "pdlvi": 0.3,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.17,
+          "ssma": -0.02,
+          "vhi": 47.2,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.49,
+          "ssma": 0.35,
+          "vhi": 52.7,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.6,
+          "ssma": 0.55,
+          "vhi": 57,
+          "pdlvi": 0.13,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": 0.04,
+          "ssma": 0.29,
+          "vhi": 57.5,
+          "pdlvi": 0.12,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.28,
+          "ssma": -0.14,
+          "vhi": 55.2,
+          "pdlvi": 0.19,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.7,
+          "ssma": -0.51,
+          "vhi": 48.7,
+          "pdlvi": 0.31,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.13,
+          "ssma": -0.94,
+          "vhi": 43.5,
+          "pdlvi": 0.43,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.44,
+          "ssma": -1.3,
+          "vhi": 38,
+          "pdlvi": 0.53,
+          "status": "moderat"
+        }
+      ],
+      "executive_brief_id": "Kab. Bantul (DAS Opak Hilir) mencatat SPI-3 -1.44 dan VHI 38 pada 2026-11. Dengan kemiringan lereng rata-rata 4.1°, skor PDLVI mencapai 0.53 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3403": {
+      "kode_bps": "3403",
+      "nama": "Kab. Gunungkidul",
+      "provinsi": "D.I. Yogyakarta",
+      "das": "Karst Wonosari–Oyo",
+      "centroid": [
+        110.62,
+        -7.98
+      ],
+      "mean_slope_deg": 13.7,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1.67,
+          "ssma": -1.67,
+          "vhi": 28.6,
+          "pdlvi": 0.78,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -1.56,
+          "ssma": -1.61,
+          "vhi": 29,
+          "pdlvi": 0.76,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -1.24,
+          "ssma": -1.38,
+          "vhi": 30.7,
+          "pdlvi": 0.69,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.82,
+          "ssma": -1.01,
+          "vhi": 34,
+          "pdlvi": 0.6,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": -0.4,
+          "ssma": -0.59,
+          "vhi": 39.2,
+          "pdlvi": 0.48,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": -0.08,
+          "ssma": -0.22,
+          "vhi": 44.7,
+          "pdlvi": 0.38,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.03,
+          "ssma": -0.02,
+          "vhi": 49.1,
+          "pdlvi": 0.33,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.73,
+          "ssma": -0.39,
+          "vhi": 48.7,
+          "pdlvi": 0.45,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -1.04,
+          "ssma": -0.9,
+          "vhi": 45.9,
+          "pdlvi": 0.53,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -1.47,
+          "ssma": -1.28,
+          "vhi": 37.9,
+          "pdlvi": 0.67,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.9,
+          "ssma": -1.71,
+          "vhi": 32.8,
+          "pdlvi": 0.78,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -2.21,
+          "ssma": -2.07,
+          "vhi": 27.2,
+          "pdlvi": 0.88,
+          "status": "ekstrem"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1.67,
+          "ssma": -1.91,
+          "vhi": 25.3,
+          "pdlvi": 0.81,
+          "status": "parah"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -1.56,
+          "ssma": -1.61,
+          "vhi": 25.3,
+          "pdlvi": 0.79,
+          "status": "parah"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -1.24,
+          "ssma": -1.38,
+          "vhi": 30.7,
+          "pdlvi": 0.69,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.82,
+          "ssma": -1.01,
+          "vhi": 34,
+          "pdlvi": 0.6,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": -0.4,
+          "ssma": -0.59,
+          "vhi": 39.2,
+          "pdlvi": 0.48,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": -0.08,
+          "ssma": -0.22,
+          "vhi": 44.7,
+          "pdlvi": 0.38,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.03,
+          "ssma": -0.02,
+          "vhi": 49.1,
+          "pdlvi": 0.33,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": -0.08,
+          "ssma": -0.03,
+          "vhi": 51.2,
+          "pdlvi": 0.33,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": -0.4,
+          "ssma": -0.26,
+          "vhi": 50.4,
+          "pdlvi": 0.38,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.82,
+          "ssma": -0.63,
+          "vhi": 47,
+          "pdlvi": 0.48,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -1.25,
+          "ssma": -1.06,
+          "vhi": 41.8,
+          "pdlvi": 0.6,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -1.56,
+          "ssma": -1.42,
+          "vhi": 36.3,
+          "pdlvi": 0.69,
+          "status": "parah"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1.67,
+          "ssma": -1.62,
+          "vhi": 31.9,
+          "pdlvi": 0.75,
+          "status": "parah"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -1.56,
+          "ssma": -1.61,
+          "vhi": 29.8,
+          "pdlvi": 0.75,
+          "status": "parah"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -1.24,
+          "ssma": -1.38,
+          "vhi": 30.7,
+          "pdlvi": 0.69,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.82,
+          "ssma": -1.01,
+          "vhi": 34,
+          "pdlvi": 0.6,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": -0.4,
+          "ssma": -0.59,
+          "vhi": 39.2,
+          "pdlvi": 0.48,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": -0.08,
+          "ssma": -0.22,
+          "vhi": 44.7,
+          "pdlvi": 0.38,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.03,
+          "ssma": -0.02,
+          "vhi": 49.1,
+          "pdlvi": 0.33,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": -0.53,
+          "ssma": -0.28,
+          "vhi": 49.5,
+          "pdlvi": 0.41,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.84,
+          "ssma": -0.7,
+          "vhi": 47.3,
+          "pdlvi": 0.48,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -1.27,
+          "ssma": -1.08,
+          "vhi": 40.7,
+          "pdlvi": 0.61,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.7,
+          "ssma": -1.51,
+          "vhi": 35.5,
+          "pdlvi": 0.72,
+          "status": "parah"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -2.01,
+          "ssma": -1.87,
+          "vhi": 30,
+          "pdlvi": 0.82,
+          "status": "ekstrem"
+        }
+      ],
+      "executive_brief_id": "Kab. Gunungkidul (DAS Karst Wonosari–Oyo) mencatat SPI-3 -2.01 dan VHI 30 pada 2026-11. Dengan kemiringan lereng rata-rata 13.7°, skor PDLVI mencapai 0.82 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    },
+    "3404": {
+      "kode_bps": "3404",
+      "nama": "Kab. Sleman",
+      "provinsi": "D.I. Yogyakarta",
+      "das": "Progo–Opak Hulu",
+      "centroid": [
+        110.38,
+        -7.68
+      ],
+      "mean_slope_deg": 8.4,
+      "updated_at": "2026-11-24T00:00:00Z",
+      "series": [
+        {
+          "ym": "2023-12",
+          "spi3": -1,
+          "ssma": -1,
+          "vhi": 38,
+          "pdlvi": 0.52,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-01",
+          "spi3": -0.89,
+          "ssma": -0.94,
+          "vhi": 38.4,
+          "pdlvi": 0.49,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-02",
+          "spi3": -0.57,
+          "ssma": -0.71,
+          "vhi": 40,
+          "pdlvi": 0.43,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-03",
+          "spi3": -0.15,
+          "ssma": -0.34,
+          "vhi": 43.4,
+          "pdlvi": 0.33,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-04",
+          "spi3": 0.27,
+          "ssma": 0.08,
+          "vhi": 48.6,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-05",
+          "spi3": 0.59,
+          "ssma": 0.45,
+          "vhi": 54.1,
+          "pdlvi": 0.21,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-06",
+          "spi3": 0.7,
+          "ssma": 0.65,
+          "vhi": 58.4,
+          "pdlvi": 0.18,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-07",
+          "spi3": -0.06,
+          "ssma": 0.28,
+          "vhi": 58.1,
+          "pdlvi": 0.19,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-08",
+          "spi3": -0.38,
+          "ssma": -0.24,
+          "vhi": 55.2,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2024-09",
+          "spi3": -0.8,
+          "ssma": -0.61,
+          "vhi": 47.3,
+          "pdlvi": 0.4,
+          "status": "waspada"
+        },
+        {
+          "ym": "2024-10",
+          "spi3": -1.23,
+          "ssma": -1.04,
+          "vhi": 42.1,
+          "pdlvi": 0.52,
+          "status": "moderat"
+        },
+        {
+          "ym": "2024-11",
+          "spi3": -1.54,
+          "ssma": -1.4,
+          "vhi": 36.6,
+          "pdlvi": 0.61,
+          "status": "parah"
+        },
+        {
+          "ym": "2024-12",
+          "spi3": -1,
+          "ssma": -1.24,
+          "vhi": 34.7,
+          "pdlvi": 0.55,
+          "status": "moderat"
+        },
+        {
+          "ym": "2025-01",
+          "spi3": -0.89,
+          "ssma": -0.94,
+          "vhi": 34.6,
+          "pdlvi": 0.53,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-02",
+          "spi3": -0.57,
+          "ssma": -0.71,
+          "vhi": 40,
+          "pdlvi": 0.43,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-03",
+          "spi3": -0.15,
+          "ssma": -0.34,
+          "vhi": 43.4,
+          "pdlvi": 0.33,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-04",
+          "spi3": 0.27,
+          "ssma": 0.08,
+          "vhi": 48.6,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-05",
+          "spi3": 0.59,
+          "ssma": 0.45,
+          "vhi": 54.1,
+          "pdlvi": 0.21,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-06",
+          "spi3": 0.7,
+          "ssma": 0.65,
+          "vhi": 58.4,
+          "pdlvi": 0.18,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-07",
+          "spi3": 0.59,
+          "ssma": 0.64,
+          "vhi": 60.6,
+          "pdlvi": 0.16,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-08",
+          "spi3": 0.27,
+          "ssma": 0.41,
+          "vhi": 59.8,
+          "pdlvi": 0.16,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-09",
+          "spi3": -0.15,
+          "ssma": 0.04,
+          "vhi": 56.4,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2025-10",
+          "spi3": -0.58,
+          "ssma": -0.39,
+          "vhi": 51.2,
+          "pdlvi": 0.33,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-11",
+          "spi3": -0.89,
+          "ssma": -0.75,
+          "vhi": 45.7,
+          "pdlvi": 0.43,
+          "status": "waspada"
+        },
+        {
+          "ym": "2025-12",
+          "spi3": -1,
+          "ssma": -0.95,
+          "vhi": 41.3,
+          "pdlvi": 0.49,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-01",
+          "spi3": -0.89,
+          "ssma": -0.94,
+          "vhi": 39.2,
+          "pdlvi": 0.49,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-02",
+          "spi3": -0.57,
+          "ssma": -0.71,
+          "vhi": 40,
+          "pdlvi": 0.43,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-03",
+          "spi3": -0.15,
+          "ssma": -0.34,
+          "vhi": 43.4,
+          "pdlvi": 0.33,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-04",
+          "spi3": 0.27,
+          "ssma": 0.08,
+          "vhi": 48.6,
+          "pdlvi": 0.26,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-05",
+          "spi3": 0.59,
+          "ssma": 0.45,
+          "vhi": 54.1,
+          "pdlvi": 0.21,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-06",
+          "spi3": 0.7,
+          "ssma": 0.65,
+          "vhi": 58.4,
+          "pdlvi": 0.18,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-07",
+          "spi3": 0.14,
+          "ssma": 0.39,
+          "vhi": 58.9,
+          "pdlvi": 0.17,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-08",
+          "spi3": -0.18,
+          "ssma": -0.04,
+          "vhi": 56.6,
+          "pdlvi": 0.22,
+          "status": "normal"
+        },
+        {
+          "ym": "2026-09",
+          "spi3": -0.6,
+          "ssma": -0.41,
+          "vhi": 50.1,
+          "pdlvi": 0.34,
+          "status": "waspada"
+        },
+        {
+          "ym": "2026-10",
+          "spi3": -1.03,
+          "ssma": -0.84,
+          "vhi": 44.9,
+          "pdlvi": 0.46,
+          "status": "moderat"
+        },
+        {
+          "ym": "2026-11",
+          "spi3": -1.34,
+          "ssma": -1.2,
+          "vhi": 39.4,
+          "pdlvi": 0.56,
+          "status": "moderat"
+        }
+      ],
+      "executive_brief_id": "Kab. Sleman (DAS Progo–Opak Hulu) mencatat SPI-3 -1.34 dan VHI 39.4 pada 2026-11. Dengan kemiringan lereng rata-rata 8.4°, skor PDLVI mencapai 0.56 — menandakan perlunya pengendalian limpasan permukaan sebelum hujan awal turun."
+    }
+  }
+}
