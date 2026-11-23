@@ -1,0 +1,25 @@
+# Node / Web
+node_modules/
+dist/
+.astro/
+.svelte-kit/
+
+# Python / GEE Pipeline
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Secrets & Credentials (DILARANG COMMIT)
+.env
+.env.*
+!.env.example
+.dev.vars
+wrangler.toml
+service-account*.json
+*credentials*.json
+
+# Raster & Output Sementara
+*.tif
+*.tiff
+pipeline/out/
