@@ -1,12 +1,9 @@
 # Handoff Sesi — Drought in Control (`gisrad/drought-in-control`)
 
 - **Tanggal terakhir**: `2026-11-24`
-- **Fase aktif**: `D1–D3 (Workbench Peta Kekeringan & PDLVI + Policy Brief APA 7th) — SELESAI & LIVE`
+- **Fase aktif**: `D1–D4 — SELESAI & SIAP PRODUKSI`
 - **Langkah terakhir selesai**:
-  - Membangun `web/` (Astro 5 + Svelte 5 + MapLibre GL v5 + `uPlot`) dengan 12 kabupaten/DAS Jawa Tengah + perbatasan DIY dan deret waktu 36 bulan (`SPI-3`, `SSMA`, `VHI`, `PDLVI`).
-  - Mengintegrasikan *Floating Layer Switcher*, *Propagation Scrubber* (Play/Pause), *Region Inspector Drawer*, grafik `uPlot`, ekspor `.csv`/`.json`/`.md`, cetak PDF `@media print` dengan sitasi APA 7th, tombol lintas pilar ke `panen-id`, dan *TrialOverlay* 5 menit `overlay`.
-  - Deploy ke `drought-in-control-worker` dan terhubung di `https://agri.transbulent.id/kekeringan/`.
+  - Membangun pipeline Python lengkap di `pipeline/` (`VCI`, `TCI`, `VHI`, `SSMA`, `SPI-3`, `PDLVI` berbobot `0.35/0.40/0.25` + faktor lereng), generator ringkasan dengan validator angka anti-halusinasi `validate_brief_numbers`, uploader R2 `boto3`, serta mode `--dry-run`.
+  - Menambahkan `.github/workflows/update-drought-data.yml` (cron tgl 1 & 15 pukul 02:00 UTC + `workflow_dispatch`) dan memverifikasi `6/6` tes `unittest` + `--dry-run` exit 0.
 - **Perintah sesi berikutnya**:
-  - Baca `docs/HANDOFF.md` & `docs/PROGRESS.md`, lalu kerjakan **D4** (`pipeline/` Python GEE + Gemini Brief + R2 Uploader + GitHub Actions cron tgl 1 & 15).
-- **Blocker / catatan**:
-  - Frontend sudah 100% fungsional memakai `web/public/mock-data/` sambil menunggu kredensial GEE & R2 pada fase **D4**.
+  - Tambahkan GitHub Secrets (`GEE_SERVICE_ACCOUNT`, `R2_ENDPOINT`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `GEMINI_API_KEY`) di repo `gisrad/drought-in-control` untuk menyalakan run live GEE/R2, lalu kerjakan **D5**.

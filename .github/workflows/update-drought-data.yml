@@ -1,0 +1,46 @@
+name: Update Central Java Drought Data
+
+on:
+  schedule:
+    - cron: "0 2 1,15 * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Run offline dry-run without external GEE/R2 writes"
+        required: false
+        default: "false"
+
+jobs:
+  update-drought-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run unit tests
+        run: python -m unittest discover -s pipeline -p "test_*.py" -v
+
+      - name: Install production pipeline dependencies
+        if: ${{ inputs.dry_run != 'true' && env.HAS_SECRETS == 'true' }}
+        env:
+          HAS_SECRETS: ${{ secrets.GEE_SERVICE_ACCOUNT != '' && secrets.R2_ACCESS_KEY_ID != '' }}
+        run: pip install -r pipeline/requirements.txt
+
+      - name: Run drought pipeline
+        env:
+          GEE_SERVICE_ACCOUNT: ${{ secrets.GEE_SERVICE_ACCOUNT }}
+          R2_ENDPOINT: ${{ secrets.R2_ENDPOINT }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ] || [ -z "$GEE_SERVICE_ACCOUNT" ] || [ -z "$R2_ACCESS_KEY_ID" ]; then
+            python pipeline/run_pipeline.py --dry-run
+          else
+            python pipeline/run_pipeline.py
+          fi
