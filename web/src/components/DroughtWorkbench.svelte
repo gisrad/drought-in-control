@@ -312,8 +312,11 @@
     if (qKode && dataset?.regions[qKode]) selectedKode = qKode;
     const qIdx = qs.get('idx');
     if (qIdx === 'spi3' || qIdx === 'ssma' || qIdx === 'vhi' || qIdx === 'pdlvi') activeIndex = qIdx;
-    const qMonth = Number(qs.get('m'));
-    if (Number.isInteger(qMonth) && dataset && qMonth >= 0 && qMonth < dataset.months.length) monthIdx = qMonth;
+    const rawM = qs.get('m');
+    if (rawM !== null && rawM !== '') {
+      const qMonth = Number(rawM);
+      if (Number.isInteger(qMonth) && dataset && qMonth >= 0 && qMonth < dataset.months.length) monthIdx = qMonth;
+    }
 
     if (dataset && !dataset.regions[selectedKode]) selectedKode = '3312';
 
