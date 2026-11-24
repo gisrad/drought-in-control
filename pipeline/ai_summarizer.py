@@ -81,7 +81,7 @@ def build_grounded_brief(region_payload: dict[str, Any], dry_run: bool = True) -
                 f"(tanpa menambah angka lain): periode={ym}, bps={kode}, lereng={slope}, status={status}, "
                 f"PDLVI={pdlvi}, VHI={vhi}, SSMA={ssma}, SPI3={spi3}, wilayah={nama}."
             )
-            resp = client.models.generate_content(model="gemini-2.5-flash", contents=prompt)
+            resp = client.models.generate_content(model="gemini-3.8-flash", contents=prompt)
             candidate = (resp.text or "").strip()
             ok, _ = validate_brief_numbers(candidate, allowed)
             if ok and candidate:

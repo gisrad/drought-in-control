@@ -525,6 +525,7 @@
           <a href="/kekeringan/" class={!isWilayahMode ? 'on' : ''}>{tUi.drought}</a>
           <a href="/wilayah/" class={isWilayahMode ? 'on' : ''}>{tUi.regions}</a>
           <a href="/metode/">{tUi.methods}</a>
+          <a href="/data/">Data</a>
           <a href="/lobby/">{tUi.lobby}</a>
         </nav>
 

@@ -51,11 +51,11 @@ Standard drought monitors often stop at meteorological rainfall deficits and mis
 
 ### Key Features
 
-- **All 514 Indonesian Regencies & Cities**: Topology-preserved COD-AB / BPS administrative boundaries spanning 38 provinces, with focused baseline calibration in Central Java & D.I. Yogyakarta.
+- **All 514 Indonesian Regencies & Cities (BMKG 3 Climate Zones)**: Topology-preserved COD-AB / BPS administrative boundaries spanning 38 provinces with zone-calibrated thresholds across **Monsunal**, **Ekuatorial**, and **Lokal** rainfall regimes (Aldrian & Susanto, 2003), interactive zone filtering (`?zone=`), and national zone aggregates.
+- **Propagation Lag-AI & AR(1) 3-Month Probabilistic Forecast**: Computes empirical Pearson cross-correlation lags (`SPI-3 → SSMA → VHI → PDLVI`), recursive autoregressive `T+1..T+3` forecasts with 90% confidence intervals, and calibrated `P(AWAS)` exceedance probability.
+- **Zero-Hallucination Grounded AI Policy Copilot**: Edge synthesis endpoint (`POST /api/v1/ai/brief`) powered by Gemini 3.8 Flash and guarded by an automated numeric validator that rejects fabricated figures and falls back cleanly to verified outputs.
 - **60 fps GPU Choropleth & 36-Month Scrubber**: Switch instantaneously across `SPI-3`, `SSMA`, `VHI`, and `PDLVI` or animate 36 monthly frames smoothly without re-uploading vector geometry.
-- **Rapid Search, Hover Telemetry & Regional Ranking**: Instant search across 514 regencies by BPS code, name, or province with automated map fly-to, viewport presets (`Jateng & DIY`, `Jawa`, `Indonesia (514)`), Top 10 national hotspot ranking, and province-level aggregation.
-- **Publication-Ready Exports & QGIS Compatibility**: Download clean `.csv`, `.json`, **QGIS-ready `.geojson`**, Markdown summaries, or print crisp PDF Policy Briefs formatted with **APA 7th Edition** citations.
-- **Stateful Sharing & Multilingual UI**: Copy stateful map permalinks, embeddable snippets, and switch live across Indonesian (`ID`), English (`EN`), Japanese (`JA`), and Chinese (`ZH`).
+- **Publication-Ready Exports, D1 Shortlinks & QGIS Compatibility**: Download clean `.csv`, `.json`, **QGIS-ready `.geojson`**, Markdown briefs, or print PDF Policy Briefs formatted with **APA 7th Edition** citations (including Aldrian & Susanto, 2003), and share compact D1 shortlinks (`/s/[slug]`).
 - **Agronomy Cross-Link (`Panen-ID`)**: Jump directly from drought-monitored regions into field-scale seasonal yield & soil replay analysis via [`/ulang/`](https://agri.transbulent.id/ulang/bompon-magelang/mt2-2025/).
 
 ### Scientific Indicators & Pipeline Architecture
@@ -109,11 +109,12 @@ Pemantauan kekeringan konvensional umumnya hanya melihat defisit hujan dan melew
 
 ### Fitur Utama
 
-- **514 Kabupaten/Kota Se-Indonesia**: Batas administratif riil berkode BPS 4-digit lintas 38 provinsi (sumber COD-AB/BPS) dengan kalibrasi awal di Jawa Tengah & D.I. Yogyakarta.
+- **514 Kabupaten/Kota Se-Indonesia (3 Zona Iklim BMKG)**: Batas administratif riil berkode BPS 4-digit lintas 38 provinsi dengan kalibrasi ambang khusus untuk pola hujan **Monsunal**, **Ekuatorial**, dan **Lokal** (Aldrian & Susanto, 2003), filter zona interaktif (`?zone=`), serta ringkasan agregat nasional di [`/wilayah/`](https://agri.transbulent.id/wilayah/).
+- **AI Propagasi Lag & Prakiraan Probabilistik AR(1) 3 Bulan**: Menghitung jeda korelasi silang Pearson (`SPI-3 → SSMA → VHI → PDLVI`), prakiraan rekursif `T+1..T+3` lengkap dengan selang kepercayaan 90%, dan probabilitas status **`P(AWAS)`**.
+- **Copilot Kebijakan AI Anti-Halusinasi**: Endpoint sintesis tepi (`POST /api/v1/ai/brief`) bertenaga Gemini 3.8 Flash yang dijaga validator numerik otomatis—menolak angka fabrikasi dan beralih mulus ke keluaran deterministik terverifikasi.
 - **Peta Choropleth 60 fps & Scrubber 36 Bulan**: Berpindah instan antara `SPI-3`, `SSMA`, `VHI`, dan `PDLVI` beserta animasi bulanan tanpa jeda.
-- **Pencarian Cepat & Peringkat Hotspot Nasional**: Pencarian lintas 514 kabupaten/kota (*fly-to* otomatis), pratinjau hover real-time, pilihan tampilan wilayah (`Jateng & DIY`, `Jawa`, `Indonesia (514)`), daftar **10 Hotspot PDLVI Tertinggi**, serta ringkasan per provinsi di halaman [`/wilayah/`](https://agri.transbulent.id/wilayah/).
-- **Ekspor Riset & Siap QGIS**: Unduh `.csv`, `.json`, **`.geojson` siap QGIS**, ringkasan `.md`, serta cetak PDF Policy Brief rapi (`@media print`) lengkap dengan sitasi **APA Edisi ke-7**.
-- **Berbagi Tautan & Antarmuka 4 Bahasa**: Permalink berkeadaan, dukungan embed, dan pengalih bahasa instan (`ID | EN | JA | ZH`).
+- **Ekspor Riset, Tautan Singkat D1 & Siap QGIS**: Unduh `.csv`, `.json`, **`.geojson` siap QGIS**, ringkasan `.md`, cetak PDF Policy Brief rapi (`@media print`) dengan sitasi **APA Edisi ke-7** (+ Aldrian & Susanto, 2003), serta salin tautan singkat D1 (`/s/[slug]`).
+- **Antarmuka 4 Bahasa**: Pengalih bahasa instan (`ID | EN | JA | ZH`) dengan pencarian cepat 514 kabupaten/kota (*fly-to* otomatis).
 
 ### Keamanan & Integritas Data
 
