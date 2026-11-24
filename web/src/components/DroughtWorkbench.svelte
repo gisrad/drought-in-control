@@ -28,6 +28,39 @@
   let isWilayahMode = false;
   let copyNotice = '';
   let viewportPreset: 'jateng' | 'jawa' | 'indonesia' = 'jateng';
+  let dataSourceLabel = 'R2 / LOKAL';
+  type Locale = 'id' | 'en' | 'ja' | 'zh';
+  let locale: Locale = 'id';
+
+  const UI_I18N: Record<Locale, Record<string, string>> = {
+    id: {
+      home: 'Beranda', replay: 'Musim Ulang', drought: 'Kekeringan', regions: 'Wilayah', methods: 'Metode', lobby: 'Lobby',
+      pickIndex: 'PILIH INDEKS KEKERINGAN', play: 'Putar 36 Bln', pause: 'Jeda', close: 'Tutup',
+      summaryTitle: 'RINGKASAN ANALISIS WILAYAH', light: 'Putih', dark: 'Malam',
+    },
+    en: {
+      home: 'Home', replay: 'Season Replay', drought: 'Drought', regions: 'Regions', methods: 'Methods', lobby: 'Lobby',
+      pickIndex: 'SELECT DROUGHT INDEX', play: 'Play 36 Mo', pause: 'Pause', close: 'Close',
+      summaryTitle: 'REGIONAL ANALYSIS SUMMARY', light: 'Light', dark: 'Dark',
+    },
+    ja: {
+      home: 'ホーム', replay: 'リプレイ', drought: '干ばつ', regions: '地域別', methods: '手法', lobby: 'ロビー',
+      pickIndex: '干ばつ指標を選択', play: '36ヶ月再生', pause: '一時停止', close: '閉じる',
+      summaryTitle: '地域分析サマリー', light: 'ライト', dark: 'ダーク',
+    },
+    zh: {
+      home: '首页', replay: '生长季回放', drought: '干旱', regions: '县域概况', methods: '方法', lobby: '大厅',
+      pickIndex: '选择干旱指数', play: '播放36个月', pause: '暂停', close: '关闭',
+      summaryTitle: '区域分析摘要', light: '浅色', dark: '深色',
+    },
+  };
+  $: tUi = UI_I18N[locale];
+
+  function setLocale(next: Locale) {
+    locale = next;
+    document.documentElement.lang = next;
+    window.localStorage.setItem('agri_locale', next);
+  }
 
   function setViewport(mode: 'jateng' | 'jawa' | 'indonesia') {
     viewportPreset = mode;
@@ -228,14 +261,26 @@
       document.documentElement.setAttribute('data-theme', theme);
     }
 
+    const savedLocale = window.localStorage.getItem('agri_locale');
+    if (savedLocale === 'id' || savedLocale === 'en' || savedLocale === 'ja' || savedLocale === 'zh') {
+      locale = savedLocale;
+    }
+
     const parts = window.location.pathname.replace(/\/+$/, '').split('/');
     const lastSeg = (parts[parts.length - 1] || '').toLowerCase();
     if (/^\d{4}$/.test(lastSeg)) selectedKode = lastSeg;
 
-    const [gjRes, tsRes] = await Promise.all([
-      fetch('/kekeringan/mock-data/jateng-regions.geojson'),
-      fetch('/kekeringan/mock-data/jateng-drought-36m.json'),
-    ]);
+    let gjRes = await fetch('/api/v1/r2/v1/drought/idn/regions-514.geojson');
+    let tsRes = await fetch('/api/v1/r2/v1/drought/idn/drought-36m-514.json');
+    if (gjRes.ok && tsRes.ok) {
+      dataSourceLabel = 'R2 EDGE';
+    } else {
+      [gjRes, tsRes] = await Promise.all([
+        fetch('/kekeringan/mock-data/jateng-regions.geojson'),
+        fetch('/kekeringan/mock-data/jateng-drought-36m.json'),
+      ]);
+      dataSourceLabel = 'ASET LOKAL';
+    }
     geojson = await gjRes.json();
     dataset = await tsRes.json();
     monthIdx = (dataset?.months.length || 36) - 1;
@@ -335,16 +380,16 @@
         </a>
 
         <nav class="hnav" aria-label="Navigasi">
-          <a href="/">Beranda</a>
-          <a href="/ulang/bompon-magelang/mt2-2025/">Musim Ulang</a>
-          <a href="/kekeringan/" class={!isWilayahMode ? 'on' : ''}>Kekeringan</a>
-          <a href="/wilayah/" class={isWilayahMode ? 'on' : ''}>Wilayah</a>
-          <a href="/metode/">Metode</a>
-          <a href="/lobby/">Lobby</a>
+          <a href="/">{tUi.home}</a>
+          <a href="/ulang/bompon-magelang/mt2-2025/">{tUi.replay}</a>
+          <a href="/kekeringan/" class={!isWilayahMode ? 'on' : ''}>{tUi.drought}</a>
+          <a href="/wilayah/" class={isWilayahMode ? 'on' : ''}>{tUi.regions}</a>
+          <a href="/metode/">{tUi.methods}</a>
+          <a href="/lobby/">{tUi.lobby}</a>
         </nav>
 
-        <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
-          <span class="pill-badge pill-sim">SHP COD-AB · 514 KAB/KOTA</span>
+        <div style="display: flex; align-items: center; gap: 8px; margin-left: auto; flex-wrap: wrap;">
+          <span class="pill-badge pill-sim">SHP COD-AB · 514 · {dataSourceLabel}</span>
           {#if authenticated}
             <span class="live-badge"><span class="live-dot"></span><span>{userEmail}</span></span>
           {:else}
@@ -354,8 +399,20 @@
               <b>{formatMmSs(remainingSec)}</b>
             </a>
           {/if}
+          <select
+            aria-label="Bahasa"
+            value={locale}
+            on:change={(e) => setLocale((e.currentTarget as HTMLSelectElement).value as Locale)}
+            class="btn-subtle"
+            style="padding: 5px 6px;"
+          >
+            <option value="id">ID</option>
+            <option value="en">EN</option>
+            <option value="ja">JA</option>
+            <option value="zh">ZH</option>
+          </select>
           <button type="button" class="btn-subtle" on:click={toggleTheme}>
-            {theme === 'kertas' ? 'Malam' : 'Putih'}
+            {theme === 'kertas' ? tUi.dark : tUi.light}
           </button>
         </div>
       </div>
@@ -381,7 +438,7 @@
       <!-- Floating Layer Switcher -->
       <aside style="position: absolute; top: 14px; left: 14px; z-index: 10; background: var(--dock-bg); border: 1.5px solid var(--border-ink); padding: 12px; width: min(330px, calc(100vw - 28px));">
         <div class="num" style="font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px;">
-          PILIH INDEKS KEKERINGAN
+          {tUi.pickIndex}
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
           {#each (['spi3', 'ssma', 'vhi', 'pdlvi'] as DroughtIndexKey[]) as k}
@@ -415,7 +472,7 @@
       <section style="position: absolute; bottom: 16px; left: 14px; right: 56px; max-width: 720px; z-index: 10; background: var(--dock-bg); border: 1.5px solid var(--border-ink); padding: 12px 14px;">
         <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
           <button type="button" class="btn-primary" style="padding: 7px 12px;" on:click={togglePlay}>
-            {playing ? 'Jeda' : 'Putar 36 Bln'}
+            {playing ? tUi.pause : tUi.play}
           </button>
           <input
             type="range"
@@ -447,7 +504,7 @@
             </div>
             <h1 style="margin: 3px 0 0; font-size: 1.3rem; font-weight: 600;">{selectedRegion.nama}</h1>
           </div>
-          <button type="button" class="btn-subtle" on:click={() => (drawerOpen = false)}>Tutup</button>
+          <button type="button" class="btn-subtle" on:click={() => (drawerOpen = false)}>{tUi.close}</button>
         </div>
 
         <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
@@ -493,7 +550,7 @@
 
         <!-- Executive Brief -->
         <div style="border-top: 1px solid var(--border); padding-top: 10px;">
-          <div class="num" style="font-size: 10px; color: var(--ink-muted); margin-bottom: 5px;">RINGKASAN ANALISIS WILAYAH</div>
+          <div class="num" style="font-size: 10px; color: var(--ink-muted); margin-bottom: 5px;">{tUi.summaryTitle}</div>
           <p style="margin: 0; font-size: 0.88rem; color: var(--ink-secondary);">{selectedRegion.executive_brief_id}</p>
         </div>
 

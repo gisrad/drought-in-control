@@ -11,3 +11,8 @@
 
 - Skrip `scripts/build_idn_admin_geojson.py` mengekstrak seluruh `514` kabupaten/kota riil dari `idn_admin_boundaries.gdb.zip` (`idn_admin2`, `EPSG:4326`) dengan simplifikasi topologi (`0.0018` Jateng/DIY, `0.006` provinsi lain; Magelang `147` simpul, Wonogiri `240` simpul, Purworejo `125` simpul). Ukuran `jateng-regions.geojson = 495.4 KB` gzip, `jateng-drought-36m.json = 186.8 KB` gzip.
 - `DroughtWorkbench.DIMGAjiO.js = 327.41 kB` gzip (<= 350 kB); `drought-in-control-worker` Version `00be0507-ea24-4aff-9516-79dd41abc20a` live di `https://agri.transbulent.id/kekeringan/` dan `/wilayah/`.
+
+## Update R2-First Live 514 Kab/Kota & i18n 4 Bahasa (2026-11-24)
+
+- `DroughtWorkbench.svelte` kini memuat dataset `514` kabupaten/kota secara R2-first (`/api/v1/r2/v1/drought/idn/regions-514.geojson` & `drought-36m-514.json`, lencana `R2 EDGE`) dengan fallback otomatis ke aset statis lokal, serta dilengkapi pemilih bahasa sinkron `ID | EN | JA | ZH`.
+- Build `DroughtWorkbench.DT4RUbvs.js` = `328.56 kB` gzip; `drought-in-control-worker` Version `9a7de95d-0466-4e17-9bca-c20ff0cfefc0` aktif & terverifikasi live `200`.
