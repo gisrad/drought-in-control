@@ -1,9 +1,11 @@
 import type { DroughtRegionTimeseries } from '../types/drought';
 import { statusLabelId } from './colorScales';
+import { CLIMATE_ZONE_META, getClimateZone } from './climateZones';
 
 export function buildApaCitations(year = 2026): string[] {
   return [
-    `Transbulent Research Group. (${year}). Drought in Control — Soil-Landscape Drought & Post-Drought Land Vulnerability Index (PDLVI) Jawa Tengah. Agri Transbulent. https://agri.transbulent.id/kekeringan/`,
+    `Transbulent Research Group. (${year}). Drought in Control — Soil-Landscape Drought & Post-Drought Land Vulnerability Index (PDLVI) Indonesia. Agri Transbulent. https://agri.transbulent.id/kekeringan/`,
+    'Aldrian, E., & Susanto, R. D. (2003). Identification of three dominant rainfall regions within Indonesia and their relationship to sea surface temperature. International Journal of Climatology, 23(12), 1435–1452.',
     'Funk, C., Peterson, P., Landsfeld, M., Pedreros, D., Verdin, J., Shukla, S., Husak, G., Rowland, J., Harrison, L., Hoell, A., & Michaelsen, J. (2015). The climate hazards infrared precipitation with stations—a new environmental record for monitoring extremes. Scientific Data, 2, 150066.',
     'Kogan, F. N. (1995). Application of vegetation index and brightness temperature for drought detection. Advances in Space Research, 15(11), 91–100.',
     'McKee, T. B., Doesken, N. J., & Kleist, J. (1993). The relationship of drought frequency and duration to time scales. Proceedings of the 8th Conference on Applied Climatology, 179–184.',
@@ -12,9 +14,11 @@ export function buildApaCitations(year = 2026): string[] {
 }
 
 export function regionSeriesToCsv(region: DroughtRegionTimeseries, isSimulated: boolean): string {
+  const zoneMeta = CLIMATE_ZONE_META[getClimateZone(region.kode_bps)];
   const header = [
     '# sumber=agri.transbulent.id/kekeringan',
     `# wilayah=${region.nama} (BPS ${region.kode_bps}, ${region.provinsi}, DAS ${region.das})`,
+    `# zona_iklim_bmkg=${zoneMeta.label} (SPI-3 AWAS <= ${zoneMeta.spiAwas}, PDLVI >= ${zoneMeta.pdlviAwas})`,
     `# status_data=${isSimulated ? 'SIMULASI' : 'OBSERVASI'}`,
     'ym,spi3,ssma,vhi,pdlvi,status',
   ];
@@ -30,11 +34,13 @@ export function buildPolicyBriefMarkdown(
   const idx = region.series.findIndex((p) => p.ym === activeYm);
   const pt = idx >= 0 ? region.series[idx] : region.series[region.series.length - 1];
   const citations = buildApaCitations().map((c, i) => `${i + 1}. ${c}`).join('\n');
+  const zoneMeta = CLIMATE_ZONE_META[getClimateZone(region.kode_bps)];
 
   return [
     `# Policy Brief Kekeringan & Kerentanan Lahan — ${region.nama}`,
     '',
     `- **Kode BPS / Wilayah:** ${region.kode_bps} · ${region.provinsi} (DAS ${region.das})`,
+    `- **Zona Iklim BMKG:** ${zoneMeta.label} (Ambang AWAS: SPI-3 ≤ ${zoneMeta.spiAwas}, PDLVI ≥ ${zoneMeta.pdlviAwas})`,
     `- **Sentroid:** ${region.centroid[1].toFixed(3)} LS, ${region.centroid[0].toFixed(3)} BT · Lereng rata-rata: ${region.mean_slope_deg}°`,
     `- **Bulan Evaluasi:** ${pt.ym} · **Status:** ${statusLabelId(pt.status)}`,
     `- **Status Dataset:** ${isSimulated ? 'SIMULASI (Mock Realistis D1–D3)' : 'Data Satelit Terverifikasi'}`,
