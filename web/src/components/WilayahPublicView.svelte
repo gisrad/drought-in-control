@@ -22,6 +22,54 @@
     }, new Map<string, DroughtRegionTimeseries[]>()),
   ).sort((a, b) => a[0].localeCompare(b[0]));
 
+  $: nationalStats = (() => {
+    const n = regionList.length;
+    let severe = 0;
+    let alert = 0;
+    let sumPdlvi = 0;
+    const ranked = regionList
+      .map((r) => {
+        const pt = r.series[r.series.length - 1];
+        if (!pt) return null;
+        sumPdlvi += pt.pdlvi;
+        if (pt.status === 'parah' || pt.status === 'ekstrem') severe++;
+        else if (pt.status === 'moderat' || pt.status === 'waspada') alert++;
+        return { kode_bps: r.kode_bps, nama: r.nama, provinsi: r.provinsi, pdlvi: pt.pdlvi, spi3: pt.spi3, status: pt.status };
+      })
+      .filter((x): x is NonNullable<typeof x> => x !== null);
+    ranked.sort((a, b) => b.pdlvi - a.pdlvi);
+    const provs = regionGroups.map(([prov, items]) => {
+      let s = 0;
+      let worst = items[0];
+      let worstVal = -1;
+      for (const it of items) {
+        const p = it.series[it.series.length - 1]?.pdlvi ?? 0;
+        s += p;
+        if (p > worstVal) {
+          worstVal = p;
+          worst = it;
+        }
+      }
+      return {
+        provinsi: prov,
+        count: items.length,
+        meanPdlvi: items.length ? Number((s / items.length).toFixed(2)) : 0,
+        worstNama: worst?.nama || '-',
+        worstKode: worst?.kode_bps || '3312',
+        worstPdlvi: worstVal,
+      };
+    });
+    provs.sort((a, b) => b.meanPdlvi - a.meanPdlvi);
+    return {
+      total: n,
+      severe,
+      alert,
+      meanPdlvi: n ? Number((sumPdlvi / n).toFixed(2)) : 0,
+      topHotspots: ranked.slice(0, 10),
+      provinces: provs,
+    };
+  })();
+
   function downloadGeoJson() {
     const feat = geojson?.features.find((f) => String(f.properties?.kode_bps) === region.kode_bps);
     const fc = {
@@ -145,6 +193,71 @@
         Brief (.md)
       </button>
       <button type="button" class="btn-subtle" on:click={() => window.print()}>Cetak PDF (APA 7)</button>
+    </div>
+  </div>
+
+  <!-- Agregasi Nasional 514 Kab/Kota & Top 10 Hotspot -->
+  <div style="border: 1px solid var(--border); padding: 18px; background: var(--bg); display: grid; gap: 16px;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+      <div class="num" style="font-size: 11px; font-weight: 600;">
+        RINGKASAN NASIONAL ({nationalStats.total} KABUPATEN/KOTA) · TOP 10 HOTSPOT PDLVI
+      </div>
+      <span class="num" style="font-size: 10.5px; color: var(--ink-muted);">Klik baris untuk pindah inspeksi</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border);">
+      <div style="background: var(--bg); padding: 10px;">
+        <div class="num" style="font-size: 10px; color: var(--ink-muted);">TOTAL WILAYAH</div>
+        <div class="num" style="font-size: 1.35rem; font-weight: 600;">{nationalStats.total}</div>
+      </div>
+      <div style="background: var(--bg); padding: 10px;">
+        <div class="num" style="font-size: 10px; color: var(--ink-muted);">PARAH / EKSTREM</div>
+        <div class="num" style="font-size: 1.35rem; font-weight: 600; color: #B83B14;">{nationalStats.severe}</div>
+      </div>
+      <div style="background: var(--bg); padding: 10px;">
+        <div class="num" style="font-size: 10px; color: var(--ink-muted);">WASPADA / MODERAT</div>
+        <div class="num" style="font-size: 1.35rem; font-weight: 600;">{nationalStats.alert}</div>
+      </div>
+      <div style="background: var(--bg); padding: 10px;">
+        <div class="num" style="font-size: 10px; color: var(--ink-muted);">RATA-RATA PDLVI NASIONAL</div>
+        <div class="num" style="font-size: 1.35rem; font-weight: 600;">{nationalStats.meanPdlvi}</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px;">
+      <div style="border: 1px solid var(--border); overflow-x: auto;">
+        <div class="num" style="padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 10.5px; background: var(--surface);">
+          10 KAB/KOTA PDLVI TERTINGGI ({activeYm})
+        </div>
+        <table style="width: 100%; border-collapse: collapse; font-size: 11.5px;">
+          <tbody>
+            {#each nationalStats.topHotspots as h, idx}
+              <tr style="border-bottom: 1px solid var(--border); cursor: pointer;" on:click={() => onSelectRegion(h.kode_bps)}>
+                <td class="num" style="padding: 6px 8px; color: var(--ink-muted);">{idx + 1}</td>
+                <td style="padding: 6px 8px;"><strong>{h.nama}</strong> · <span style="color: var(--ink-muted);">{h.provinsi}</span></td>
+                <td class="num" style="padding: 6px 8px; text-align: right; font-weight: 600;">{h.pdlvi}</td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
+
+      <div style="border: 1px solid var(--border); max-height: 310px; overflow-y: auto;">
+        <div class="num" style="padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 10.5px; background: var(--surface);">
+          AGREGAT PER PROVINSI (38 PROVINSI / WILAYAH)
+        </div>
+        <table style="width: 100%; border-collapse: collapse; font-size: 11.5px;">
+          <tbody>
+            {#each nationalStats.provinces as p}
+              <tr style="border-bottom: 1px solid var(--border); cursor: pointer;" on:click={() => onSelectRegion(p.worstKode)}>
+                <td style="padding: 6px 8px;"><strong>{p.provinsi}</strong> <span class="num" style="color: var(--ink-muted);">({p.count})</span></td>
+                <td class="num" style="padding: 6px 8px; color: var(--ink-muted);">Puncak: {p.worstNama}</td>
+                <td class="num" style="padding: 6px 8px; text-align: right;">{p.meanPdlvi}</td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>

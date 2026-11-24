@@ -1,7 +1,7 @@
 # Handoff Sesi — Drought in Control (`gisrad/drought-in-control`)
 
 - **Tanggal terakhir**: `2026-11-24`
-- **Fase aktif**: `v1.0 (514 Kab/Kota SHP COD-AB + R2 Edge + Pencarian & Hover Tooltip) — SELESAI & LIVE`
+- **Fase aktif**: `v1.1 (Hotspot Ranking Nasional 514 Kab/Kota & Agregasi Provinsi di /wilayah/) — SELESAI & LIVE`
 - **Langkah terakhir selesai**:
-  - Menambahkan kotak pencarian cepat lintas 514 kabupaten/kota + *fly-to* otomatis dan panel hover kursor real-time di `DroughtWorkbench.svelte`.
-  - Deploy `drought-in-control-worker` (`c8885579-9c25-473d-aa5b-3597b205e9b5`) dan verifikasi live HTTPS `200`.
+  - Menambahkan KPI agregat nasional 514 kab/kota, daftar klik 10 hotspot PDLVI tertinggi, dan tabel ringkasan per provinsi di `WilayahPublicView.svelte`.
+  - Deploy `drought-in-control-worker` (`b22ba3c5-f6c2-487b-a18f-ebfd532cb82f`) dan memverifikasi live `/wilayah/` & `/kekeringan/` `200 OK`.

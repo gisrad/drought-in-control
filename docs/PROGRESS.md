@@ -20,3 +20,7 @@
 ## Update v1.0 — Pencarian Cepat 514 Kab/Kota & Hover Tooltip (2026-11-24)
 
 - `DroughtWorkbench.svelte` dilengkapi kotak pencarian cepat 514 kabupaten/kota (`nama` / `provinsi` / `kode_bps` + *fly-to* otomatis) dan readout hover real-time saat kursor melintasi poligon SHP. Build `DroughtWorkbench.xALh-Uwq.js` = `329.28 kB` gzip; `drought-in-control-worker` Version `c8885579-9c25-473d-aa5b-3597b205e9b5`.
+
+## Update v1.1 — Peringkat Hotspot PDLVI Nasional & Agregat Provinsi (2026-11-24)
+
+- `WilayahPublicView.svelte` kini menghitung ringkasan nasional real-time di seluruh `514` kabupaten/kota, tabel **10 Hotspot PDLVI Tertinggi** yang dapat diklik, serta tabel **Agregat Per Provinsi** (`DroughtWorkbench.BY0Nbhwa.js` = `330.43 kB` gzip; `drought-in-control-worker` Version `b22ba3c5-f6c2-487b-a18f-ebfd532cb82f`).
