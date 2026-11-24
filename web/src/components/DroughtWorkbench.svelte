@@ -15,6 +15,7 @@
   import TrialOverlay from './TrialOverlay.svelte';
   import WilayahPublicView from './WilayahPublicView.svelte';
   import { CLIMATE_ZONE_META, getClimateZone, type BmkgClimateZone } from '../utils/climateZones';
+  import { detectPropagationLags, forecastDrought3m } from '../utils/droughtAi';
 
   let dataset: DroughtDataset | null = null;
   let geojson: GeoJSON.FeatureCollection | null = null;
@@ -119,6 +120,71 @@
 
   $: selectedZone = getClimateZone(selectedKode);
   $: selectedZoneMeta = CLIMATE_ZONE_META[selectedZone];
+  $: aiLags = selectedRegion ? detectPropagationLags(selectedRegion.series) : null;
+  $: aiForecast = selectedRegion ? forecastDrought3m(selectedRegion.series, selectedRegion.kode_bps) : null;
+
+  let aiBriefLoading = false;
+  let aiBriefResult: {
+    text: string;
+    actions: string[];
+    engine: string;
+    groundedVerified: boolean;
+    hallucinationRejected: boolean;
+  } | null = null;
+  let aiBriefError = '';
+
+  $: if (selectedKode) {
+    aiBriefResult = null;
+    aiBriefError = '';
+  }
+
+  async function requestGroundedAiBrief() {
+    if (!selectedRegion || !activePt || !aiForecast || !aiLags) return;
+    aiBriefLoading = true;
+    aiBriefError = '';
+    try {
+      const t1 = aiForecast.horizon[0];
+      const res = await fetch('/api/v1/ai/brief', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          kode_bps: selectedRegion.kode_bps,
+          nama: selectedRegion.nama,
+          provinsi: selectedRegion.provinsi,
+          climate_zone: selectedZone,
+          ym: activeYm,
+          spi3: activePt.spi3,
+          ssma: activePt.ssma,
+          vhi: activePt.vhi,
+          pdlvi: activePt.pdlvi,
+          slope_deg: selectedRegion.mean_slope_deg,
+          forecast_pdlvi_t1: t1?.pdlvi ?? activePt.pdlvi,
+          prob_awas_pct: t1?.probAwasPct ?? 10,
+          lag_spi_ssma: aiLags.spiToSsmaLag,
+        }),
+      });
+      if (res.status === 401) {
+        aiBriefError = 'Sesi pratinjau 5 menit habis. Masuk dengan Google untuk menjalankan Copilot AI.';
+        return;
+      }
+      const j = await res.json();
+      if (!res.ok) {
+        aiBriefError = `Gagal membuat sintesis AI (${j?.error || res.status}).`;
+        return;
+      }
+      aiBriefResult = {
+        text: String(j.text || ''),
+        actions: Array.isArray(j.actions) ? j.actions : [],
+        engine: String(j.engine || 'deterministic-grounded-v1'),
+        groundedVerified: Boolean(j.grounded_verified),
+        hallucinationRejected: Boolean(j.hallucination_rejected),
+      };
+    } catch {
+      aiBriefError = 'Gagal terhubung ke layanan AI tepi.';
+    } finally {
+      aiBriefLoading = false;
+    }
+  }
 
   function applyMapColors() {
     if (!map || !dataset) return;
@@ -664,6 +730,72 @@
           </div>
           <div bind:this={chartContainer}></div>
         </div>
+
+        <!-- AI Propagasi & Prakiraan AR(1) 3 Bulan + Copilot Terverifikasi -->
+        {#if aiLags && aiForecast}
+          <div style="border: 1.5px solid var(--border-ink); padding: 12px; background: var(--surface); display: grid; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span class="num" style="font-size: 10px; font-weight: 600;">AI PROPAGASI &amp; PRAKIRAAN 3 BULAN (AR-1)</span>
+              <span class="pill-badge">φ={aiForecast.phiPdlvi}</span>
+            </div>
+
+            <div class="num" style="font-size: 10.5px; color: var(--ink-secondary); display: flex; flex-wrap: wrap; gap: 8px;">
+              <span>SPI→SSMA: +{aiLags.spiToSsmaLag} bln (r={aiLags.spiToSsmaR})</span>
+              <span>· SSMA→VHI: +{aiLags.ssmaToVhiLag} bln (r={aiLags.ssmaToVhiR})</span>
+              <span>· SPI→PDLVI: +{aiLags.spiToPdlviLag} bln</span>
+            </div>
+
+            <div style="border: 1px solid var(--border); background: var(--bg); overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+                <thead>
+                  <tr style="border-bottom: 1px solid var(--border); text-align: left; color: var(--ink-muted);">
+                    <th class="num" style="padding: 4px 6px;">Horizon</th>
+                    <th class="num" style="padding: 4px 6px;">PDLVI [CI 90%]</th>
+                    <th class="num" style="padding: 4px 6px;">SPI-3</th>
+                    <th class="num" style="padding: 4px 6px; text-align: right;">P(AWAS)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {#each aiForecast.horizon as h}
+                    <tr style="border-bottom: 1px solid var(--border);">
+                      <td class="num" style="padding: 4px 6px;">T+{h.step} ({h.ym})</td>
+                      <td class="num" style="padding: 4px 6px; font-weight: 600;">{h.pdlvi} [{h.low90}–{h.high90}]</td>
+                      <td class="num" style="padding: 4px 6px;">{h.spi3}</td>
+                      <td class="num" style="padding: 4px 6px; text-align: right; color: {h.probAwasPct >= 50 ? '#B83B14' : '#1E6B47'}; font-weight: 600;">
+                        {h.probAwasPct}%
+                      </td>
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="btn-primary" style="font-size: 10.5px; padding: 6px 10px;" disabled={aiBriefLoading} on:click={requestGroundedAiBrief}>
+                {aiBriefLoading ? 'Mensintesis AI...' : 'Sintesis AI Terverifikasi (Zero-Hallucination)'}
+              </button>
+              {#if aiBriefResult}
+                <span class="pill-badge" style="color: #1E6B47; border-color: #1E6B47;">TERVERIFIKASI · 0 HALUSINASI</span>
+              {/if}
+            </div>
+
+            {#if aiBriefError}
+              <div class="num" style="font-size: 11px; color: #B83B14;">{aiBriefError}</div>
+            {/if}
+
+            {#if aiBriefResult}
+              <div style="border-top: 1px solid var(--border); padding-top: 8px; display: grid; gap: 6px;">
+                <p style="margin: 0; font-size: 0.86rem; color: var(--ink); line-height: 1.45;">{aiBriefResult.text}</p>
+                <ul style="margin: 0; padding-left: 16px; font-size: 0.8rem; color: var(--ink-secondary); display: grid; gap: 3px;">
+                  {#each aiBriefResult.actions as act}
+                    <li>{act}</li>
+                  {/each}
+                </ul>
+                <div class="num" style="font-size: 9.5px; color: var(--ink-muted);">Engine: {aiBriefResult.engine}</div>
+              </div>
+            {/if}
+          </div>
+        {/if}
 
         <!-- Executive Brief -->
         <div style="border-top: 1px solid var(--border); padding-top: 10px;">

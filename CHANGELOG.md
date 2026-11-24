@@ -1,5 +1,11 @@
 # Changelog — Drought in Control (`gisrad/drought-in-control`)
 
+## [2.0.0] - 2026-11-24
+
+### Added
+- **Propagation Lag-AI & AR(1) 3-Month Forecast (`droughtAi.ts`)**: Automated cross-correlation lag detection (`SPI-3 → SSMA → VHI → PDLVI`), autoregressive 1-step-ahead recursive 3-month projections with 90% confidence intervals, and BMKG-zone calibrated `P(AWAS)` exceedance probability.
+- **Grounded AI Policy Copilot (`POST /api/v1/ai/brief`)**: Edge policy synthesis backed by numeric anti-hallucination verification (`validateGroundedNumbers`) and 3 zone-tailored adaptation recommendations.
+
 ## [1.4.0] - 2026-11-24
 
 ### Added
