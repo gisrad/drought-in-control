@@ -9,7 +9,8 @@ from ai_summarizer import build_grounded_brief
 from config import REGIONS
 from gee_extractor import fetch_region_climate_series, generate_months
 from indices import (
-    classify_drought_status,
+    classify_bmkg_climate_zone,
+    classify_drought_status_by_zone,
     compute_pdlvi,
     compute_spi3_series,
     compute_ssma,
@@ -31,6 +32,7 @@ def run(months_count: int = 36, dry_run: bool = False, out_dir: Path | None = No
     for reg in REGIONS:
         kode = reg["kode_bps"]
         slope = float(reg["mean_slope_deg"])
+        climate_zone = classify_bmkg_climate_zone(kode)
         climate = raw[kode]
         spi3_list = compute_spi3_series(climate["rain_mm"])
 
@@ -48,7 +50,7 @@ def run(months_count: int = 36, dry_run: bool = False, out_dir: Path | None = No
             ssma = compute_ssma(sm_arr[idx], sm_arr)
             spi3 = spi3_list[idx]
             pdlvi = compute_pdlvi(vhi, ssma, spi3, slope)
-            status = classify_drought_status(pdlvi, vhi, spi3)
+            status = classify_drought_status_by_zone(pdlvi, vhi, spi3, climate_zone)
             series.append(
                 {
                     "ym": ym,
@@ -62,6 +64,7 @@ def run(months_count: int = 36, dry_run: bool = False, out_dir: Path | None = No
 
         reg_payload = {
             **reg,
+            "climate_zone": climate_zone,
             "updated_at": now_iso,
             "series": series,
             "executive_brief_id": f"brief-{kode}-{months[-1]}",

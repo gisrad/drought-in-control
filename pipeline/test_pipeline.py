@@ -60,11 +60,16 @@ class DroughtPipelineTests(unittest.TestCase):
         self.assertIn("450.0", errs_bad)
 
     def test_dry_run_pipeline(self) -> None:
+        import json
+
         with tempfile.TemporaryDirectory() as tmp:
             res = run(months_count=36, dry_run=True, out_dir=Path(tmp))
             self.assertEqual(res["manifest"]["region_count"], 12)
-            self.assertTrue((Path(tmp) / "jateng-drought-36m.json").exists())
+            out_json = Path(tmp) / "jateng-drought-36m.json"
+            self.assertTrue(out_json.exists())
             self.assertTrue((Path(tmp) / "briefs.json").exists())
+            data = json.loads(out_json.read_text(encoding="utf-8"))
+            self.assertEqual(data["regions"]["3312"]["climate_zone"], "monsunal")
 
     def test_bmkg_climate_zone_mapping(self) -> None:
         self.assertEqual(classify_bmkg_climate_zone("3312"), "monsunal")
