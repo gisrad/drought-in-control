@@ -8,7 +8,7 @@ authors:
 repository-code: "https://github.com/gisrad/drought-in-control"
 url: "https://agri.transbulent.id/kekeringan/"
 license: "MIT"
-version: "0.8.0"
+version: "1.4.0"
 date-released: "2026-11-24"
 keywords:
   - drought-monitoring

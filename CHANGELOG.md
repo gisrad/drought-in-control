@@ -1,5 +1,12 @@
 # Changelog — Drought in Control (`gisrad/drought-in-control`)
 
+## [1.4.0] - 2026-11-24
+
+### Added
+- **BMKG 3-Zone Multi-Climate Calibration**: Added `classify_bmkg_climate_zone()` and `classify_drought_status_by_zone()` (`Monsunal`, `Ekuatorial`, `Lokal`) in `pipeline/indices.py` and wired per-regency `climate_zone` into `pipeline/run_pipeline.py`.
+- **Interactive Zone Discovery**: Added `climateZones.ts`, a 4-button BMKG climate zone filter (`?zone=`) with permalink sync in `DroughtWorkbench.svelte`, calibration badges in the Region Inspector Drawer, and a national 3-zone aggregation summary in `WilayahPublicView.svelte`.
+- **Aldrian & Susanto (2003) Citations & D1 Shortlinks**: Updated CSV headers, Markdown Policy Briefs, and APA 7th references with BMKG climate zone metadata, plus upgraded *Copy Permalink* to create Cloudflare D1 `/s/<slug>` shortlinks.
+
 ## [0.9.0] - 2026-11-24
 
 ### Added
