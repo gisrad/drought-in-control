@@ -16,3 +16,7 @@
 
 - `DroughtWorkbench.svelte` kini memuat dataset `514` kabupaten/kota secara R2-first (`/api/v1/r2/v1/drought/idn/regions-514.geojson` & `drought-36m-514.json`, lencana `R2 EDGE`) dengan fallback otomatis ke aset statis lokal, serta dilengkapi pemilih bahasa sinkron `ID | EN | JA | ZH`.
 - Build `DroughtWorkbench.DT4RUbvs.js` = `328.56 kB` gzip; `drought-in-control-worker` Version `9a7de95d-0466-4e17-9bca-c20ff0cfefc0` aktif & terverifikasi live `200`.
+
+## Update v1.0 — Pencarian Cepat 514 Kab/Kota & Hover Tooltip (2026-11-24)
+
+- `DroughtWorkbench.svelte` dilengkapi kotak pencarian cepat 514 kabupaten/kota (`nama` / `provinsi` / `kode_bps` + *fly-to* otomatis) dan readout hover real-time saat kursor melintasi poligon SHP. Build `DroughtWorkbench.xALh-Uwq.js` = `329.28 kB` gzip; `drought-in-control-worker` Version `c8885579-9c25-473d-aa5b-3597b205e9b5`.

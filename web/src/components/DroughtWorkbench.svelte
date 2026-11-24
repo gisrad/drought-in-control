@@ -29,6 +29,8 @@
   let copyNotice = '';
   let viewportPreset: 'jateng' | 'jawa' | 'indonesia' = 'jateng';
   let dataSourceLabel = 'R2 / LOKAL';
+  let searchQuery = '';
+  let hoverRegion: { kode_bps: string; nama: string; provinsi: string; val: string; status: string } | null = null;
   type Locale = 'id' | 'en' | 'ja' | 'zh';
   let locale: Locale = 'id';
 
@@ -85,6 +87,22 @@
   $: selectedRegion = dataset?.regions[selectedKode] || null;
   $: activePt = selectedRegion?.series[monthIdx];
   $: prevPt = monthIdx > 0 ? selectedRegion?.series[monthIdx - 1] : undefined;
+  $: searchMatches = (() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q || !dataset) return [];
+    return Object.values(dataset.regions)
+      .filter((r) => `${r.kode_bps} ${r.nama} ${r.provinsi}`.toLowerCase().includes(q))
+      .slice(0, 6);
+  })();
+
+  function focusRegion(r: DroughtRegionTimeseries) {
+    selectedKode = r.kode_bps;
+    drawerOpen = true;
+    searchQuery = '';
+    if (map && r.centroid) {
+      map.flyTo({ center: r.centroid, zoom: 8.2, duration: 650 });
+    }
+  }
 
   function formatMmSs(sec: number): string {
     const s = Math.max(0, Math.floor(sec));
@@ -347,8 +365,23 @@
       map.on('mouseenter', 'jateng-fill', () => {
         if (map) map.getCanvas().style.cursor = 'pointer';
       });
+      map.on('mousemove', 'jateng-fill', (e) => {
+        const kode = e.features?.[0]?.properties?.kode_bps;
+        const reg = kode ? dataset?.regions[String(kode)] : undefined;
+        const pt = reg?.series[monthIdx];
+        if (reg && pt) {
+          hoverRegion = {
+            kode_bps: reg.kode_bps,
+            nama: reg.nama,
+            provinsi: reg.provinsi,
+            val: String(pt[activeIndex]),
+            status: statusLabelId(pt.status),
+          };
+        }
+      });
       map.on('mouseleave', 'jateng-fill', () => {
         if (map) map.getCanvas().style.cursor = '';
+        hoverRegion = null;
       });
     });
   });
@@ -466,7 +499,38 @@
           <button type="button" class={viewportPreset === 'jawa' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('jawa')}>Jawa</button>
           <button type="button" class={viewportPreset === 'indonesia' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('indonesia')}>Indonesia (514)</button>
         </div>
+        <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px;">
+          <input
+            type="search"
+            bind:value={searchQuery}
+            placeholder="Cari kab/kota atau BPS (mis. Malang, 3312)..."
+            aria-label="Cari kabupaten atau provinsi"
+            style="width: 100%; box-sizing: border-box; padding: 6px 8px; border: 1px solid var(--border-ink); background: var(--bg); color: var(--ink); font-size: 11px;"
+          />
+          {#if searchMatches.length > 0}
+            <div style="border: 1px solid var(--border); border-top: 0; background: var(--bg); max-height: 150px; overflow-y: auto;">
+              {#each searchMatches as r}
+                <button
+                  type="button"
+                  on:click={() => focusRegion(r)}
+                  style="width: 100%; text-align: left; padding: 6px 8px; border: 0; border-bottom: 1px solid var(--border); background: transparent; color: var(--ink); cursor: pointer; font-size: 11px;"
+                >
+                  <strong>{r.nama}</strong> · <span class="num" style="color: var(--ink-muted);">{r.provinsi} ({r.kode_bps})</span>
+                </button>
+              {/each}
+            </div>
+          {/if}
+        </div>
       </aside>
+
+      {#if hoverRegion}
+        <div style="position: absolute; top: 14px; right: 14px; z-index: 10; background: var(--dock-bg); border: 1.5px solid var(--border-ink); padding: 8px 11px; max-width: 240px; pointer-events: none;">
+          <div class="num" style="font-size: 10.5px; font-weight: 600;">{hoverRegion.nama}</div>
+          <div class="num" style="font-size: 10px; color: var(--ink-muted);">
+            {hoverRegion.provinsi} · {INDEX_META[activeIndex].short} {hoverRegion.val} · {hoverRegion.status}
+          </div>
+        </div>
+      {/if}
 
       <!-- Drought Propagation Scrubber -->
       <section style="position: absolute; bottom: 16px; left: 14px; right: 56px; max-width: 720px; z-index: 10; background: var(--dock-bg); border: 1.5px solid var(--border-ink); padding: 12px 14px;">

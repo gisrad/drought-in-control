@@ -1,10 +1,7 @@
 # Handoff Sesi — Drought in Control (`gisrad/drought-in-control`)
 
 - **Tanggal terakhir**: `2026-11-24`
-- **Fase aktif**: `v0.9.0+ (R2-First 514 Kab/Kota SHP/COD-AB + i18n 4 Bahasa) — SELESAI & LIVE`
+- **Fase aktif**: `v1.0 (514 Kab/Kota SHP COD-AB + R2 Edge + Pencarian & Hover Tooltip) — SELESAI & LIVE`
 - **Langkah terakhir selesai**:
-  - Mengunggah dataset nasional riil `v1/drought/idn/regions-514.geojson` dan `drought-36m-514.json` ke Cloudflare R2 bucket `agri-transbulent-data`.
-  - Menghubungkan `DroughtWorkbench.svelte` dengan loader R2-first + fallback lokal (`R2 EDGE` / `ASET LOKAL`) serta sinkronisasi bahasa `ID | EN | JA | ZH`.
-  - Deploy `drought-in-control-worker` (`9a7de95d-0466-4e17-9bca-c20ff0cfefc0`) dan verifikasi live `/api/v1/r2/v1/drought/idn/regions-514.geojson` -> `200` (`514` fitur).
-- **Ekspansi selanjutnya**:
-  - Aktifkan GitHub Secrets (`GEE_SERVICE_ACCOUNT`, `R2_*`, `GEMINI_API_KEY`) untuk pembaruan otomatis bi-bulanan ke R2.
+  - Menambahkan kotak pencarian cepat lintas 514 kabupaten/kota + *fly-to* otomatis dan panel hover kursor real-time di `DroughtWorkbench.svelte`.
+  - Deploy `drought-in-control-worker` (`c8885579-9c25-473d-aa5b-3597b205e9b5`) dan verifikasi live HTTPS `200`.
