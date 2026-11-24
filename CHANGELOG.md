@@ -1,11 +1,17 @@
 # Changelog — Drought in Control (`gisrad/drought-in-control`)
 
+## [0.9.0] - 2026-11-24
+
+### Added
+- **National 514-Regency Boundaries**: Replaced initial pilot placeholders with real COD-AB/BPS administrative boundaries across all 514 Indonesian regencies and cities, powered by 60 fps GPU paint expressions.
+- **Public Regional Profiles (`/wilayah/`)**: Added national summary metrics, clickable Top 10 PDLVI hotspot ranking, and 38-province aggregation tables.
+- **Discovery & UX**: Added live 514-regency search fly-to, real-time hover telemetry, viewport presets (`Jateng & DIY`, `Jawa`, `Indonesia (514)`), and 4-language UI (`ID | EN | JA | ZH`).
+
 ## [0.8.0] - 2026-11-24
 
-### Ditambahkan
-- **D5 (`/wilayah/[kabupaten]`)**: `WilayahPublicView.svelte` dengan profil ringkas per kode BPS 4-digit, konteks ENSO/IOD, statistik 36 bulan, jembatan peta interaktif, dan kerangka siap skala 38 provinsi Indonesia.
-- **D4b (Berbagi & Ekspor QGIS)**: Permalink berkeadaan (`?kode=...&idx=...&m=...`), mode embed `?embed=1`, dan tombol `Unduh GeoJSON (QGIS)` dengan atribut lengkap + penanda `SIMULASI`.
-- **D4 (`pipeline/`)**: Ekstraktor CHIRPS/MODIS/ERA5/SRTM + perhitungan `SPI-3`, `SSMA`, `VHI`, `PDLVI`, validator angka anti-halusinasi `validate_brief_numbers`, uploader R2 `boto3`, mode `--dry-run`, 6 unit test, dan workflow cron GitHub Actions tgl 1 & 15.
+### Added
+- **Sharing & QGIS Exports**: Added stateful permalinks, borderless embed mode, and QGIS-ready GeoJSON exports with clear data provenance tags.
+- **Reproducible Climate Pipeline (`pipeline/`)**: Implemented `VCI`, `TCI`, `VHI`, `SSMA`, `SPI-3`, and `PDLVI` calculation engine, automated quantitative brief verification, offline `--dry-run` mode, and unit test suite.
 
 ## [0.1.0] - 2026-11-24
-- **D0–D3**: Fondasi Astro 5 + Svelte 5 + MapLibre GL v5 + `uPlot`, *Propagation Scrubber* 36 bulan, *Region Inspector Drawer*, dan Policy Brief APA 7th (`@media print`).
+- Initial static-first observatory release with Astro 5, Svelte 5, MapLibre GL v5, `uPlot`, Propagation Scrubber, Region Inspector, and APA 7th print Policy Briefs.

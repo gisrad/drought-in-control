@@ -7,7 +7,7 @@ W_VHI = 0.35
 W_SSMA = 0.40
 W_SPI3 = 0.25
 
-R2_BUCKET = os.environ.get("R2_BUCKET", "agri-transbulent-data")
+R2_BUCKET = os.environ.get("R2_BUCKET", "drought-observatory-data")
 R2_ENDPOINT = os.environ.get("R2_ENDPOINT", "")
 R2_PREFIX = os.environ.get("DROUGHT_R2_PREFIX", "v1/drought/jateng")
 

@@ -2,14 +2,17 @@
 
 import json
 import math
+import os
+import sys
 from pathlib import Path
 from typing import Any
 
 import geopandas as gpd
 
 GDB_URI = (
-    "zip://D:/GIS_DATA/Cikande_PMT_LandChange_V3/01_RAW/ancillary/"
-    "cod_ab_idn/idn_admin_boundaries.gdb.zip"
+    sys.argv[1]
+    if len(sys.argv) > 1
+    else os.environ.get("IDN_ADMIN_GDB_URI", "./data/idn_admin_boundaries.gdb.zip")
 )
 LAYER_NAME = "idn_admin2"
 
