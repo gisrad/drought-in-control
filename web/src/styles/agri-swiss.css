@@ -73,6 +73,11 @@ html, body {
   font-size: 15px;
   line-height: 1.48;
   letter-spacing: -0.01em;
+  overflow-x: clip;
+}
+button, a, select, input {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .num, code {
@@ -267,4 +272,138 @@ html, body {
   @page { size: A4 portrait; margin: 14mm; }
   .no-print { display: none !important; }
   .print-report { display: block !important; background: #fff !important; color: #000 !important; }
+}
+
+/* Responsive Mobile + Workbench Layout */
+.drought-main {
+  position: relative;
+  flex: 1;
+  min-height: calc(100dvh - 108px);
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.drought-map-stage {
+  position: relative;
+  min-height: 620px;
+}
+.drought-filter-panel {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+  background: var(--dock-bg);
+  border: 1.5px solid var(--border-ink);
+  padding: 12px;
+  width: min(330px, calc(100vw - 28px));
+}
+.drought-filter-toggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 11;
+}
+.drought-filter-close {
+  display: none;
+}
+.drought-scrubber {
+  position: absolute;
+  bottom: 16px;
+  left: 14px;
+  right: 56px;
+  max-width: 720px;
+  z-index: 10;
+  background: var(--dock-bg);
+  border: 1.5px solid var(--border-ink);
+  padding: 12px 14px;
+}
+.drought-inspector {
+  width: min(410px, 100vw);
+  background: var(--bg);
+  border-left: 1px solid var(--border-ink);
+  padding: 18px;
+  overflow-y: auto;
+  max-height: calc(100dvh - 108px);
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.drought-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 960px) {
+  .agri-spectrum-banner {
+    padding: 4px 10px;
+    font-size: 9.5px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .topbar-inner {
+    padding: 6px 12px;
+    gap: 6px 8px;
+  }
+  .hnav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    padding-top: 2px;
+    border-top: 1px solid var(--border);
+  }
+  .hnav::-webkit-scrollbar { display: none; }
+  .hnav a {
+    flex-shrink: 0;
+    padding: 5px 8px;
+    font-size: 12.5px;
+  }
+  .drought-controls-row {
+    gap: 5px;
+  }
+  .drought-main {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .drought-map-stage {
+    height: 58dvh;
+    min-height: 360px;
+    max-height: 520px;
+    width: 100%;
+  }
+  .drought-filter-panel {
+    top: 10px;
+    left: 10px;
+    width: min(310px, calc(100vw - 20px));
+    max-height: calc(58dvh - 88px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .drought-filter-close {
+    display: inline-flex;
+  }
+  .drought-scrubber {
+    bottom: 10px;
+    left: 10px;
+    right: 48px;
+    padding: 8px 10px;
+  }
+  .drought-inspector {
+    width: 100%;
+    border-left: 0;
+    border-top: 1.5px solid var(--border-ink);
+    max-height: none;
+    overflow-y: visible;
+    padding: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hide-mobile { display: none !important; }
 }

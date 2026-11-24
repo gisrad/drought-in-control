@@ -33,6 +33,7 @@
   let playTimer: number | null = null;
   let selectedKode = '3312';
   let drawerOpen = true;
+  let controlsOpen = true;
   let theme: 'kertas' | 'malam' = 'kertas';
   let isEmbed = false;
   let isWilayahMode = false;
@@ -375,7 +376,7 @@
 
     chartInstance = new uPlot(
       {
-        width: Math.max(280, chartContainer.clientWidth || 320),
+        width: Math.max(240, (chartContainer.clientWidth || 300) - 2),
         height: 170,
         cursor: { drag: { x: false, y: false } },
         scales: { x: { time: false }, y: { range: [-2.6, 2.2] } },
@@ -641,9 +642,22 @@
         hoverRegion = null;
       });
     });
+    controlsOpen = window.innerWidth > 960;
+    window.addEventListener('resize', handleWinResize);
   });
 
+  let resizeTimer: number | null = null;
+  function handleWinResize() {
+    if (resizeTimer) window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      map?.resize();
+      renderChart();
+    }, 120);
+  }
+
   onDestroy(() => {
+    if (typeof window !== 'undefined') window.removeEventListener('resize', handleWinResize);
+    if (resizeTimer) window.clearTimeout(resizeTimer);
     if (playTimer) window.clearInterval(playTimer);
     if (chartInstance) chartInstance.destroy();
     if (map) map.remove();
@@ -679,8 +693,8 @@
           <a href="/lobby/">{tUi.lobby}</a>
         </nav>
 
-        <div style="display: flex; align-items: center; gap: 8px; margin-left: auto; flex-wrap: wrap;">
-          <span class="pill-badge pill-sim">SHP COD-AB · 514 · {dataSourceLabel}</span>
+        <div class="drought-controls-row">
+          <span class="pill-badge pill-sim hide-mobile">SHP COD-AB · 514 · {dataSourceLabel}</span>
           <AccountMenu
             {authenticated}
             {userEmail}
@@ -730,77 +744,99 @@
       />
     </div>
   {:else}
-    <main class="no-print" style="position: relative; flex: 1; min-height: 620px; display: grid; grid-template-columns: 1fr auto;">
+    <main class="no-print drought-main">
     <!-- Peta Layar Penuh -->
-    <div style="position: relative; min-height: 620px;">
+    <div class="drought-map-stage">
       <div bind:this={mapContainer} style="position: absolute; inset: 0;"></div>
 
-      <!-- Floating Layer Switcher -->
-      <aside style="position: absolute; top: 14px; left: 14px; z-index: 10; background: var(--dock-bg); border: 1.5px solid var(--border-ink); padding: 12px; width: min(330px, calc(100vw - 28px));">
-        <div class="num" style="font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px;">
-          {tUi.pickIndex}
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-          {#each (['spi3', 'ssma', 'vhi', 'pdlvi'] as DroughtIndexKey[]) as k}
+      {#if !controlsOpen}
+        <button
+          type="button"
+          class="btn-primary drought-filter-toggle"
+          style="padding: 7px 11px; font-size: 10.5px;"
+          on:click={() => (controlsOpen = true)}
+        >
+          Filter &amp; Indeks ({INDEX_META[activeIndex].short}) ▾
+        </button>
+      {:else}
+        <!-- Floating Layer Switcher -->
+        <aside class="drought-filter-panel">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-bottom: 8px;">
+            <div class="num" style="font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);">
+              {tUi.pickIndex}
+            </div>
             <button
               type="button"
-              class={activeIndex === k ? 'btn-primary' : 'btn-subtle'}
-              style="padding: 8px 6px; font-size: 10.5px;"
-              on:click={() => (activeIndex = k)}
+              class="btn-subtle drought-filter-close"
+              style="padding: 2px 7px; font-size: 11px;"
+              aria-label="Tutup filter peta"
+              on:click={() => (controlsOpen = false)}
             >
-              {INDEX_META[k].short}
+              ✕
             </button>
-          {/each}
-        </div>
-        <p style="margin: 10px 0 8px; font-size: 12px; color: var(--ink-secondary);">{INDEX_META[activeIndex].desc}</p>
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
-          {#each INDEX_META[activeIndex].stops as [lbl, col]}
-            <div>
-              <div style={`height: 8px; background: ${col};`}></div>
-              <div class="num" style="font-size: 9px; color: var(--ink-muted); margin-top: 3px;">{lbl}</div>
-            </div>
-          {/each}
-        </div>
-        <div style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 8px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;">
-          <button type="button" class={viewportPreset === 'jateng' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('jateng')}>Jateng &amp; DIY</button>
-          <button type="button" class={viewportPreset === 'jawa' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('jawa')}>Jawa</button>
-          <button type="button" class={viewportPreset === 'indonesia' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('indonesia')}>Indonesia (514)</button>
-        </div>
-        <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px;">
-          <div class="num" style="font-size: 9.5px; color: var(--ink-muted); margin-bottom: 4px;">FILTER 3 ZONA IKLIM BMKG</div>
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;">
-            <button type="button" class={climateFilter === 'all' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'all')}>Semua</button>
-            <button type="button" class={climateFilter === 'monsunal' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'monsunal')}>Monsun</button>
-            <button type="button" class={climateFilter === 'ekuatorial' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'ekuatorial')}>Ekuator</button>
-            <button type="button" class={climateFilter === 'lokal' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'lokal')}>Lokal</button>
           </div>
-        </div>
-        <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px;">
-          <input
-            type="search"
-            bind:value={searchQuery}
-            placeholder="Cari kab/kota atau BPS (mis. Malang, 3312)..."
-            aria-label="Cari kabupaten atau provinsi"
-            style="width: 100%; box-sizing: border-box; padding: 6px 8px; border: 1px solid var(--border-ink); background: var(--bg); color: var(--ink); font-size: 11px;"
-          />
-          {#if searchMatches.length > 0}
-            <div style="border: 1px solid var(--border); border-top: 0; background: var(--bg); max-height: 150px; overflow-y: auto;">
-              {#each searchMatches as r}
-                <button
-                  type="button"
-                  on:click={() => focusRegion(r)}
-                  style="width: 100%; text-align: left; padding: 6px 8px; border: 0; border-bottom: 1px solid var(--border); background: transparent; color: var(--ink); cursor: pointer; font-size: 11px;"
-                >
-                  <strong>{r.nama}</strong> · <span class="num" style="color: var(--ink-muted);">{r.provinsi} ({r.kode_bps})</span>
-                </button>
-              {/each}
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+            {#each (['spi3', 'ssma', 'vhi', 'pdlvi'] as DroughtIndexKey[]) as k}
+              <button
+                type="button"
+                class={activeIndex === k ? 'btn-primary' : 'btn-subtle'}
+                style="padding: 8px 6px; font-size: 10.5px;"
+                on:click={() => (activeIndex = k)}
+              >
+                {INDEX_META[k].short}
+              </button>
+            {/each}
+          </div>
+          <p style="margin: 10px 0 8px; font-size: 12px; color: var(--ink-secondary);">{INDEX_META[activeIndex].desc}</p>
+          <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;">
+            {#each INDEX_META[activeIndex].stops as [lbl, col]}
+              <div>
+                <div style={`height: 8px; background: ${col};`}></div>
+                <div class="num" style="font-size: 9px; color: var(--ink-muted); margin-top: 3px;">{lbl}</div>
+              </div>
+            {/each}
+          </div>
+          <div style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 8px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;">
+            <button type="button" class={viewportPreset === 'jateng' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('jateng')}>Jateng &amp; DIY</button>
+            <button type="button" class={viewportPreset === 'jawa' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('jawa')}>Jawa</button>
+            <button type="button" class={viewportPreset === 'indonesia' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('indonesia')}>Indonesia (514)</button>
+          </div>
+          <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px;">
+            <div class="num" style="font-size: 9.5px; color: var(--ink-muted); margin-bottom: 4px;">FILTER 3 ZONA IKLIM BMKG</div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;">
+              <button type="button" class={climateFilter === 'all' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'all')}>Semua</button>
+              <button type="button" class={climateFilter === 'monsunal' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'monsunal')}>Monsun</button>
+              <button type="button" class={climateFilter === 'ekuatorial' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'ekuatorial')}>Ekuator</button>
+              <button type="button" class={climateFilter === 'lokal' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'lokal')}>Lokal</button>
             </div>
-          {/if}
-        </div>
-      </aside>
+          </div>
+          <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px;">
+            <input
+              type="search"
+              bind:value={searchQuery}
+              placeholder="Cari kab/kota atau BPS (mis. Malang, 3312)..."
+              aria-label="Cari kabupaten atau provinsi"
+              style="width: 100%; box-sizing: border-box; padding: 6px 8px; border: 1px solid var(--border-ink); background: var(--bg); color: var(--ink); font-size: 11px;"
+            />
+            {#if searchMatches.length > 0}
+              <div style="border: 1px solid var(--border); border-top: 0; background: var(--bg); max-height: 150px; overflow-y: auto;">
+                {#each searchMatches as r}
+                  <button
+                    type="button"
+                    on:click={() => focusRegion(r)}
+                    style="width: 100%; text-align: left; padding: 6px 8px; border: 0; border-bottom: 1px solid var(--border); background: transparent; color: var(--ink); cursor: pointer; font-size: 11px;"
+                  >
+                    <strong>{r.nama}</strong> · <span class="num" style="color: var(--ink-muted);">{r.provinsi} ({r.kode_bps})</span>
+                  </button>
+                {/each}
+              </div>
+            {/if}
+          </div>
+        </aside>
+      {/if}
 
       {#if hoverRegion}
-        <div style="position: absolute; top: 14px; right: 14px; z-index: 10; background: var(--dock-bg); border: 1.5px solid var(--border-ink); padding: 8px 11px; max-width: 240px; pointer-events: none;">
+        <div class="hide-mobile" style="position: absolute; top: 14px; right: 14px; z-index: 10; background: var(--dock-bg); border: 1.5px solid var(--border-ink); padding: 8px 11px; max-width: 240px; pointer-events: none;">
           <div class="num" style="font-size: 10.5px; font-weight: 600;">{hoverRegion.nama}</div>
           <div class="num" style="font-size: 10px; color: var(--ink-muted);">
             {hoverRegion.provinsi} · {INDEX_META[activeIndex].short} {hoverRegion.val} · {hoverRegion.status}
@@ -809,7 +845,7 @@
       {/if}
 
       <!-- Drought Propagation Scrubber -->
-      <section style="position: absolute; bottom: 16px; left: 14px; right: 56px; max-width: 720px; z-index: 10; background: var(--dock-bg); border: 1.5px solid var(--border-ink); padding: 12px 14px;">
+      <section class="drought-scrubber">
         <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
           <button type="button" class="btn-primary" style="padding: 7px 12px;" on:click={togglePlay}>
             {playing ? tUi.pause : tUi.play}
@@ -820,11 +856,11 @@
             max={Math.max(0, months.length - 1)}
             bind:value={monthIdx}
             aria-label="Timeline bulan kekeringan"
-            style="flex: 1; accent-color: #000000;"
+            style="flex: 1; min-width: 110px; accent-color: #000000;"
           />
           <strong class="num" style="font-size: 13px;">{activeYm}</strong>
         </div>
-        <div class="num" style="margin-top: 7px; font-size: 10px; color: var(--ink-muted); display: flex; gap: 10px; flex-wrap: wrap;">
+        <div class="num hide-mobile" style="margin-top: 7px; font-size: 10px; color: var(--ink-muted); display: flex; gap: 10px; flex-wrap: wrap;">
           <span>RANTAI PROPAGASI:</span>
           <span>1. Defisit Hujan (SPI-3) →</span>
           <span>2. Tanah Kering (SSMA, +1 bln) →</span>
@@ -836,7 +872,7 @@
 
     <!-- Region Inspector Drawer -->
     {#if drawerOpen && displayRegion && displayPt}
-      <aside style="width: min(410px, 100vw); background: var(--bg); border-left: 1px solid var(--border-ink); padding: 18px; overflow-y: auto; max-height: calc(100vh - 90px); display: grid; gap: 14px; align-content: start;">
+      <aside class="drought-inspector">
         <div style="display: flex; justify-content: space-between; align-items: start; gap: 8px;">
           <div>
             <div class="num" style="font-size: 10.5px; color: var(--ink-muted);">

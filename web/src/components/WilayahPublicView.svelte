@@ -143,7 +143,7 @@
       aria-label="Pilih kabupaten atau kota"
       value={region.kode_bps}
       on:change={(e) => onSelectRegion((e.currentTarget as HTMLSelectElement).value)}
-      style="padding: 8px 10px; border: 1.5px solid var(--border-ink); background: var(--bg); color: var(--ink); font-family: inherit;"
+      style="width: min(100%, 340px); max-width: 100%; padding: 8px 10px; border: 1.5px solid var(--border-ink); background: var(--bg); color: var(--ink); font-family: inherit;"
     >
       {#each regionGroups as [prov, items]}
         <optgroup label={prov}>
