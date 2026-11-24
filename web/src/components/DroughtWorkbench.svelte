@@ -13,6 +13,7 @@
     triggerDownload,
   } from '../utils/citationGenerator';
   import TrialOverlay from './TrialOverlay.svelte';
+  import AccountMenu from './AccountMenu.svelte';
   import WilayahPublicView from './WilayahPublicView.svelte';
   import { CLIMATE_ZONE_META, getClimateZone, type BmkgClimateZone } from '../utils/climateZones';
   import { detectPropagationLags, forecastDrought3m } from '../utils/droughtAi';
@@ -85,6 +86,9 @@
   let remainingSec = 300;
   let authenticated = false;
   let userEmail = '';
+  let userName = '';
+  let userAvatar = '';
+  let userRole = '';
   let wallActive = false;
 
   let mapContainer: HTMLDivElement;
@@ -677,15 +681,14 @@
 
         <div style="display: flex; align-items: center; gap: 8px; margin-left: auto; flex-wrap: wrap;">
           <span class="pill-badge pill-sim">SHP COD-AB · 514 · {dataSourceLabel}</span>
-          {#if authenticated}
-            <span class="live-badge"><span class="live-dot"></span><span>{userEmail}</span></span>
-          {:else}
-            <a href="/lobby/" class="live-badge">
-              <span class={`live-dot ${remainingSec <= 60 ? 'is-warn' : ''}`}></span>
-              <span>Pratinjau</span>
-              <b>{formatMmSs(remainingSec)}</b>
-            </a>
-          {/if}
+          <AccountMenu
+            {authenticated}
+            {userEmail}
+            {userName}
+            {userAvatar}
+            {remainingSec}
+            nextPath={isWilayahMode ? '/wilayah/' : '/kekeringan/'}
+          />
           <select
             aria-label="Bahasa"
             value={locale}
@@ -1089,5 +1092,5 @@
     </section>
   {/if}
 
-  <TrialOverlay bind:remainingSec bind:authenticated bind:userEmail bind:wallActive />
+  <TrialOverlay bind:remainingSec bind:authenticated bind:userEmail bind:userName bind:userAvatar bind:userRole bind:wallActive />
 </div>
