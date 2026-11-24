@@ -14,6 +14,7 @@
   } from '../utils/citationGenerator';
   import TrialOverlay from './TrialOverlay.svelte';
   import WilayahPublicView from './WilayahPublicView.svelte';
+  import { CLIMATE_ZONE_META, getClimateZone, type BmkgClimateZone } from '../utils/climateZones';
 
   let dataset: DroughtDataset | null = null;
   let geojson: GeoJSON.FeatureCollection | null = null;
@@ -28,6 +29,7 @@
   let isWilayahMode = false;
   let copyNotice = '';
   let viewportPreset: 'jateng' | 'jawa' | 'indonesia' = 'jateng';
+  let climateFilter: 'all' | BmkgClimateZone = 'all';
   let dataSourceLabel = 'R2 / LOKAL';
   let searchQuery = '';
   let hoverRegion: { kode_bps: string; nama: string; provinsi: string; val: string; status: string } | null = null;
@@ -115,12 +117,20 @@
     window.localStorage.setItem('agri_theme', theme);
   }
 
+  $: selectedZone = getClimateZone(selectedKode);
+  $: selectedZoneMeta = CLIMATE_ZONE_META[selectedZone];
+
   function applyMapColors() {
     if (!map || !dataset) return;
     if (!map.getLayer('jateng-fill') || !map.getLayer('jateng-line')) return;
     const matchExpr: unknown[] = ['match', ['get', 'kode_bps']];
+    const muted = theme === 'malam' ? '#1F2026' : '#ECEBE6';
     for (const [kode, reg] of Object.entries(dataset.regions)) {
-      matchExpr.push(kode, colorForValue(activeIndex, reg.series[monthIdx]));
+      if (climateFilter !== 'all' && getClimateZone(kode) !== climateFilter) {
+        matchExpr.push(kode, muted);
+      } else {
+        matchExpr.push(kode, colorForValue(activeIndex, reg.series[monthIdx]));
+      }
     }
     matchExpr.push('#E5DEC9');
     map.setPaintProperty('jateng-fill', 'fill-color', matchExpr as any);
@@ -178,6 +188,8 @@
     activeIndex;
     monthIdx;
     selectedKode;
+    climateFilter;
+    theme;
     applyMapColors();
   }
 
@@ -203,6 +215,8 @@
     u.searchParams.set('kode', selectedKode);
     u.searchParams.set('idx', activeIndex);
     u.searchParams.set('m', String(monthIdx));
+    if (climateFilter !== 'all') u.searchParams.set('zone', climateFilter);
+    else u.searchParams.delete('zone');
     u.searchParams.delete('embed');
     return u.toString();
   }
@@ -312,6 +326,8 @@
     if (qKode && dataset?.regions[qKode]) selectedKode = qKode;
     const qIdx = qs.get('idx');
     if (qIdx === 'spi3' || qIdx === 'ssma' || qIdx === 'vhi' || qIdx === 'pdlvi') activeIndex = qIdx;
+    const qZone = qs.get('zone');
+    if (qZone === 'monsunal' || qZone === 'ekuatorial' || qZone === 'lokal') climateFilter = qZone;
     const rawM = qs.get('m');
     if (rawM !== null && rawM !== '') {
       const qMonth = Number(rawM);
@@ -503,6 +519,15 @@
           <button type="button" class={viewportPreset === 'indonesia' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('indonesia')}>Indonesia (514)</button>
         </div>
         <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px;">
+          <div class="num" style="font-size: 9.5px; color: var(--ink-muted); margin-bottom: 4px;">FILTER 3 ZONA IKLIM BMKG</div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;">
+            <button type="button" class={climateFilter === 'all' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'all')}>Semua</button>
+            <button type="button" class={climateFilter === 'monsunal' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'monsunal')}>Monsun</button>
+            <button type="button" class={climateFilter === 'ekuatorial' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'ekuatorial')}>Ekuator</button>
+            <button type="button" class={climateFilter === 'lokal' ? 'btn-primary' : 'btn-subtle'} style="padding: 4px 3px; font-size: 9.5px;" on:click={() => (climateFilter = 'lokal')}>Lokal</button>
+          </div>
+        </div>
+        <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px;">
           <input
             type="search"
             bind:value={searchQuery}
@@ -574,12 +599,15 @@
           <button type="button" class="btn-subtle" on:click={() => (drawerOpen = false)}>{tUi.close}</button>
         </div>
 
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
           <span class={`pill-badge ${activePt.status === 'parah' || activePt.status === 'ekstrem' ? 'pill-warn' : 'pill-sim'}`}>
             {statusLabelId(activePt.status)} ({activeYm})
           </span>
+          <span class="pill-badge" title={selectedZoneMeta.note}>
+            {selectedZoneMeta.short} · SPI-3 AWAS ≤ {selectedZoneMeta.spiAwas}
+          </span>
           <span class="num" style="font-size: 11px; color: var(--ink-muted);">
-            Lereng {selectedRegion.mean_slope_deg}°
+            Lereng {selectedRegion.mean_slope_deg}° · PDLVI≥{selectedZoneMeta.pdlviAwas}
           </span>
         </div>
 

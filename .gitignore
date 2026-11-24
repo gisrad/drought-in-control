@@ -3,6 +3,7 @@ node_modules/
 dist/
 .astro/
 .svelte-kit/
+.wrangler/
 
 # Python / GEE Pipeline
 .venv/

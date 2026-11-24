@@ -2,6 +2,7 @@
   import type { DroughtDataset, DroughtRegionTimeseries } from '../types/drought';
   import { statusLabelId } from '../utils/colorScales';
   import { buildPolicyBriefMarkdown, regionSeriesToCsv, triggerDownload } from '../utils/citationGenerator';
+  import { CLIMATE_ZONE_META, getClimateZone, type BmkgClimateZone } from '../utils/climateZones';
 
   export let dataset: DroughtDataset;
   export let region: DroughtRegionTimeseries;
@@ -9,6 +10,8 @@
   export let geojson: GeoJSON.FeatureCollection | null = null;
   export let onSelectRegion: (kodeBps: string) => void;
 
+  $: selectedZone = getClimateZone(region.kode_bps);
+  $: selectedZoneMeta = CLIMATE_ZONE_META[selectedZone];
   $: latest = region.series[region.series.length - 1];
   $: minSpi = region.series.length ? Math.min(...region.series.map((s) => s.spi3)) : 0;
   $: maxPdlvi = region.series.length ? Math.max(...region.series.map((s) => s.pdlvi)) : 0;
@@ -60,6 +63,24 @@
       };
     });
     provs.sort((a, b) => b.meanPdlvi - a.meanPdlvi);
+    const zoneBuckets: Record<BmkgClimateZone, { count: number; severe: number; sumPdlvi: number }> = {
+      monsunal: { count: 0, severe: 0, sumPdlvi: 0 },
+      ekuatorial: { count: 0, severe: 0, sumPdlvi: 0 },
+      lokal: { count: 0, severe: 0, sumPdlvi: 0 },
+    };
+    for (const r of ranked) {
+      const z = getClimateZone(r.kode_bps);
+      zoneBuckets[z].count++;
+      zoneBuckets[z].sumPdlvi += r.pdlvi;
+      if (r.status === 'parah' || r.status === 'ekstrem') zoneBuckets[z].severe++;
+    }
+    const zoneSummary = (['monsunal', 'ekuatorial', 'lokal'] as BmkgClimateZone[]).map((z) => ({
+      zone: z,
+      meta: CLIMATE_ZONE_META[z],
+      count: zoneBuckets[z].count,
+      severe: zoneBuckets[z].severe,
+      meanPdlvi: zoneBuckets[z].count ? Number((zoneBuckets[z].sumPdlvi / zoneBuckets[z].count).toFixed(2)) : 0,
+    }));
     return {
       total: n,
       severe,
@@ -67,6 +88,7 @@
       meanPdlvi: n ? Number((sumPdlvi / n).toFixed(2)) : 0,
       topHotspots: ranked.slice(0, 10),
       provinces: provs,
+      zoneSummary,
     };
   })();
 
@@ -141,11 +163,16 @@
         </div>
         <h1 style="margin: 4px 0 0; font-size: 1.7rem; font-weight: 600;">{region.nama}</h1>
       </div>
-      {#if latest}
-        <span class={`pill-badge ${latest.status === 'parah' || latest.status === 'ekstrem' || latest.status === 'AWAS' ? 'pill-warn' : 'pill-sim'}`}>
-          STATUS {statusLabelId(latest.status)} ({latest.ym})
+      <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+        <span class="pill-badge" title={selectedZoneMeta.note}>
+          {selectedZoneMeta.short} · SPI-3 AWAS ≤ {selectedZoneMeta.spiAwas} · PDLVI ≥ {selectedZoneMeta.pdlviAwas}
         </span>
-      {/if}
+        {#if latest}
+          <span class={`pill-badge ${latest.status === 'parah' || latest.status === 'ekstrem' || latest.status === 'AWAS' ? 'pill-warn' : 'pill-sim'}`}>
+            STATUS {statusLabelId(latest.status)} ({latest.ym})
+          </span>
+        {/if}
+      </div>
     </div>
 
     {#if latest}
@@ -222,6 +249,20 @@
         <div class="num" style="font-size: 10px; color: var(--ink-muted);">RATA-RATA PDLVI NASIONAL</div>
         <div class="num" style="font-size: 1.35rem; font-weight: 600;">{nationalStats.meanPdlvi}</div>
       </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border);">
+      {#each nationalStats.zoneSummary as z}
+        <div style="background: var(--surface); padding: 10px 12px;">
+          <div class="num" style="font-size: 10px; color: var(--ink-muted);">
+            {z.meta.label.toUpperCase()} ({z.count} KAB/KOTA)
+          </div>
+          <div class="num" style="font-size: 1.15rem; font-weight: 600; margin-top: 2px;">
+            PDLVI {z.meanPdlvi} · Parah {z.severe}
+          </div>
+          <div style="font-size: 11px; color: var(--ink-secondary); margin-top: 2px;">{z.meta.regions}</div>
+        </div>
+      {/each}
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px;">

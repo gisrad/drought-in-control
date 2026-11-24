@@ -67,10 +67,32 @@ def compute_pdlvi(vhi: float, ssma: float, spi3: float, mean_slope_deg: float) -
 
 
 def classify_drought_status(pdlvi: float, vhi: float, spi3: float) -> str:
-    if pdlvi >= 0.68 or vhi < 25.0 or spi3 <= -2.0:
-        return "AWAS"
-    if pdlvi >= 0.50 or vhi < 35.0 or spi3 <= -1.5:
-        return "SIAGA"
-    if pdlvi >= 0.34 or vhi < 45.0 or spi3 <= -1.0:
-        return "WASPADA"
+    return classify_drought_status_by_zone(pdlvi, vhi, spi3, "monsunal")
+
+
+EKUATORIAL_PROVS = {"11", "12", "13", "14", "15", "16", "17", "19", "21", "61", "62", "63", "64", "65"}
+LOKAL_PROVS = {"71", "72", "75", "81", "82", "91", "92", "93", "94", "95", "96"}
+
+BMKG_ZONE_THRESHOLDS: dict[str, dict[str, tuple[float, float, float]]] = {
+    "monsunal": {"AWAS": (0.68, 25.0, -2.0), "SIAGA": (0.50, 35.0, -1.5), "WASPADA": (0.34, 45.0, -1.0)},
+    "ekuatorial": {"AWAS": (0.62, 28.0, -1.75), "SIAGA": (0.45, 38.0, -1.25), "WASPADA": (0.30, 48.0, -0.85)},
+    "lokal": {"AWAS": (0.65, 26.0, -1.85), "SIAGA": (0.48, 36.0, -1.35), "WASPADA": (0.32, 46.0, -0.90)},
+}
+
+
+def classify_bmkg_climate_zone(kode_bps: str) -> str:
+    prov = str(kode_bps or "")[:2]
+    if prov in EKUATORIAL_PROVS:
+        return "ekuatorial"
+    if prov in LOKAL_PROVS:
+        return "lokal"
+    return "monsunal"
+
+
+def classify_drought_status_by_zone(pdlvi: float, vhi: float, spi3: float, climate_zone: str = "monsunal") -> str:
+    thresholds = BMKG_ZONE_THRESHOLDS.get(climate_zone, BMKG_ZONE_THRESHOLDS["monsunal"])
+    for label in ("AWAS", "SIAGA", "WASPADA"):
+        p_lim, v_lim, s_lim = thresholds[label]
+        if pdlvi >= p_lim or vhi < v_lim or spi3 <= s_lim:
+            return label
     return "NORMAL"

@@ -9,7 +9,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from ai_summarizer import validate_brief_numbers
 from indices import (
+    classify_bmkg_climate_zone,
     classify_drought_status,
+    classify_drought_status_by_zone,
     compute_pdlvi,
     compute_spi3_series,
     compute_ssma,
@@ -63,6 +65,17 @@ class DroughtPipelineTests(unittest.TestCase):
             self.assertEqual(res["manifest"]["region_count"], 12)
             self.assertTrue((Path(tmp) / "jateng-drought-36m.json").exists())
             self.assertTrue((Path(tmp) / "briefs.json").exists())
+
+    def test_bmkg_climate_zone_mapping(self) -> None:
+        self.assertEqual(classify_bmkg_climate_zone("3312"), "monsunal")
+        self.assertEqual(classify_bmkg_climate_zone("1401"), "ekuatorial")
+        self.assertEqual(classify_bmkg_climate_zone("6101"), "ekuatorial")
+        self.assertEqual(classify_bmkg_climate_zone("8101"), "lokal")
+        self.assertEqual(classify_bmkg_climate_zone("9101"), "lokal")
+
+    def test_zone_calibrated_thresholds(self) -> None:
+        self.assertEqual(classify_drought_status_by_zone(0.63, 29.0, -1.80, "ekuatorial"), "AWAS")
+        self.assertEqual(classify_drought_status_by_zone(0.63, 29.0, -1.80, "monsunal"), "SIAGA")
 
 
 if __name__ == "__main__":
