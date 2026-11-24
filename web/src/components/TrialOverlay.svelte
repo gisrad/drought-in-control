@@ -25,7 +25,7 @@
       wallActive = true;
     }
 
-    fetch('/api/auth/session', { credentials: 'same-origin' })
+    fetch('/api/auth/session', { credentials: 'same-origin', cache: 'no-store' })
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (!data) return;
@@ -34,7 +34,10 @@
         userName = data.user?.name || '';
         userAvatar = data.user?.avatarUrl || '';
         userRole = data.user?.role || '';
-        if (!authenticated && typeof data.trialExpiresAtMs === 'number') {
+        if (authenticated) {
+          wallActive = false;
+          forceTestWall = false;
+        } else if (typeof data.trialExpiresAtMs === 'number') {
           expiresAtMs = data.trialExpiresAtMs;
           serverOffsetMs = (data.serverNowMs || Date.now()) - Date.now();
           remainingSec = Math.max(0, Math.ceil((expiresAtMs - (Date.now() + serverOffsetMs)) / 1000));
@@ -68,7 +71,7 @@
     typeof window !== 'undefined' ? `${window.location.pathname}${window.location.search}` : '/kekeringan/';
 </script>
 
-{#if wallActive}
+{#if wallActive && !authenticated}
   <div class="auth-wall-backdrop no-print" role="dialog" aria-modal="true" aria-labelledby="drought-wall-title">
     <div class="auth-wall-card">
       <div style="margin-bottom: 10px;">
