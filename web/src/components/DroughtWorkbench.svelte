@@ -16,6 +16,13 @@
   import WilayahPublicView from './WilayahPublicView.svelte';
   import { CLIMATE_ZONE_META, getClimateZone, type BmkgClimateZone } from '../utils/climateZones';
   import { detectPropagationLags, forecastDrought3m } from '../utils/droughtAi';
+  import {
+    buildRegionColabNotebook,
+    COLAB_OFFICIAL_URL,
+    parseAndValidateGeeJson,
+    type GeeCachedPayload,
+    type GeeQuotaInfo,
+  } from '../utils/geeColab';
 
   let dataset: DroughtDataset | null = null;
   let geojson: GeoJSON.FeatureCollection | null = null;
@@ -139,28 +146,28 @@
   }
 
   async function requestGroundedAiBrief() {
-    if (!selectedRegion || !activePt || !aiForecast || !aiLags) return;
+    if (!displayRegion || !displayPt || !displayForecast || !displayLags) return;
     aiBriefLoading = true;
     aiBriefError = '';
     try {
-      const t1 = aiForecast.horizon[0];
+      const t1 = displayForecast.horizon[0];
       const res = await fetch('/api/v1/ai/brief', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-          kode_bps: selectedRegion.kode_bps,
-          nama: selectedRegion.nama,
-          provinsi: selectedRegion.provinsi,
+          kode_bps: displayRegion.kode_bps,
+          nama: displayRegion.nama,
+          provinsi: displayRegion.provinsi,
           climate_zone: selectedZone,
-          ym: activeYm,
-          spi3: activePt.spi3,
-          ssma: activePt.ssma,
-          vhi: activePt.vhi,
-          pdlvi: activePt.pdlvi,
-          slope_deg: selectedRegion.mean_slope_deg,
-          forecast_pdlvi_t1: t1?.pdlvi ?? activePt.pdlvi,
+          ym: displayPt.ym || activeYm,
+          spi3: displayPt.spi3,
+          ssma: displayPt.ssma,
+          vhi: displayPt.vhi,
+          pdlvi: displayPt.pdlvi,
+          slope_deg: displayRegion.mean_slope_deg,
+          forecast_pdlvi_t1: t1?.pdlvi ?? displayPt.pdlvi,
           prob_awas_pct: t1?.probAwasPct ?? 10,
-          lag_spi_ssma: aiLags.spiToSsmaLag,
+          lag_spi_ssma: displayLags.spiToSsmaLag,
         }),
       });
       if (res.status === 401) {
@@ -186,6 +193,142 @@
     }
   }
 
+  let geeQuota: GeeQuotaInfo | null = null;
+  let geeSharedCache: GeeCachedPayload | null = null;
+  let geeOverlay: Record<string, GeeCachedPayload> = {};
+  let geeBusy = false;
+  let geeNotice = '';
+  let geeError = '';
+
+  $: activeGeeData = geeOverlay[selectedKode] || null;
+  $: displayRegion =
+    selectedRegion && activeGeeData
+      ? { ...selectedRegion, series: activeGeeData.series }
+      : selectedRegion;
+  $: displayPt = displayRegion?.series[monthIdx] ?? activePt;
+  $: displayPrevPt = monthIdx > 0 ? displayRegion?.series[monthIdx - 1] : prevPt;
+  $: displayLags = displayRegion ? detectPropagationLags(displayRegion.series) : aiLags;
+  $: displayForecast = displayRegion ? forecastDrought3m(displayRegion.series, displayRegion.kode_bps) : aiForecast;
+
+  async function refreshGeeCacheStatus(kode: string) {
+    geeNotice = '';
+    geeError = '';
+    geeSharedCache = null;
+    try {
+      const res = await fetch(`/api/v1/gee/cache?kode=${encodeURIComponent(kode)}`);
+      if (!res.ok) return;
+      const j = await res.json();
+      geeQuota = j.quota || null;
+      geeSharedCache = j.cached && j.data ? (j.data as GeeCachedPayload) : null;
+    } catch {
+      // ignore offline
+    }
+  }
+
+  $: if (selectedKode && typeof window !== 'undefined') {
+    refreshGeeCacheStatus(selectedKode);
+  }
+
+  function applyGeeCacheNow() {
+    if (!geeSharedCache) return;
+    geeOverlay = { ...geeOverlay, [selectedKode]: geeSharedCache };
+    monthIdx = Math.max(0, geeSharedCache.series.length - 1);
+    geeNotice = 'Observasi satelit GEE dimuat dari Shared Cache (0 kuota terpakai).';
+  }
+
+  async function launchGeeColab() {
+    if (!selectedRegion) return;
+    geeBusy = true;
+    geeNotice = '';
+    geeError = '';
+    try {
+      const res = await fetch('/api/v1/gee/quota/consume', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ kode_bps: selectedKode }),
+      });
+      const j = await res.json();
+      if (j?.quota) geeQuota = j.quota;
+      if (res.status === 429) {
+        geeError = String(j?.message || 'Kuota / jeda GEE aktif.');
+        return;
+      }
+      if (!res.ok) {
+        geeError = `Gagal memulai GEE Colab (${j?.error || res.status}).`;
+        return;
+      }
+      if (j.cache_hit && j.data) {
+        geeSharedCache = j.data as GeeCachedPayload;
+        applyGeeCacheNow();
+        return;
+      }
+      const nbJson = buildRegionColabNotebook(selectedRegion, months.length || 36);
+      triggerDownload(`drought-gee-${selectedRegion.kode_bps}.ipynb`, nbJson, 'application/x-ipynb+json;charset=utf-8');
+      window.open(COLAB_OFFICIAL_URL, '_blank', 'noopener,noreferrer');
+      geeNotice = 'Notebook wilayah terunduh & Colab dibuka (auto-off 3 menit aktif). Ekspor .json lalu impor di bawah.';
+    } catch {
+      geeError = 'Gagal mengecek kuota GEE tepi.';
+    } finally {
+      geeBusy = false;
+    }
+  }
+
+  async function handleGeeImport(ev: Event) {
+    const input = ev.currentTarget as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    geeError = '';
+    geeNotice = '';
+    try {
+      const txt = await file.text();
+      const parsed = parseAndValidateGeeJson(txt);
+      if (!parsed.ok) {
+        geeError = parsed.error;
+        return;
+      }
+      selectedKode = parsed.payload.kode_bps;
+      geeOverlay = { ...geeOverlay, [parsed.payload.kode_bps]: parsed.payload };
+      monthIdx = Math.max(0, parsed.payload.series.length - 1);
+      geeNotice = `Observasi satelit GEE dimuat lokal (${parsed.payload.series.length} bln). Klik Bagikan ke Cache agar pengguna lain hemat kuota.`;
+    } catch {
+      geeError = 'Gagal membaca berkas JSON GEE.';
+    } finally {
+      input.value = '';
+    }
+  }
+
+  async function shareGeeToCache() {
+    if (!activeGeeData) return;
+    geeBusy = true;
+    geeError = '';
+    try {
+      const res = await fetch('/api/v1/gee/cache', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(activeGeeData),
+      });
+      const j = await res.json();
+      if (!res.ok) {
+        geeError = `Gagal menyimpan Shared Cache (${j?.detail || j?.error || res.status}).`;
+        return;
+      }
+      geeSharedCache = activeGeeData;
+      geeNotice = `Shared Cache diperbarui untuk BPS ${activeGeeData.kode_bps} (berlaku ${j.ttl_days || 14} hari).`;
+    } catch {
+      geeError = 'Gagal mengunggah ke Shared Cache.';
+    } finally {
+      geeBusy = false;
+    }
+  }
+
+  function clearGeeOverlay() {
+    if (!geeOverlay[selectedKode]) return;
+    const next = { ...geeOverlay };
+    delete next[selectedKode];
+    geeOverlay = next;
+    geeNotice = 'Tampilan kembali ke seri baseline R2/lokal.';
+  }
+
   function applyMapColors() {
     if (!map || !dataset) return;
     if (!map.getLayer('jateng-fill') || !map.getLayer('jateng-line')) return;
@@ -195,7 +338,8 @@
       if (climateFilter !== 'all' && getClimateZone(kode) !== climateFilter) {
         matchExpr.push(kode, muted);
       } else {
-        matchExpr.push(kode, colorForValue(activeIndex, reg.series[monthIdx]));
+        const pt = geeOverlay[kode]?.series[monthIdx] ?? reg.series[monthIdx];
+        matchExpr.push(kode, colorForValue(activeIndex, pt));
       }
     }
     matchExpr.push('#E5DEC9');
@@ -215,15 +359,15 @@
   }
 
   function renderChart() {
-    if (!chartContainer || !selectedRegion) return;
+    if (!chartContainer || !displayRegion) return;
     if (chartInstance) {
       chartInstance.destroy();
       chartInstance = null;
     }
-    const xs = selectedRegion.series.map((_p, i) => i);
-    const spi = selectedRegion.series.map((p) => p.spi3);
-    const vhiScaled = selectedRegion.series.map((p) => Number(((p.vhi - 50) / 20).toFixed(2)));
-    const labels = selectedRegion.series.map((p) => p.ym);
+    const xs = displayRegion.series.map((_p, i) => i);
+    const spi = displayRegion.series.map((p) => p.spi3);
+    const vhiScaled = displayRegion.series.map((p) => Number(((p.vhi - 50) / 20).toFixed(2)));
+    const labels = displayRegion.series.map((p) => p.ym);
 
     chartInstance = new uPlot(
       {
@@ -256,10 +400,12 @@
     selectedKode;
     climateFilter;
     theme;
+    geeOverlay;
     applyMapColors();
   }
 
-  $: if (selectedRegion && drawerOpen && chartContainer) {
+  $: if (displayRegion && drawerOpen && chartContainer) {
+    activeGeeData;
     tick().then(renderChart);
   }
 
@@ -333,15 +479,15 @@
   }
 
   function exportSelectedGeoJson() {
-    if (!selectedRegion || !dataset) return;
-    const feat = geojson?.features.find((f) => String(f.properties?.kode_bps) === selectedRegion.kode_bps);
+    if (!displayRegion || !dataset) return;
+    const feat = geojson?.features.find((f) => String(f.properties?.kode_bps) === displayRegion.kode_bps);
     const fc = {
       type: 'FeatureCollection',
       metadata: {
-        source: 'agri.transbulent.id/kekeringan',
+        source: activeGeeData ? activeGeeData.source : 'agri.transbulent.id/kekeringan',
         attribution: 'Agri Transbulent / Transbulent Research Group',
-        is_simulated: dataset.is_simulated,
-        kode_bps: selectedRegion.kode_bps,
+        is_simulated: activeGeeData ? false : dataset.is_simulated,
+        kode_bps: displayRegion.kode_bps,
         active_ym: activeYm,
         active_index: activeIndex,
       },
@@ -351,23 +497,23 @@
               ...feat,
               properties: {
                 ...feat.properties,
-                nama: selectedRegion.nama,
-                provinsi: selectedRegion.provinsi,
-                das: selectedRegion.das,
-                mean_slope_deg: selectedRegion.mean_slope_deg,
+                nama: displayRegion.nama,
+                provinsi: displayRegion.provinsi,
+                das: displayRegion.das,
+                mean_slope_deg: displayRegion.mean_slope_deg,
                 ym: activeYm,
-                spi3: activePt?.spi3,
-                ssma: activePt?.ssma,
-                vhi: activePt?.vhi,
-                pdlvi: activePt?.pdlvi,
-                status: activePt?.status,
-                is_simulated: dataset.is_simulated,
+                spi3: displayPt?.spi3,
+                ssma: displayPt?.ssma,
+                vhi: displayPt?.vhi,
+                pdlvi: displayPt?.pdlvi,
+                status: displayPt?.status,
+                is_simulated: activeGeeData ? false : dataset.is_simulated,
               },
             },
           ]
         : [],
     };
-    triggerDownload(`drought-${selectedRegion.kode_bps}-${activeYm}.geojson`, JSON.stringify(fc, null, 2), 'application/geo+json;charset=utf-8');
+    triggerDownload(`drought-${displayRegion.kode_bps}-${activeYm}.geojson`, JSON.stringify(fc, null, 2), 'application/geo+json;charset=utf-8');
   }
 
   onMount(async () => {
@@ -555,6 +701,16 @@
           <button type="button" class="btn-subtle" on:click={toggleTheme}>
             {theme === 'kertas' ? tUi.dark : tUi.light}
           </button>
+          <a href="https://github.com/gisrad" target="_blank" rel="noopener noreferrer" class="btn-subtle" title="GitHub @gisrad" aria-label="GitHub Profil" style="padding: 5px 7px; display: inline-flex; align-items: center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="https://x.com/evansazka" target="_blank" rel="noopener noreferrer" class="btn-subtle" title="X @evansazka" aria-label="X @evansazka" style="padding: 5px 7px; display: inline-flex; align-items: center;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
         </div>
       </div>
     </header>
@@ -676,27 +832,31 @@
     </div>
 
     <!-- Region Inspector Drawer -->
-    {#if drawerOpen && selectedRegion && activePt}
+    {#if drawerOpen && displayRegion && displayPt}
       <aside style="width: min(410px, 100vw); background: var(--bg); border-left: 1px solid var(--border-ink); padding: 18px; overflow-y: auto; max-height: calc(100vh - 90px); display: grid; gap: 14px; align-content: start;">
         <div style="display: flex; justify-content: space-between; align-items: start; gap: 8px;">
           <div>
             <div class="num" style="font-size: 10.5px; color: var(--ink-muted);">
-              BPS {selectedRegion.kode_bps} · {selectedRegion.provinsi} · DAS {selectedRegion.das}
+              BPS {displayRegion.kode_bps} · {displayRegion.provinsi} · DAS {displayRegion.das}
             </div>
-            <h1 style="margin: 3px 0 0; font-size: 1.3rem; font-weight: 600;">{selectedRegion.nama}</h1>
+            <h1 style="margin: 3px 0 0; font-size: 1.3rem; font-weight: 600;">{displayRegion.nama}</h1>
           </div>
           <button type="button" class="btn-subtle" on:click={() => (drawerOpen = false)}>{tUi.close}</button>
         </div>
 
         <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
-          <span class={`pill-badge ${activePt.status === 'parah' || activePt.status === 'ekstrem' ? 'pill-warn' : 'pill-sim'}`}>
-            {statusLabelId(activePt.status)} ({activeYm})
+          <span class={`pill-badge ${displayPt.status === 'parah' || displayPt.status === 'ekstrem' ? 'pill-warn' : 'pill-sim'}`}>
+            {statusLabelId(displayPt.status)} ({displayPt.ym || activeYm})
           </span>
+          {#if activeGeeData}
+            <span class="pill-badge" style="color: #1E6B47; border-color: #1E6B47;">OBSERVASI GEE</span>
+            <button type="button" class="btn-subtle" style="padding: 2px 6px; font-size: 10px;" on:click={clearGeeOverlay}>Reset R2</button>
+          {/if}
           <span class="pill-badge" title={selectedZoneMeta.note}>
             {selectedZoneMeta.short} · SPI-3 AWAS ≤ {selectedZoneMeta.spiAwas}
           </span>
           <span class="num" style="font-size: 11px; color: var(--ink-muted);">
-            Lereng {selectedRegion.mean_slope_deg}° · PDLVI≥{selectedZoneMeta.pdlviAwas}
+            Lereng {displayRegion.mean_slope_deg}° · PDLVI≥{selectedZoneMeta.pdlviAwas}
           </span>
         </div>
 
@@ -704,46 +864,46 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border);">
           <div style="background: var(--bg); padding: 10px;">
             <div class="num" style="font-size: 10px; color: var(--ink-muted);">SPI-3</div>
-            <div class="num" style="font-size: 1.35rem; font-weight: 600;">{activePt.spi3}</div>
-            <div class="num" style="font-size: 10px; color: var(--ink-secondary);">Δ {deltaStr(activePt.spi3, prevPt?.spi3)}</div>
+            <div class="num" style="font-size: 1.35rem; font-weight: 600;">{displayPt.spi3}</div>
+            <div class="num" style="font-size: 10px; color: var(--ink-secondary);">Δ {deltaStr(displayPt.spi3, displayPrevPt?.spi3)}</div>
           </div>
           <div style="background: var(--bg); padding: 10px;">
             <div class="num" style="font-size: 10px; color: var(--ink-muted);">SSMA</div>
-            <div class="num" style="font-size: 1.35rem; font-weight: 600;">{activePt.ssma}</div>
-            <div class="num" style="font-size: 10px; color: var(--ink-secondary);">Δ {deltaStr(activePt.ssma, prevPt?.ssma)}</div>
+            <div class="num" style="font-size: 1.35rem; font-weight: 600;">{displayPt.ssma}</div>
+            <div class="num" style="font-size: 10px; color: var(--ink-secondary);">Δ {deltaStr(displayPt.ssma, displayPrevPt?.ssma)}</div>
           </div>
           <div style="background: var(--bg); padding: 10px;">
             <div class="num" style="font-size: 10px; color: var(--ink-muted);">VHI</div>
-            <div class="num" style="font-size: 1.35rem; font-weight: 600;">{activePt.vhi}</div>
-            <div class="num" style="font-size: 10px; color: var(--ink-secondary);">Δ {deltaStr(activePt.vhi, prevPt?.vhi, 1)}</div>
+            <div class="num" style="font-size: 1.35rem; font-weight: 600;">{displayPt.vhi}</div>
+            <div class="num" style="font-size: 10px; color: var(--ink-secondary);">Δ {deltaStr(displayPt.vhi, displayPrevPt?.vhi, 1)}</div>
           </div>
           <div style="background: var(--bg); padding: 10px;">
             <div class="num" style="font-size: 10px; color: var(--ink-muted);">PDLVI</div>
-            <div class="num" style="font-size: 1.35rem; font-weight: 600;">{activePt.pdlvi}</div>
-            <div class="num" style="font-size: 10px; color: var(--ink-secondary);">Δ {deltaStr(activePt.pdlvi, prevPt?.pdlvi)}</div>
+            <div class="num" style="font-size: 1.35rem; font-weight: 600;">{displayPt.pdlvi}</div>
+            <div class="num" style="font-size: 10px; color: var(--ink-secondary);">Δ {deltaStr(displayPt.pdlvi, displayPrevPt?.pdlvi)}</div>
           </div>
         </div>
 
         <!-- Grafik uPlot -->
         <div style="border: 1px solid var(--border); padding: 10px; background: var(--surface);">
           <div class="num" style="font-size: 10px; color: var(--ink-muted); margin-bottom: 6px;">
-            DERET WAKTU 36 BULAN · SPI-3 (MERAH) VS VHI TERNORMALISASI (HIJAU)
+            DERET WAKTU {displayRegion.series.length} BULAN · SPI-3 (MERAH) VS VHI TERNORMALISASI (HIJAU)
           </div>
           <div bind:this={chartContainer}></div>
         </div>
 
         <!-- AI Propagasi & Prakiraan AR(1) 3 Bulan + Copilot Terverifikasi -->
-        {#if aiLags && aiForecast}
+        {#if displayLags && displayForecast}
           <div style="border: 1.5px solid var(--border-ink); padding: 12px; background: var(--surface); display: grid; gap: 10px;">
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap;">
               <span class="num" style="font-size: 10px; font-weight: 600;">AI PROPAGASI &amp; PRAKIRAAN 3 BULAN (AR-1)</span>
-              <span class="pill-badge">φ={aiForecast.phiPdlvi}</span>
+              <span class="pill-badge">φ={displayForecast.phiPdlvi}</span>
             </div>
 
             <div class="num" style="font-size: 10.5px; color: var(--ink-secondary); display: flex; flex-wrap: wrap; gap: 8px;">
-              <span>SPI→SSMA: +{aiLags.spiToSsmaLag} bln (r={aiLags.spiToSsmaR})</span>
-              <span>· SSMA→VHI: +{aiLags.ssmaToVhiLag} bln (r={aiLags.ssmaToVhiR})</span>
-              <span>· SPI→PDLVI: +{aiLags.spiToPdlviLag} bln</span>
+              <span>SPI→SSMA: +{displayLags.spiToSsmaLag} bln (r={displayLags.spiToSsmaR})</span>
+              <span>· SSMA→VHI: +{displayLags.ssmaToVhiLag} bln (r={displayLags.ssmaToVhiR})</span>
+              <span>· SPI→PDLVI: +{displayLags.spiToPdlviLag} bln</span>
             </div>
 
             <div style="border: 1px solid var(--border); background: var(--bg); overflow-x: auto;">
@@ -757,7 +917,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {#each aiForecast.horizon as h}
+                  {#each displayForecast.horizon as h}
                     <tr style="border-bottom: 1px solid var(--border);">
                       <td class="num" style="padding: 4px 6px;">T+{h.step} ({h.ym})</td>
                       <td class="num" style="padding: 4px 6px; font-weight: 600;">{h.pdlvi} [{h.low90}–{h.high90}]</td>
@@ -798,15 +958,67 @@
           </div>
         {/if}
 
+        <!-- Google Colab GEE & Shared Regional Cache (Strict Quota + Auto-off 3 Menit) -->
+        <div style="border: 1px solid var(--border-ink); padding: 12px; background: var(--surface); display: grid; gap: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px; flex-wrap: wrap;">
+            <span class="num" style="font-size: 10px; font-weight: 600;">SATELIT GEE · SHARED CACHE &amp; COLAB</span>
+            {#if geeQuota}
+              <span class="pill-badge" title="Reset harian 00:00 UTC · Jeda wajib 15 menit">
+                Kuota {geeQuota.remaining}/{geeQuota.limit} ({geeQuota.actor_type === 'google' ? 'Google' : 'Tamu'})
+              </span>
+            {:else}
+              <span class="pill-badge">Auto-off 3 mnt</span>
+            {/if}
+          </div>
+
+          {#if geeSharedCache}
+            <div style="border: 1px solid #1E6B47; padding: 8px; background: var(--bg); display: grid; gap: 6px;">
+              <div class="num" style="font-size: 10.5px; color: #1E6B47; font-weight: 600;">
+                CACHE WILAYAH TERSEDIA ({geeSharedCache.series.length} bln · 0 kuota terpakai)
+              </div>
+              <button type="button" class="btn-primary" style="font-size: 10.5px; padding: 6px 10px;" on:click={applyGeeCacheNow}>
+                Muat Observasi Shared Cache
+              </button>
+            </div>
+          {/if}
+
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button type="button" class="btn-outline" style="font-size: 10.5px; padding: 6px 10px; flex: 1;" disabled={geeBusy} on:click={launchGeeColab}>
+              {geeBusy ? 'Memproses...' : 'Jalankan Colab GEE Wilayah'}
+            </button>
+            <label class="btn-subtle" style="font-size: 10.5px; padding: 6px 10px; cursor: pointer;">
+              Impor .json GEE
+              <input type="file" accept=".json,application/json" style="display: none;" on:change={handleGeeImport} />
+            </label>
+          </div>
+
+          {#if activeGeeData}
+            <button type="button" class="btn-primary" style="font-size: 10.5px; padding: 6px 10px;" disabled={geeBusy} on:click={shareGeeToCache}>
+              Bagikan ke Shared Cache (14 Hari)
+            </button>
+          {/if}
+
+          <div class="num" style="font-size: 9.5px; color: var(--ink-muted); line-height: 1.4;">
+            Cache-first hemat komputasi · Ketat 2/hari (Google) &amp; 1/hari (Tamu) · Jeda 15 mnt · Watchdog idle 180 dtk + runtime.unassign().
+          </div>
+
+          {#if geeNotice}
+            <div class="num" style="font-size: 10.5px; color: #1E6B47;">{geeNotice}</div>
+          {/if}
+          {#if geeError}
+            <div class="num" style="font-size: 10.5px; color: #B83B14;">{geeError}</div>
+          {/if}
+        </div>
+
         <!-- Executive Brief -->
         <div style="border-top: 1px solid var(--border); padding-top: 10px;">
           <div class="num" style="font-size: 10px; color: var(--ink-muted); margin-bottom: 5px;">{tUi.summaryTitle}</div>
-          <p style="margin: 0; font-size: 0.88rem; color: var(--ink-secondary);">{selectedRegion.executive_brief_id}</p>
+          <p style="margin: 0; font-size: 0.88rem; color: var(--ink-secondary);">{displayRegion.executive_brief_id}</p>
         </div>
 
         <!-- Jembatan Lintas Pilar ke Panen-ID -->
-        {#if selectedRegion.linked_panen_field_id}
-          <a href={`/ulang/${selectedRegion.linked_panen_field_id}/mt2-2025/`} class="btn-primary">
+        {#if displayRegion.linked_panen_field_id}
+          <a href={`/ulang/${displayRegion.linked_panen_field_id}/mt2-2025/`} class="btn-primary">
             Buka Musim Ulang Lahan di Wilayah Ini →
           </a>
         {/if}
@@ -816,21 +1028,21 @@
           <button
             type="button"
             class="btn-outline"
-            on:click={() => triggerDownload(`drought-${selectedRegion.kode_bps}.csv`, regionSeriesToCsv(selectedRegion, true), 'text/csv;charset=utf-8')}
+            on:click={() => triggerDownload(`drought-${displayRegion.kode_bps}.csv`, regionSeriesToCsv(displayRegion, !activeGeeData), 'text/csv;charset=utf-8')}
           >
             Unduh CSV
           </button>
           <button
             type="button"
             class="btn-outline"
-            on:click={() => triggerDownload(`drought-${selectedRegion.kode_bps}.json`, JSON.stringify(selectedRegion, null, 2), 'application/json')}
+            on:click={() => triggerDownload(`drought-${displayRegion.kode_bps}.json`, JSON.stringify(displayRegion, null, 2), 'application/json')}
           >
             Unduh JSON
           </button>
           <button
             type="button"
             class="btn-outline"
-            on:click={() => triggerDownload(`policy-brief-${selectedRegion.kode_bps}-${activeYm}.md`, buildPolicyBriefMarkdown(selectedRegion, activeYm, true), 'text/markdown;charset=utf-8')}
+            on:click={() => triggerDownload(`policy-brief-${displayRegion.kode_bps}-${activeYm}.md`, buildPolicyBriefMarkdown(displayRegion, activeYm, !activeGeeData), 'text/markdown;charset=utf-8')}
           >
             Brief (.md)
           </button>
@@ -861,13 +1073,13 @@
   {/if}
 
   <!-- Dokumen Cetak PDF (Hanya aktif pada @media print) -->
-  {#if selectedRegion && activePt}
+  {#if displayRegion && displayPt}
     <section class="print-report" style="display: none;">
-      <h1>Policy Brief Kekeringan &amp; Kerentanan Lahan — {selectedRegion.nama}</h1>
-      <p>Kode BPS {selectedRegion.kode_bps} · {selectedRegion.provinsi} · DAS {selectedRegion.das} · Bulan {activeYm} · Status: {statusLabelId(activePt.status)} (SIMULASI D1–D3)</p>
-      <p>SPI-3: {activePt.spi3} | SSMA: {activePt.ssma} | VHI: {activePt.vhi} | PDLVI: {activePt.pdlvi}</p>
+      <h1>Policy Brief Kekeringan &amp; Kerentanan Lahan — {displayRegion.nama}</h1>
+      <p>Kode BPS {displayRegion.kode_bps} · {displayRegion.provinsi} · DAS {displayRegion.das} · Bulan {activeYm} · Status: {statusLabelId(displayPt.status)} ({activeGeeData ? activeGeeData.source : 'SIMULASI D1–D3'})</p>
+      <p>SPI-3: {displayPt.spi3} | SSMA: {displayPt.ssma} | VHI: {displayPt.vhi} | PDLVI: {displayPt.pdlvi}</p>
       <h2>Ringkasan Analisis</h2>
-      <p>{selectedRegion.executive_brief_id}</p>
+      <p>{displayRegion.executive_brief_id}</p>
       <h2>Referensi (APA Edisi ke-7)</h2>
       <ol>
         {#each buildApaCitations() as cit}
