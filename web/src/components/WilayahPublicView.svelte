@@ -13,6 +13,14 @@
   $: minSpi = region.series.length ? Math.min(...region.series.map((s) => s.spi3)) : 0;
   $: maxPdlvi = region.series.length ? Math.max(...region.series.map((s) => s.pdlvi)) : 0;
   $: regionList = Object.values(dataset.regions).sort((a, b) => a.kode_bps.localeCompare(b.kode_bps));
+  $: regionGroups = Array.from(
+    regionList.reduce((acc, r) => {
+      const list = acc.get(r.provinsi) || [];
+      list.push(r);
+      acc.set(r.provinsi, list);
+      return acc;
+    }, new Map<string, DroughtRegionTimeseries[]>()),
+  ).sort((a, b) => a[0].localeCompare(b[0]));
 
   function downloadGeoJson() {
     const feat = geojson?.features.find((f) => String(f.properties?.kode_bps) === region.kode_bps);
@@ -58,7 +66,7 @@
         PROFIL WILAYAH PUBLIK · ARSITEKTUR SKALA NASIONAL 38 PROVINSI / 514 KABUPATEN-KOTA
       </div>
       <div style="font-size: 0.92rem; color: var(--ink-secondary); margin-top: 3px;">
-        Pilot awal aktif di 12 kabupaten Jawa Tengah &amp; perbatasan DAS DIY. Skema kunci BPS 4-digit siap untuk ekspansi seluruh Indonesia.
+        Batas administratif riil 514 kabupaten/kota se-Indonesia (COD-AB / BPS) dengan fokus kalibrasi awal di Jawa Tengah &amp; D.I. Yogyakarta.
       </div>
     </div>
     <select
@@ -67,8 +75,12 @@
       on:change={(e) => onSelectRegion((e.currentTarget as HTMLSelectElement).value)}
       style="padding: 8px 10px; border: 1.5px solid var(--border-ink); background: var(--bg); color: var(--ink); font-family: inherit;"
     >
-      {#each regionList as r}
-        <option value={r.kode_bps}>{r.kode_bps} — {r.nama} ({r.provinsi})</option>
+      {#each regionGroups as [prov, items]}
+        <optgroup label={prov}>
+          {#each items as r}
+            <option value={r.kode_bps}>{r.kode_bps} — {r.nama}</option>
+          {/each}
+        </optgroup>
       {/each}
     </select>
   </div>

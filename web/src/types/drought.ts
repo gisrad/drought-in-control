@@ -14,7 +14,7 @@ export interface DroughtMonthlyPoint {
 export interface DroughtRegionTimeseries {
   kode_bps: string;
   nama: string;
-  provinsi: 'Jawa Tengah' | 'D.I. Yogyakarta';
+  provinsi: string;
   das: string;
   centroid: [number, number];
   mean_slope_deg: number;

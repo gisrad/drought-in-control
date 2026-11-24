@@ -27,6 +27,15 @@
   let isEmbed = false;
   let isWilayahMode = false;
   let copyNotice = '';
+  let viewportPreset: 'jateng' | 'jawa' | 'indonesia' = 'jateng';
+
+  function setViewport(mode: 'jateng' | 'jawa' | 'indonesia') {
+    viewportPreset = mode;
+    if (!map) return;
+    if (mode === 'jateng') map.flyTo({ center: [110.25, -7.52], zoom: 8.1, duration: 650 });
+    else if (mode === 'jawa') map.flyTo({ center: [109.8, -7.3], zoom: 6.3, duration: 650 });
+    else map.flyTo({ center: [117.5, -2.5], zoom: 4.3, duration: 750 });
+  }
 
   let remainingSec = 300;
   let authenticated = false;
@@ -56,24 +65,26 @@
   }
 
   function applyMapColors() {
-    if (!map || !geojson || !dataset) return;
-    const enriched: GeoJSON.FeatureCollection = {
-      type: 'FeatureCollection',
-      features: geojson.features.map((f) => {
-        const kode = String(f.properties?.kode_bps || '');
-        const pt = dataset?.regions[kode]?.series[monthIdx];
-        return {
-          ...f,
-          properties: {
-            ...f.properties,
-            fillColor: colorForValue(activeIndex, pt),
-            isSelected: kode === selectedKode ? 1 : 0,
-          },
-        };
-      }),
-    };
-    const src = map.getSource('jateng-regions') as maplibregl.GeoJSONSource | undefined;
-    if (src) src.setData(enriched);
+    if (!map || !dataset) return;
+    if (!map.getLayer('jateng-fill') || !map.getLayer('jateng-line')) return;
+    const matchExpr: unknown[] = ['match', ['get', 'kode_bps']];
+    for (const [kode, reg] of Object.entries(dataset.regions)) {
+      matchExpr.push(kode, colorForValue(activeIndex, reg.series[monthIdx]));
+    }
+    matchExpr.push('#E5DEC9');
+    map.setPaintProperty('jateng-fill', 'fill-color', matchExpr as any);
+    map.setPaintProperty('jateng-line', 'line-color', [
+      'case',
+      ['==', ['get', 'kode_bps'], selectedKode],
+      '#000000',
+      '#52525B',
+    ]);
+    map.setPaintProperty('jateng-line', 'line-width', [
+      'case',
+      ['==', ['get', 'kode_bps'], selectedKode],
+      2.2,
+      0.6,
+    ]);
   }
 
   function renderChart() {
@@ -265,7 +276,7 @@
         type: 'fill',
         source: 'jateng-regions',
         paint: {
-          'fill-color': ['coalesce', ['get', 'fillColor'], '#E5DEC9'],
+          'fill-color': '#E5DEC9',
           'fill-opacity': 0.72,
         },
       });
@@ -274,8 +285,8 @@
         type: 'line',
         source: 'jateng-regions',
         paint: {
-          'line-color': ['case', ['==', ['get', 'isSelected'], 1], '#000000', '#52525B'],
-          'line-width': ['case', ['==', ['get', 'isSelected'], 1], 2.4, 0.9],
+          'line-color': '#52525B',
+          'line-width': 0.6,
         },
       });
 
@@ -313,7 +324,7 @@
 <div style="min-height: 100vh; display: flex; flex-direction: column;">
   {#if !isEmbed}
     <div class="agri-spectrum-banner no-print">
-      JAWA TENGAH &amp; PERBATASAN DAS DIY (PILOT NASIONAL) · SPI-3 · SSMA · VHI · PDLVI · {dataset?.is_simulated ? 'SIMULASI MOCK' : 'DATA SATELIT'}
+      INDONESIA (514 KAB/KOTA · BATAS SHP COD-AB) · PILOT JATENG &amp; DIY · SPI-3 · SSMA · VHI · PDLVI · {dataset?.is_simulated ? 'SIMULASI MOCK' : 'DATA SATELIT'}
     </div>
 
     <header class="topbar no-print">
@@ -333,7 +344,7 @@
         </nav>
 
         <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
-          <span class="pill-badge pill-sim">SIMULASI · JATENG</span>
+          <span class="pill-badge pill-sim">SHP COD-AB · 514 KAB/KOTA</span>
           {#if authenticated}
             <span class="live-badge"><span class="live-dot"></span><span>{userEmail}</span></span>
           {:else}
@@ -392,6 +403,11 @@
               <div class="num" style="font-size: 9px; color: var(--ink-muted); margin-top: 3px;">{lbl}</div>
             </div>
           {/each}
+        </div>
+        <div style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 8px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;">
+          <button type="button" class={viewportPreset === 'jateng' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('jateng')}>Jateng &amp; DIY</button>
+          <button type="button" class={viewportPreset === 'jawa' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('jawa')}>Jawa</button>
+          <button type="button" class={viewportPreset === 'indonesia' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('indonesia')}>Indonesia (514)</button>
         </div>
       </aside>
 
