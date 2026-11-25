@@ -9,13 +9,16 @@
     "preview": "astro preview --host 127.0.0.1 --port 4328"
   },
   "dependencies": {
-    "astro": "5.16.5",
     "@astrojs/svelte": "^7.0.0",
-    "svelte": "^5.28.0",
+    "astro": "5.16.5",
     "maplibre-gl": "^5.6.0",
+    "mp4-muxer": "^5.2.2",
+    "svelte": "^5.28.0",
+    "three": "^0.187.0",
     "uplot": "^1.6.32"
   },
   "devDependencies": {
+    "@types/three": "^0.187.0",
     "typescript": "^5.8.0"
   }
 }

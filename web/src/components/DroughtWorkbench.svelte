@@ -48,27 +48,28 @@
 
   const UI_I18N: Record<Locale, Record<string, string>> = {
     id: {
-      home: 'Beranda', replay: 'Musim Ulang', drought: 'Kekeringan', regions: 'Wilayah', methods: 'Metode', lobby: 'Lobby',
+      home: 'Beranda', replay: 'Musim Ulang', drought: 'Kekeringan', relief: '3D Relief', regions: 'Wilayah', methods: 'Metode', lobby: 'Lobby',
       pickIndex: 'PILIH INDEKS KEKERINGAN', play: 'Putar 36 Bln', pause: 'Jeda', close: 'Tutup',
       summaryTitle: 'RINGKASAN ANALISIS WILAYAH', light: 'Putih', dark: 'Malam',
     },
     en: {
-      home: 'Home', replay: 'Season Replay', drought: 'Drought', regions: 'Regions', methods: 'Methods', lobby: 'Lobby',
+      home: 'Home', replay: 'Season Replay', drought: 'Drought', relief: '3D Relief', regions: 'Regions', methods: 'Methods', lobby: 'Lobby',
       pickIndex: 'SELECT DROUGHT INDEX', play: 'Play 36 Mo', pause: 'Pause', close: 'Close',
       summaryTitle: 'REGIONAL ANALYSIS SUMMARY', light: 'Light', dark: 'Dark',
     },
     ja: {
-      home: 'ホーム', replay: 'リプレイ', drought: '干ばつ', regions: '地域別', methods: '手法', lobby: 'ロビー',
+      home: 'ホーム', replay: 'リプレイ', drought: '干ばつ', relief: '3Dレリーフ', regions: '地域別', methods: '手法', lobby: 'ロビー',
       pickIndex: '干ばつ指標を選択', play: '36ヶ月再生', pause: '一時停止', close: '閉じる',
       summaryTitle: '地域分析サマリー', light: 'ライト', dark: 'ダーク',
     },
     zh: {
-      home: '首页', replay: '生长季回放', drought: '干旱', regions: '县域概况', methods: '方法', lobby: '大厅',
+      home: '首页', replay: '生长季回放', drought: '干旱', relief: '3D浮雕', regions: '县域概况', methods: '方法', lobby: '大厅',
       pickIndex: '选择干旱指数', play: '播放36个月', pause: '暂停', close: '关闭',
       summaryTitle: '区域分析摘要', light: '浅色', dark: '深色',
     },
   };
   $: tUi = UI_I18N[locale];
+  $: reliefUrl = `/kekeringan/relief/?region=${viewportPreset}&idx=${activeIndex}&m=${monthIdx}${climateFilter !== 'all' ? `&zone=${climateFilter}` : ''}`;
 
   function setLocale(next: Locale) {
     locale = next;
@@ -687,6 +688,7 @@
           <a href="/">{tUi.home}</a>
           <a href="/ulang/bompon-magelang/mt2-2025/">{tUi.replay}</a>
           <a href="/kekeringan/" class={!isWilayahMode ? 'on' : ''}>{tUi.drought}</a>
+          <a href={reliefUrl}>{tUi.relief}</a>
           <a href="/wilayah/" class={isWilayahMode ? 'on' : ''}>{tUi.regions}</a>
           <a href="/metode/">{tUi.methods}</a>
           <a href="/data/">Data</a>
@@ -801,6 +803,9 @@
             <button type="button" class={viewportPreset === 'jawa' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('jawa')}>Jawa</button>
             <button type="button" class={viewportPreset === 'indonesia' ? 'btn-primary' : 'btn-subtle'} style="padding: 5px 4px; font-size: 10px;" on:click={() => setViewport('indonesia')}>Indonesia (514)</button>
           </div>
+          <a href={reliefUrl} class="btn-outline" style="width: 100%; margin-top: 6px; padding: 6px 8px; font-size: 10px;">
+            Buka 3D Pin-Field &amp; Studio Video →
+          </a>
           <div style="border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px;">
             <div class="num" style="font-size: 9.5px; color: var(--ink-muted); margin-bottom: 4px;">FILTER 3 ZONA IKLIM BMKG</div>
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px;">

@@ -1,0 +1,54 @@
+---
+import PinFieldRelief from '../../components/PinFieldRelief.svelte';
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3D Pin-Field Relief Kekeringan &amp; PDLVI — Agri Transbulent</title>
+    <meta
+      name="description"
+      content="Visualisasi 3D bipolar pin-field anomali hujan (SPI-3), kelembapan tanah (SSMA), kesehatan vegetasi (VHI), dan kerentanan lahan pascakekeringan (PDLVI) di Indonesia — lengkap dengan Studio Ekspor video 16:9, 9:16, dan 4:5."
+    />
+    <link rel="preload" href="/kekeringan/fonts/OverusedGrotesk-VF.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/kekeringan/fonts/IBMPlexMono-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/kekeringan/fonts/IBMPlexMono-500.woff2" as="font" type="font/woff2" crossorigin />
+    <style>
+      @font-face {
+        font-family: 'Overused Grotesk';
+        font-style: normal;
+        font-weight: 300 900;
+        font-display: swap;
+        src: url('/kekeringan/fonts/OverusedGrotesk-VF.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'IBM Plex Mono';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/kekeringan/fonts/IBMPlexMono-400.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'IBM Plex Mono';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url('/kekeringan/fonts/IBMPlexMono-500.woff2') format('woff2');
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #171A1F;
+        color: #F5F7FA;
+        font-family: 'Overused Grotesk', system-ui, -apple-system, sans-serif;
+        overflow-x: clip;
+      }
+    </style>
+  </head>
+  <body>
+    <PinFieldRelief client:only="svelte" />
+  </body>
+</html>

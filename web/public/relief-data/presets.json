@@ -1,0 +1,114 @@
+[
+  {
+    "id": "indonesia",
+    "label": "Indonesia (Nusantara)",
+    "labelEn": "Indonesia (Archipelago)",
+    "stepDeg": 0.13,
+    "spacingKm": 14.5,
+    "pinCount": 9084,
+    "regionCount": 476,
+    "bbox": [
+      95.0,
+      -11.1,
+      141.1,
+      6.2
+    ],
+    "sizeKb": 228.7
+  },
+  {
+    "id": "jawa",
+    "label": "Jawa & Bali",
+    "labelEn": "Java & Bali",
+    "stepDeg": 0.045,
+    "spacingKm": 5.0,
+    "pinCount": 5579,
+    "regionCount": 127,
+    "bbox": [
+      105.0711,
+      -8.879,
+      116.3002,
+      -5.0189
+    ],
+    "sizeKb": 146.4
+  },
+  {
+    "id": "jateng",
+    "label": "Jateng & DIY",
+    "labelEn": "Central Java & DIY",
+    "stepDeg": 0.025,
+    "spacingKm": 2.8,
+    "pinCount": 4923,
+    "regionCount": 40,
+    "bbox": [
+      108.5259,
+      -8.2417,
+      111.7214,
+      -5.6957
+    ],
+    "sizeKb": 125.2
+  },
+  {
+    "id": "sumatera",
+    "label": "Sumatera",
+    "labelEn": "Sumatra",
+    "stepDeg": 0.075,
+    "spacingKm": 8.3,
+    "pinCount": 6866,
+    "regionCount": 151,
+    "bbox": [
+      94.9808,
+      -6.1974,
+      109.1926,
+      6.1055
+    ],
+    "sizeKb": 177.1
+  },
+  {
+    "id": "ntt_bali",
+    "label": "Bali & Nusa Tenggara",
+    "labelEn": "Bali & Nusa Tenggara",
+    "stepDeg": 0.05,
+    "spacingKm": 5.6,
+    "pinCount": 2357,
+    "regionCount": 41,
+    "bbox": [
+      114.4018,
+      -11.0376,
+      125.2231,
+      -8.0315
+    ],
+    "sizeKb": 61.5
+  },
+  {
+    "id": "kalimantan",
+    "label": "Kalimantan",
+    "labelEn": "Kalimantan",
+    "stepDeg": 0.085,
+    "spacingKm": 9.5,
+    "pinCount": 6011,
+    "regionCount": 55,
+    "bbox": [
+      108.6479,
+      -4.7745,
+      119.0188,
+      4.4381
+    ],
+    "sizeKb": 144.5
+  },
+  {
+    "id": "sulawesi",
+    "label": "Sulawesi",
+    "labelEn": "Sulawesi",
+    "stepDeg": 0.06,
+    "spacingKm": 6.7,
+    "pinCount": 4196,
+    "regionCount": 81,
+    "bbox": [
+      117.0085,
+      -7.7889,
+      127.1926,
+      5.5942
+    ],
+    "sizeKb": 108.7
+  }
+]

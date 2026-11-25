@@ -11,6 +11,10 @@ export default {
       p = '/';
     }
 
+    if (p === '/relief') {
+      p = '/relief/';
+    }
+
     const assetUrl = new URL(p + url.search, url.origin);
     let res = await env.ASSETS.fetch(new Request(assetUrl.toString(), { method: request.method, headers: request.headers }));
 
